@@ -1,5 +1,5 @@
-#ifndef OPENGLWINDOW_H
-#define OPENGLWINDOW_H
+#ifndef QT_OPENGL_WINDOW_EXAMPLE_OPENGLWINDOW_H
+#define QT_OPENGL_WINDOW_EXAMPLE_OPENGLWINDOW_H
 
 #include <QOpenGLFunctions>
 #include <QOpenGLPaintDevice>
@@ -36,4 +36,4 @@ private:
     QOpenGLPaintDevice *m_device = nullptr;
 };
 
-#endif // OPENGLWINDOW_H
+#endif // QT_OPENGL_WINDOW_EXAMPLE_OPENGLWINDOW_H

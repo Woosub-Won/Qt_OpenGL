@@ -1,7 +1,7 @@
-#ifndef TRIANGLEWINDOW_H
-#define TRIANGLEWINDOW_H
+#ifndef QT_OPENGL_WINDOW_EXAMPLE_TRIANGLEWINDOW_H
+#define QT_OPENGL_WINDOW_EXAMPLE_TRIANGLEWINDOW_H
 
-#include "openglwindow.h"
+#include "qt_opengl_window_example_openglwindow.h"
 
 #include <QOpenGLBuffer>
 #include <QOpenGLShaderProgram>
@@ -36,4 +36,4 @@ private:
     int m_frame = 0;
 };
 
-#endif // TRIANGLEWINDOW_H
+#endif // QT_OPENGL_WINDOW_EXAMPLE_TRIANGLEWINDOW_H

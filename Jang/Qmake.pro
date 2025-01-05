@@ -8,10 +8,11 @@ CONFIG += c++17 cmdline
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        example_test.cpp \
+        1-1-Introduction.cpp \
         main.cpp \
-        openglwindow.cpp \
-        trianglewindow.cpp
+        qt_opengl_window_example_main.cpp \
+        qt_opengl_window_example_openglwindow.cpp \
+        qt_opengl_window_example_trianglewindow.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -19,6 +20,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    example_test.h \
-    openglwindow.h \
-    trianglewindow.h
+    chapter1.h \
+    qt_opengl_window_example_main.h \
+    qt_opengl_window_example_openglwindow.h \
+    qt_opengl_window_example_trianglewindow.h

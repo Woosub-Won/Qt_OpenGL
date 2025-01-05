@@ -1,12 +1,22 @@
 #include <QCoreApplication>
-#include "example_test.h"
-
+#include "qt_opengl_window_example_main.h"
+#include "chapter1.h"
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
+    // QCoreApplication a(argc, argv);
 
-    example_test(argc, argv);
+    one_one_Introduction(argc, argv);
 
-    return a.exec();
+
+
+
+
+
+
+
+
+    // qt_opengl_window_example(argc, argv);
+
+    // return a.exec();
 }

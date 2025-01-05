@@ -1,11 +1,11 @@
-#include "example_test.h"
+#include "qt_opengl_window_example_main.h"
 
-#include "trianglewindow.h"
+#include "qt_opengl_window_example_trianglewindow.h"
 
 #include <QGuiApplication>
 #include <QSurfaceFormat>
 
-int example_test(int argc, char *argv[]) {
+int qt_opengl_window_example(int argc, char *argv[]) {
     QGuiApplication app(argc, argv);
 
     QSurfaceFormat format;

@@ -1,4 +1,4 @@
-#include "trianglewindow.h"
+#include "qt_opengl_window_example_trianglewindow.h"
 
 void TriangleWindow::initialize()
 {
