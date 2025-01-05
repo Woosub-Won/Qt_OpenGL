@@ -1,7 +1,9 @@
 QT = core openglwidgets opengl \
-    widgets
+    widgets gui
 
 CONFIG += c++17 cmdline
+
+# LIBS += -lOpenGL32
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -9,6 +11,9 @@ CONFIG += c++17 cmdline
 
 SOURCES += \
         1-1-Introduction.cpp \
+        1-2-UsingGLEWLibrary.cpp \
+        1-3-UsingGLMLibrary.cpp \
+        1-4-GLSLandOpenGLversion.cpp \
         main.cpp \
         qt_opengl_window_example_main.cpp \
         qt_opengl_window_example_openglwindow.cpp \

@@ -1,19 +1,28 @@
 #include <QSurfaceFormat>
 #include <QDebug>
-#include <QCoreApplication>
+//#include <QCoreApplication>
+#include <QApplication>
+#include <QOpenGLWidget>
 
 
 int one_one_Introduction(int argc, char *argv[]) {
-    QCoreApplication app(argc, argv);
+    // QCoreApplication app(argc, argv);
 
     QSurfaceFormat format;
     format.setProfile(QSurfaceFormat::CoreProfile);
-
-    qDebug() << format.profile();
-
     format.setVersion(4,0);
 
-    qDebug() << format.version();
+    QSurfaceFormat::setDefaultFormat(format);
 
+    QApplication app(argc, argv);
+    QOpenGLWidget *widget = new QOpenGLWidget();
+    // QSurfaceFormat format;
+    format.setDepthBufferSize(24);
+    format.setStencilBufferSize(8);
+    widget->setFormat(format); // must be called before the widget or its parent window gets shown
+
+    widget->show();
+
+    // return 0;
     return app.exec();
 }
