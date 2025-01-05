@@ -4,6 +4,7 @@
 #include <QApplication>
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+#include <QEventLoop>
 
 int one_four_version(int argc, char *argv[]) {
     QApplication app(argc, argv);
@@ -27,13 +28,20 @@ int one_four_version(int argc, char *argv[]) {
     GLint major, minor;
     check.glGetIntegerv(GL_MAJOR_VERSION, &major);
     check.glGetIntegerv(GL_MINOR_VERSION, &minor);
-    printf("GL Vendor : %s\n", vendor);
-    printf("GL Renderer : %s\n", renderer);
-    printf("GL Version (string) : %s\n", version);
-    printf("GL Version (integer) : %d.%d\n", major, minor);
-    printf("GLSL Version : %s\n", glslVersion);
+
+    qDebug() << "GL Vendor:" << reinterpret_cast<const char*>(vendor);
+    qDebug() << "GL Renderer:" << reinterpret_cast<const char*>(renderer);
+    qDebug() << "GL Version (string):" << reinterpret_cast<const char*>(version);
+    qDebug() << "GL Version (integer):" << major << "." << minor;
+    qDebug() << "GLSL Version:" << reinterpret_cast<const char*>(glslVersion);
     qDebug() << "";
 
-    // return 0;
-    return app.exec();
+    // printf("GL Vendor : %s\n", vendor);
+    // printf("GL Renderer : %s\n", renderer);
+    // printf("GL Version (string) : %s\n", version);
+    // printf("GL Version (integer) : %d.%d\n", major, minor);
+    // printf("GLSL Version : %s\n", glslVersion);
+    // qDebug() << "";
+
+    return 0;
 }

@@ -1,9 +1,11 @@
-QT = core openglwidgets opengl \
-    widgets gui
+QT = core widgets gui openglwidgets opengl shadertools \
+
 
 CONFIG += c++17 cmdline
 
 # LIBS += -lOpenGL32
+
+
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -14,7 +16,9 @@ SOURCES += \
         1-2-UsingGLEWLibrary.cpp \
         1-3-UsingGLMLibrary.cpp \
         1-4-GLSLandOpenGLversion.cpp \
+        1-5-ComplilingShader.cpp \
         main.cpp \
+        openglshaderwindow.cpp \
         qt_opengl_window_example_main.cpp \
         qt_opengl_window_example_openglwindow.cpp \
         qt_opengl_window_example_trianglewindow.cpp
@@ -26,6 +30,12 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     chapter1.h \
+    openglshaderwindow.h \
     qt_opengl_window_example_main.h \
     qt_opengl_window_example_openglwindow.h \
     qt_opengl_window_example_trianglewindow.h
+
+DISTFILES += \
+    1-5-basic.vert \
+    tmp.frag \
+    tmp.vert

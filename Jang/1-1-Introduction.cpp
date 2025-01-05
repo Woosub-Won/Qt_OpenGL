@@ -8,6 +8,8 @@
 int one_one_Introduction(int argc, char *argv[]) {
     // QCoreApplication app(argc, argv);
 
+    qDebug() << "1-1";
+
     QSurfaceFormat format;
     format.setProfile(QSurfaceFormat::CoreProfile);
     format.setVersion(4,0);
@@ -21,8 +23,8 @@ int one_one_Introduction(int argc, char *argv[]) {
     format.setStencilBufferSize(8);
     widget->setFormat(format); // must be called before the widget or its parent window gets shown
 
-    widget->show();
+    //widget->show();
 
-    // return 0;
-    return app.exec();
+    return 0;
+    // return app.exec();
 }
