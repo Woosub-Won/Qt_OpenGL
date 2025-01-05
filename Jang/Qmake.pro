@@ -17,6 +17,7 @@ SOURCES += \
         1-3-UsingGLMLibrary.cpp \
         1-4-GLSLandOpenGLversion.cpp \
         1-5-ComplilingShader.cpp \
+        1-7-SendingDatatoShader.cpp \
         main.cpp \
         openglshaderwindow.cpp \
         qt_opengl_window_example_main.cpp \

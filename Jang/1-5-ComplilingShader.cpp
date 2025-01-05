@@ -5,7 +5,6 @@
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 #include <QOpenGLShaderProgram>
-#include "basic.h"
 #include "openglshaderwindow.h"
 
 int one_five_shader(int argc, char *argv[]) {
@@ -35,14 +34,11 @@ int one_five_shader(int argc, char *argv[]) {
     OpenGLShaderWindow window;
     window.setFormat(QSurfaceFormat::defaultFormat());
     window.resize(640, 480);
-    window.show();
+    //window.show();
 
     // 셰이더 파일 경로를 초기화 함수에 전달
-    window.initialize("../../tmp.vert", "../../tmp.frag");
+    //window.initialize("../../tmp.vert", "../../tmp.frag");
 
-    window.setAnimating(true);
-
-
-    // return 0;
-    return app.exec();
+    return 0;
+    // return app.exec();
 }
