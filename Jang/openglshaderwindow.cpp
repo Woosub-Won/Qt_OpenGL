@@ -120,7 +120,6 @@ void OpenGLShaderWindow::initTriangleData()
     m_vbo_color.bind();
     m_vbo_color.allocate(colors, sizeof(colors));
 
-
     // posAttr
     m_vbo_vertex.bind();
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
@@ -132,8 +131,10 @@ void OpenGLShaderWindow::initTriangleData()
 
     // 셰이더 프로그램 생성
     m_program = new QOpenGLShaderProgram(this);
-    m_program->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource);
-    m_program->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentShaderSource);
+    // m_program->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource);
+    // m_program->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentShaderSource);
+    m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, "../../tmp.vert");
+    m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, "../../tmp.frag");
     m_program->bindAttributeLocation("posAttr", 0);
     m_program->bindAttributeLocation("colAttr", 1);
     m_program->link();
