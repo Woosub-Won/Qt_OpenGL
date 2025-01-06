@@ -55,50 +55,36 @@ void OpenGLShaderWindow::render(QPainter *painter)
 // OpenGL 직접 호출을 통한 렌더링
 void OpenGLShaderWindow::render()
 {
-    // QOpenGLPaintDevice가 없다면 새로 생성
-    if (!m_device)
-        m_device = new QOpenGLPaintDevice;
-
-    // 화면 지우기
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-
-    // High DPI 대비
-    m_device->setSize(size() * devicePixelRatio());
-    m_device->setDevicePixelRatio(devicePixelRatio());
-
-    // QPainter 생성(필요 시)
-    QPainter painter(m_device);
-
     // 여기서 OpenGL 그리기
-    {
-        const qreal retinaScale = devicePixelRatio();
-        glViewport(0, 0, width() * retinaScale, height() * retinaScale);
+    const qreal retinaScale = devicePixelRatio();
+    glViewport(0, 0, width() * retinaScale, height() * retinaScale);
 
-        glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
 
-        // 셰이더 프로그램 바인딩
-        m_program->bind();
+    // 셰이더 프로그램 바인딩
+    m_program->bind();
 
-        // 변환 행렬
-        QMatrix4x4 matrix;
-        matrix.perspective(60.0f, (float)width() / (float)height(), 0.1f, 100.0f);
-        matrix.translate(0, 0, -2);
-        // 화면 주사율에 따른 삼각형 회전
-        if (screen()->refreshRate() > 0) {
-            matrix.rotate(100.0f * m_frame / screen()->refreshRate(), 0, 1, 0);
-        } else {
-            // 혹시 refreshRate가 0이면 임의 회전
-            matrix.rotate(m_frame, 0, 1, 0);
-        }
-
-        // 셰이더의 uniform에 행렬 전달
-        m_program->setUniformValue(m_matrixUniform, matrix);
-
-        // 삼각형 그리기
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-
-        m_program->release();
+    // 변환 행렬
+    QMatrix4x4 matrix;
+    matrix.perspective(60.0f, (float)width() / (float)height(), 0.1f, 100.0f);
+    matrix.translate(0, 0, -2);
+    // 화면 주사율에 따른 삼각형 회전
+    if (screen()->refreshRate() > 0) {
+        matrix.rotate(100.0f * m_frame / screen()->refreshRate(), 0, 1, 0);
+    } else {
+        // 혹시 refreshRate가 0이면 임의 회전
+        matrix.rotate(m_frame, 0, 1, 0);
     }
+
+    // 셰이더의 uniform에 행렬 전달
+    m_program->setUniformValue(m_matrixUniform, matrix);
+
+    m_vao.bind(); // VAO 바인딩
+    // 삼각형 그리기
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+    m_vao.release(); // VAO 해제
+
+    m_program->release();
 
     ++m_frame;
 }
@@ -107,26 +93,42 @@ void OpenGLShaderWindow::render()
 void OpenGLShaderWindow::initTriangleData()
 {
     // 삼각형 정점 + 색상 정보
-    static const GLfloat vertices_colors[] = {
+    static const GLfloat vertices[] = {
         // (x, y),   (r, g, b)
-        0.0f,  0.707f,   1.0f, 0.0f, 0.0f,
-        -0.5f, -0.500f,   0.0f, 1.0f, 0.0f,
-        0.5f, -0.500f,   0.0f, 0.0f, 1.0f
+        0.0f,  0.707f,
+        -0.5f, -0.500f,
+        0.5f, -0.500f,
+    };
+    // 삼각형 정점 + 색상 정보
+    static const GLfloat colors[] = {
+        // (x, y),   (r, g, b)
+        1.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 1.0f
     };
 
-    // VBO 생성
-    m_vbo.create();
-    m_vbo.bind();
-    m_vbo.allocate(vertices_colors, sizeof(vertices_colors));
+    // VAO 생성 및 바인딩
+    m_vao.create();
+    m_vao.bind();
+    // QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
 
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
+    // VBO 생성
+    m_vbo_vertex.create();
+    m_vbo_vertex.bind();
+    m_vbo_vertex.allocate(vertices, sizeof(vertices));
+    m_vbo_color.create();
+    m_vbo_color.bind();
+    m_vbo_color.allocate(colors, sizeof(colors));
+
 
     // posAttr
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), nullptr);
+    m_vbo_vertex.bind();
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glEnableVertexAttribArray(0);
     // colAttr
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat),
-                          reinterpret_cast<void *>(2 * sizeof(GLfloat)));
+    m_vbo_color.bind();
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glEnableVertexAttribArray(1);
 
     // 셰이더 프로그램 생성
     m_program = new QOpenGLShaderProgram(this);

@@ -48,10 +48,12 @@ int one_seven_shader(int argc, char *argv[]) {
     // Anti-Aliasing이나 기타 원하는 기능 설정
     QSurfaceFormat format;
     format.setSamples(16);
-    format.setDepthBufferSize(24);
-    format.setStencilBufferSize(8);
-    //format.setVersion(4, 0); // OpenGL 버전 3.3
+    // format.setDepthBufferSize(24);
+    // format.setStencilBufferSize(8);
+    format.setVersion(4, 0); // OpenGL 버전 3.3
     format.setProfile(QSurfaceFormat::CoreProfile); // Core Profile
+
+    qDebug() << format;
 
     OpenGLShaderWindow window;
     window.setFormat(format);

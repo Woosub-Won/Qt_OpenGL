@@ -2,15 +2,16 @@
 #define OPENGLSHADERWINDOW_H
 
 #include <QWindow>
-#include <QOpenGLFunctions>
+#include <QOpenGLFunctions_4_0_Core>
 #include <QOpenGLContext>
 #include <QOpenGLPaintDevice>
 #include <QOpenGLBuffer>
 #include <QOpenGLShaderProgram>
 #include <QMatrix4x4>
 #include <QPainter>
+#include <QOpenGLVertexArrayObject>
 
-class OpenGLShaderWindow : public QWindow, protected QOpenGLFunctions
+class OpenGLShaderWindow : public QWindow, protected QOpenGLFunctions_4_0_Core
 {
     Q_OBJECT
 public:
@@ -51,7 +52,11 @@ private:
     int m_frame = 0;
 
     // VBO
-    QOpenGLBuffer m_vbo;
+    QOpenGLBuffer m_vbo_vertex;
+    QOpenGLBuffer m_vbo_color;
+
+    // VAO
+    QOpenGLVertexArrayObject m_vao;
 
     // 셰이더 프로그램 관련
     QOpenGLShaderProgram *m_program = nullptr;
