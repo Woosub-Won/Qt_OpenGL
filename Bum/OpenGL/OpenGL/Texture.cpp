@@ -6,10 +6,8 @@ Texture::Texture(const char* image, GLenum texType, GLenum slot, GLenum format, 
 	type = texType;
 
 	// Stores the width, height, and the number of color channels of the image
-	int widthImg, heightImg, numColCh;
-	// Flips the image so it appears right side up 
-	// Reads the image from a file and stores it in bytes
-	unsigned char* bytes = stbi_load(image, &widthImg, &heightImg, &numColCh, 0);
+	int widthImg, heightImg, numColCh; 
+	unsigned char* bytes = stbi_load(image, &widthImg, &heightImg, &numColCh, STBI_rgb_alpha);
 
 	// Generates an OpenGL texture object
 	glGenTextures(1, &ID);
