@@ -1,8 +1,5 @@
-﻿  Main.cpp
-  ShaderClass.cpp
-  ShaderClass.h
-  코드를 생성하고 있습니다...
+﻿  C3_Main.cpp
 x64\Debug\ShaderClass.obj : warning LNK4042: 개체가 두 번 이상 지정되었습니다. 나머지는 무시됩니다.
-  OpenGL.vcxproj -> D:\HateCoding\OpenGL스터디\새 폴더\OpenGL\x64\Debug\OpenGL.exe
+  OpenGL.vcxproj -> D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\x64\Debug\OpenGL.exe
   'pwsh.exe'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
   배치 파일이 아닙니다.

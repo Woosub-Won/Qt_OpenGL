@@ -71,20 +71,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>D:\HateCoding\OpenGL스터디\새 폴더\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\HateCoding\OpenGL스터디\새 폴더\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>D:\HateCoding\OpenGL스터디\새 폴더\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\HateCoding\OpenGL스터디\새 폴더\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\HateCoding\OpenGL스터디\새 폴더\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\HateCoding\OpenGL스터디\새 폴더\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>D:\HateCoding\OpenGL스터디\새 폴더\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\HateCoding\OpenGL스터디\새 폴더\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -92,6 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -107,6 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -122,6 +124,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,6 +140,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,21 +152,43 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\glad.c" />
+    <ClCompile Include="C3_Main.cpp" />
     <ClCompile Include="EBO.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="C1_Main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="ShaderClass.cpp" />
     <ClCompile Include="ShaderClass.h" />
+    <ClCompile Include="Texture.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="VAO.cpp" />
     <ClCompile Include="VBO.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EBO.h" />
+    <ClInclude Include="stb.cpp" />
+    <ClInclude Include="Texture.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="VAO.h" />
     <ClInclude Include="VBO.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="default.vert" />
     <None Include="default.frag" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\frog.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
