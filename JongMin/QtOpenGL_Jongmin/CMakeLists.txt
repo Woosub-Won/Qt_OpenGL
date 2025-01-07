@@ -1,0 +1,43 @@
+cmake_minimum_required(VERSION 3.19)
+project(QtOpenGL_Jongmin LANGUAGES CXX)
+
+find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets)
+find_package(Qt6 REQUIRED COMPONENTS OpenGLWidgets)
+find_package(OpenGL REQUIRED)
+
+qt_standard_project_setup()
+
+qt_add_executable(QtOpenGL_Jongmin
+    WIN32 MACOSX_BUNDLE
+    main.cpp
+    mainwindow.cpp
+    mainwindow.h
+    mainwindow.ui
+    Shaders/basic.vert
+    ch1_7_sendingdatatoshader.h ch1_7_sendingdatatoshader.cpp
+    ch1_8_gettingalist.h ch1_8_gettingalist.cpp
+    Shaders/fragShader.frag
+)
+
+target_link_libraries(QtOpenGL_Jongmin
+    PRIVATE
+        Qt::Core
+        Qt::Widgets
+        Qt6::OpenGLWidgets
+        OpenGL::GL
+)
+
+include(GNUInstallDirs)
+
+install(TARGETS QtOpenGL_Jongmin
+    BUNDLE  DESTINATION .
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+qt_generate_deploy_app_script(
+    TARGET QtOpenGL_Jongmin
+    OUTPUT_SCRIPT deploy_script
+    NO_UNSUPPORTED_PLATFORM_ERROR
+)
+install(SCRIPT ${deploy_script})
