@@ -3,28 +3,32 @@
   "WorkspaceRootPath": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\Chapter3.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\Chapter3.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\C3_Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\C3_Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\Texture.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\Texture.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\stb.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\stb.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\Texture.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\Texture.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\Texture.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\Texture.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\C1_Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\C1_Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HATECODING\\OPENGL\uC2A4\uD130\uB514\\OPENGL\\BUM\\OPENGL\\LIBRARIES\\INCLUDE\\GLAD\\GLAD.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:LIBRARIES\\INCLUDE\\GLAD\\GLAD.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\EBO.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\EBO.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\stb.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\stb.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\default.frag||{8B382828-6202-11D1-8870-0000F87579D2}",
@@ -59,12 +63,12 @@
       "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\VBO.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\EBO.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\EBO.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\EBO.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\EBO.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\Libraries\\Include\\glad\\glad.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Libraries\\Include\\glad\\glad.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -74,11 +78,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 204,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 16,
               "Title": "glad.h",
               "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\Libraries\\Include\\glad\\glad.h",
               "RelativeDocumentMoniker": "Libraries\\Include\\glad\\glad.h",
@@ -86,12 +90,11 @@
               "RelativeToolTip": "Libraries\\Include\\glad\\glad.h",
               "ViewState": "AgIAAOMAAAAAAAAAAAAAAPEAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-07T03:42:03.658Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-07T03:42:03.658Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "default.vert",
               "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\default.vert",
               "RelativeDocumentMoniker": "OpenGL\\default.vert",
@@ -99,12 +102,11 @@
               "RelativeToolTip": "OpenGL\\default.vert",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-01-06T07:22:22.618Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T07:22:22.618Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "ShaderClass.cpp",
               "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\ShaderClass.cpp",
               "RelativeDocumentMoniker": "OpenGL\\ShaderClass.cpp",
@@ -112,12 +114,11 @@
               "RelativeToolTip": "OpenGL\\ShaderClass.cpp",
               "ViewState": "AgIAACcAAAAAAAAAAAAAADMAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-06T07:07:31.409Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T07:07:31.409Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "VAO.cpp",
               "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\VAO.cpp",
               "RelativeDocumentMoniker": "OpenGL\\VAO.cpp",
@@ -125,12 +126,11 @@
               "RelativeToolTip": "OpenGL\\VAO.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-06T07:01:45.919Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T07:01:45.919Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "VAO.h",
               "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\VAO.h",
               "RelativeDocumentMoniker": "OpenGL\\VAO.h",
@@ -142,7 +142,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 5,
               "Title": "EBO.cpp",
               "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\EBO.cpp",
               "RelativeDocumentMoniker": "OpenGL\\EBO.cpp",
@@ -150,7 +150,8 @@
               "RelativeToolTip": "OpenGL\\EBO.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-06T07:00:55.069Z"
+              "WhenOpened": "2025-01-06T07:00:55.069Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -166,7 +167,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "VBO.cpp",
               "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\VBO.cpp",
               "RelativeDocumentMoniker": "OpenGL\\VBO.cpp",
@@ -178,7 +179,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "VBO.h",
               "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\VBO.h",
               "RelativeDocumentMoniker": "OpenGL\\VBO.h",
@@ -190,7 +191,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "ShaderClass.h",
               "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\ShaderClass.h",
               "RelativeDocumentMoniker": "OpenGL\\ShaderClass.h",
@@ -198,21 +199,7 @@
               "RelativeToolTip": "OpenGL\\ShaderClass.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-06T06:57:05.134Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Texture.cpp",
-              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\Texture.cpp",
-              "RelativeDocumentMoniker": "OpenGL\\Texture.cpp",
-              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\Texture.cpp",
-              "RelativeToolTip": "OpenGL\\Texture.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-07T03:26:28.454Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T06:57:05.134Z"
             }
           ]
         },
@@ -223,6 +210,45 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "Texture.cpp",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\Texture.cpp",
+              "RelativeDocumentMoniker": "OpenGL\\Texture.cpp",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\Texture.cpp",
+              "RelativeToolTip": "OpenGL\\Texture.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-01-07T04:22:59.718Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Texture.h",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\Texture.h",
+              "RelativeDocumentMoniker": "OpenGL\\Texture.h",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\Texture.h",
+              "RelativeToolTip": "OpenGL\\Texture.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-01-07T04:22:52.1Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Chapter3.cpp",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\Chapter3.cpp",
+              "RelativeDocumentMoniker": "OpenGL\\Chapter3.cpp",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\Chapter3.cpp",
+              "RelativeToolTip": "OpenGL\\Chapter3.cpp",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAAEsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-01-07T04:15:32.537Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "stb.cpp",
               "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\stb.cpp",
               "RelativeDocumentMoniker": "OpenGL\\stb.cpp",
@@ -230,38 +256,24 @@
               "RelativeToolTip": "OpenGL\\stb.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-07T03:54:47.763Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-07T03:54:47.763Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Texture.h",
-              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\Texture.h",
-              "RelativeDocumentMoniker": "OpenGL\\Texture.h",
-              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\Texture.h",
-              "RelativeToolTip": "OpenGL\\Texture.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-07T03:26:36.709Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
               "Title": "C3_Main.cpp",
               "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\C3_Main.cpp",
               "RelativeDocumentMoniker": "OpenGL\\C3_Main.cpp",
               "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\C3_Main.cpp",
               "RelativeToolTip": "OpenGL\\C3_Main.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGEAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-01-07T02:03:41.211Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "default.frag",
               "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\default.frag",
               "RelativeDocumentMoniker": "OpenGL\\default.frag",
@@ -269,8 +281,7 @@
               "RelativeToolTip": "OpenGL\\default.frag",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-01-06T07:43:13.983Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T07:43:13.983Z"
             },
             {
               "$type": "Document",
