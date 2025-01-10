@@ -4,30 +4,41 @@
 #include <QExposeEvent>
 #include <QEvent>
 #include <cmath>
+#include <QOpenGLFunctions_4_0_Core>
 
-// 정적 셰이더 소스
-const char *OpenGLShaderWindow::vertexShaderSource =
-    "attribute highp vec4 posAttr;\n"
-    "attribute lowp vec4 colAttr;\n"
-    "varying lowp vec4 col;\n"
-    "uniform highp mat4 matrix;\n"
-    "void main() {\n"
-    "   col = colAttr;\n"
-    "   gl_Position = matrix * posAttr;\n"
-    "}\n";
+// // 정적 셰이더 소스
+// const char *OpenGLShaderWindow::vertexShaderSource =
+//     "attribute highp vec4 posAttr;\n"
+//     "attribute lowp vec4 colAttr;\n"
+//     "varying lowp vec4 col;\n"
+//     "uniform highp mat4 matrix;\n"
+//     "void main() {\n"
+//     "   col = colAttr;\n"
+//     "   gl_Position = matrix * posAttr;\n"
+//     "}\n";
 
-const char *OpenGLShaderWindow::fragmentShaderSource =
-    "varying lowp vec4 col;\n"
-    "void main() {\n"
-    "   gl_FragColor = col;\n"
-    "}\n";
+// const char *OpenGLShaderWindow::fragmentShaderSource =
+//     "varying lowp vec4 col;\n"
+//     "void main() {\n"
+//     "   gl_FragColor = col;\n"
+//     "}\n";
 
 // 생성자
-OpenGLShaderWindow::OpenGLShaderWindow(QWindow *parent)
-    : QWindow(parent)
+OpenGLShaderWindow::OpenGLShaderWindow(QWindow *parent): QWindow(parent)
 {
     // OpenGL 서피스 타입 설정
     setSurfaceType(OpenGLSurface);
+}
+
+OpenGLShaderWindow::OpenGLShaderWindow(const std::vector<GLfloat> &vertices,
+                                       const std::vector<GLfloat> &colors,
+                                       QWindow *parent)
+    : QWindow(parent), m_vertices(vertices), m_colors(colors)
+{
+    setSurfaceType(OpenGLSurface);
+    qDebug() << "Custom constructor with vertices and colors is called!";
+    qDebug() << m_vertices;
+    qDebug() << m_colors;
 }
 
 // 소멸자
@@ -35,6 +46,7 @@ OpenGLShaderWindow::~OpenGLShaderWindow()
 {
     delete m_program;
     delete m_device;
+    delete m_functions;
     // m_context는 Qt가 소멸 시 관리 (부모가 this)
 }
 
@@ -89,60 +101,150 @@ void OpenGLShaderWindow::render()
     ++m_frame;
 }
 
-// 삼각형 버텍스/컬러 데이터 초기화
 void OpenGLShaderWindow::initTriangleData()
 {
-    // 삼각형 정점 + 색상 정보
-    static const GLfloat vertices[] = {
-        // (x, y),   (r, g, b)
-        0.0f,  0.707f,
-        -0.5f, -0.500f,
-        0.5f, -0.500f,
-    };
-    // 삼각형 정점 + 색상 정보
-    static const GLfloat colors[] = {
-        // (x, y),   (r, g, b)
-        1.0f, 0.0f, 0.0f,
-        0.0f, 1.0f, 0.0f,
-        0.0f, 0.0f, 1.0f
-    };
+    qDebug() << "Initializing Triangle Data...";
 
     // VAO 생성 및 바인딩
-    m_vao.create();
+    if (!m_vao.create()) {
+        qDebug() << "Failed to create VAO!";
+        return;
+    }
     m_vao.bind();
-    // QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
+    qDebug() << "VAO created and bound.";
 
-    // VBO 생성
-    m_vbo_vertex.create();
+    // VBO 생성 및 바인딩
+    if (!m_vbo_vertex.create()) {
+        qDebug() << "Failed to create vertex VBO!";
+        return;
+    }
     m_vbo_vertex.bind();
-    m_vbo_vertex.allocate(vertices, sizeof(vertices));
-    m_vbo_color.create();
+    m_vbo_vertex.allocate(m_vertices.data(), m_vertices.size() * sizeof(GLfloat));
+    qDebug() << "Vertex VBO created, bound, and data allocated:";
+    qDebug() << "Vertex data:" << m_vertices;
+    qDebug() << "Vertex VBO size:" << m_vertices.size() * sizeof(GLfloat);
+
+    if (!m_vbo_color.create()) {
+        qDebug() << "Failed to create color VBO!";
+        return;
+    }
     m_vbo_color.bind();
-    m_vbo_color.allocate(colors, sizeof(colors));
+    m_vbo_color.allocate(m_colors.data(), m_colors.size() * sizeof(GLfloat));
+    qDebug() << "Color VBO created, bound, and data allocated:";
+    qDebug() << "Color data:" << m_colors;
+    qDebug() << "Color VBO size:" << m_colors.size() * sizeof(GLfloat);
 
-    // posAttr
+    // posAttr 설정
     m_vbo_vertex.bind();
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
     glEnableVertexAttribArray(0);
-    // colAttr
+    qDebug() << "Vertex attribute (posAttr) set to location 0.";
+
+    // colAttr 설정
     m_vbo_color.bind();
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
     glEnableVertexAttribArray(1);
+    qDebug() << "Color attribute (colAttr) set to location 1.";
 
-    // 셰이더 프로그램 생성
+    // 셰이더 프로그램 생성 및 로드
     m_program = new QOpenGLShaderProgram(this);
-    // m_program->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource);
-    // m_program->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentShaderSource);
-    m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, "../../tmp.vert");
-    m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, "../../tmp.frag");
-    m_program->bindAttributeLocation("posAttr", 0);
-    m_program->bindAttributeLocation("colAttr", 1);
-    m_program->link();
-    m_program->bind();
+    if (!m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, "../../tmp.vert")) {
+        qDebug() << "Failed to load vertex shader:" << m_program->log();
+        return;
+    }
+    if (!m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, "../../tmp.frag")) {
+        qDebug() << "Failed to load fragment shader:" << m_program->log();
+        return;
+    }
+    // m_program->bindAttributeLocation("posAtt", 0);
+    // m_program->bindAttributeLocation("colAtt", 1);
 
-    // uniform 위치 찾기
-    m_matrixUniform = m_program->uniformLocation("matrix");
+    if (!m_program->link()) {
+        qDebug() << "Failed to link shader program:" << m_program->log();
+        return;
+    }
+    qDebug() << "Shader program linked successfully.";
+
+    m_program->bind();
+    qDebug() << "Shader program bound.";
+
+    // // Uniform 위치 확인
+    // m_matrixUniform = m_program->uniformLocation("matrix");
+    // if (m_matrixUniform == -1) {
+    //     qDebug() << "Failed to get uniform location for 'matrix'.";
+    //     return;
+    // }
+    // qDebug() << "Matrix uniform location:" << m_matrixUniform;
+
+    qDebug() << "Triangle data initialization complete.";
+
+    retrieveActiveAttributes(m_program);
+
 }
+
+
+// // 삼각형 버텍스/컬러 데이터 초기화
+// void OpenGLShaderWindow::initTriangleData()
+// {
+//     // // 삼각형 정점 + 색상 정보
+//     // static const GLfloat vertices[] = {
+//     //     // (x, y),   (r, g, b)
+//     //     0.0f,  0.707f,
+//     //     -0.5f, -0.500f,
+//     //     0.5f, -0.500f,
+//     // };
+//     // // 삼각형 정점 + 색상 정보
+//     // static const GLfloat colors[] = {
+//     //     // (x, y),   (r, g, b)
+//     //     1.0f, 0.0f, 0.0f,
+//     //     0.0f, 1.0f, 0.0f,
+//     //     0.0f, 0.0f, 1.0f
+//     // };
+
+//     // VAO 생성 및 바인딩
+//     m_vao.create();
+//     m_vao.bind();
+//     // QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
+
+//     // VBO 생성
+//     m_vbo_vertex.create();
+//     m_vbo_vertex.bind();
+//     m_vbo_vertex.allocate(m_vertices.data(), m_vertices.size() * sizeof(GLfloat));
+//     m_vbo_color.create();
+//     m_vbo_color.bind();
+//     m_vbo_color.allocate(m_colors.data(), m_colors.size() * sizeof(GLfloat));
+
+//     qDebug() << m_vertices.data() << m_vertices.size() * sizeof(GLfloat);
+//     qDebug() << m_colors.data() << m_colors.size() * sizeof(GLfloat);
+
+//     // posAttr
+//     m_vbo_vertex.bind();
+//     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+//     glEnableVertexAttribArray(0);
+//     // colAttr
+//     m_vbo_color.bind();
+//     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+//     glEnableVertexAttribArray(1);
+
+//     // 셰이더 프로그램 생성
+//     m_program = new QOpenGLShaderProgram(this);
+//     // m_program->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource);
+//     // m_program->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentShaderSource);
+//     m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, "../../tmp.vert");
+//     m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, "../../tmp.frag");
+//     m_program->bindAttributeLocation("posAttr", 0);
+//     m_program->bindAttributeLocation("colAttr", 1);
+//     GLint isLinked;
+//     m_program->link();
+//     glGetProgramiv(m_program->programId(), GL_LINK_STATUS, &isLinked);
+//     if (!isLinked) {
+//         qDebug() << "Shader linking failed!";
+//     }
+//     m_program->bind();
+
+//     // uniform 위치 찾기
+//     m_matrixUniform = m_program->uniformLocation("matrix");
+// }
 
 // 윈도우 갱신 요청
 void OpenGLShaderWindow::renderLater()
@@ -170,6 +272,12 @@ void OpenGLShaderWindow::renderNow()
 
     // 현재 윈도우에 컨텍스트를 연결
     m_context->makeCurrent(this);
+
+    // OpenGLFunctions 초기화 및 m_functions 설정
+    if (!m_functions) {
+        m_functions = new QOpenGLFunctions_4_0_Core();
+        m_functions->initializeOpenGLFunctions();
+    }
 
     // 첫 초기화 시점에 한 번만
     if (needsInitialize) {
@@ -214,3 +322,42 @@ void OpenGLShaderWindow::exposeEvent(QExposeEvent *event)
     if (isExposed())
         renderNow();
 }
+
+void OpenGLShaderWindow::retrieveActiveAttributes(QOpenGLShaderProgram *program)
+{
+    if (!program || !m_functions) {
+        qDebug() << "Shader program or OpenGL functions are null.";
+        return;
+    }
+
+    GLint nAttribs = 0;
+    GLint maxLength = 0;
+
+    // Get the program ID
+    GLuint programHandle = program->programId();
+
+    // Retrieve the number of active attributes
+    m_functions->glGetProgramiv(programHandle, GL_ACTIVE_ATTRIBUTES, &nAttribs);
+
+    // Retrieve the maximum length of attribute names
+    m_functions->glGetProgramiv(programHandle, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &maxLength);
+
+    qDebug() << "Number of active attributes:" << nAttribs;
+    qDebug() << "Maximum length of attribute names:" << maxLength;
+
+    // Loop through the attributes to retrieve their details
+    for (GLint i = 0; i < nAttribs; ++i) {
+        std::vector<char> name(maxLength);
+        GLint size = 0;
+        GLenum type = 0;
+
+        // Get attribute information
+        m_functions->glGetActiveAttrib(programHandle, i, maxLength, nullptr, &size, &type, name.data());
+
+        qDebug() << "Attribute #" << i << ":"
+                 << "Name =" << name.data()
+                 << "Size =" << size
+                 << "Type =" << type;
+    }
+}
+
