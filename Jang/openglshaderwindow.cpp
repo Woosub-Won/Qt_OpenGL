@@ -36,6 +36,8 @@ OpenGLShaderWindow::OpenGLShaderWindow(const std::vector<GLfloat> &vertices,
 {
     setSurfaceType(OpenGLSurface);
     qDebug() << "Custom constructor with vertices and colors is called!";
+    qDebug() << m_vertices;
+    qDebug() << m_colors;
 }
 
 // 소멸자
@@ -97,60 +99,147 @@ void OpenGLShaderWindow::render()
     ++m_frame;
 }
 
-// 삼각형 버텍스/컬러 데이터 초기화
 void OpenGLShaderWindow::initTriangleData()
 {
-    // // 삼각형 정점 + 색상 정보
-    // static const GLfloat vertices[] = {
-    //     // (x, y),   (r, g, b)
-    //     0.0f,  0.707f,
-    //     -0.5f, -0.500f,
-    //     0.5f, -0.500f,
-    // };
-    // // 삼각형 정점 + 색상 정보
-    // static const GLfloat colors[] = {
-    //     // (x, y),   (r, g, b)
-    //     1.0f, 0.0f, 0.0f,
-    //     0.0f, 1.0f, 0.0f,
-    //     0.0f, 0.0f, 1.0f
-    // };
+    qDebug() << "Initializing Triangle Data...";
 
     // VAO 생성 및 바인딩
-    m_vao.create();
+    if (!m_vao.create()) {
+        qDebug() << "Failed to create VAO!";
+        return;
+    }
     m_vao.bind();
-    // QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
+    qDebug() << "VAO created and bound.";
 
-    // VBO 생성
-    m_vbo_vertex.create();
+    // VBO 생성 및 바인딩
+    if (!m_vbo_vertex.create()) {
+        qDebug() << "Failed to create vertex VBO!";
+        return;
+    }
     m_vbo_vertex.bind();
     m_vbo_vertex.allocate(m_vertices.data(), m_vertices.size() * sizeof(GLfloat));
-    m_vbo_color.create();
-    m_vbo_color.bind();
-    m_vbo_vertex.allocate(m_colors.data(), m_colors.size() * sizeof(GLfloat));
+    qDebug() << "Vertex VBO created, bound, and data allocated:";
+    qDebug() << "Vertex data:" << m_vertices;
+    qDebug() << "Vertex VBO size:" << m_vertices.size() * sizeof(GLfloat);
 
-    // posAttr
+    if (!m_vbo_color.create()) {
+        qDebug() << "Failed to create color VBO!";
+        return;
+    }
+    m_vbo_color.bind();
+    m_vbo_color.allocate(m_colors.data(), m_colors.size() * sizeof(GLfloat));
+    qDebug() << "Color VBO created, bound, and data allocated:";
+    qDebug() << "Color data:" << m_colors;
+    qDebug() << "Color VBO size:" << m_colors.size() * sizeof(GLfloat);
+
+    // posAttr 설정
     m_vbo_vertex.bind();
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
     glEnableVertexAttribArray(0);
-    // colAttr
+    qDebug() << "Vertex attribute (posAttr) set to location 0.";
+
+    // colAttr 설정
     m_vbo_color.bind();
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
     glEnableVertexAttribArray(1);
+    qDebug() << "Color attribute (colAttr) set to location 1.";
 
-    // 셰이더 프로그램 생성
+    // 셰이더 프로그램 생성 및 로드
     m_program = new QOpenGLShaderProgram(this);
-    // m_program->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource);
-    // m_program->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentShaderSource);
-    m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, "../../tmp.vert");
-    m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, "../../tmp.frag");
-    m_program->bindAttributeLocation("posAttr", 0);
-    m_program->bindAttributeLocation("colAttr", 1);
-    m_program->link();
-    m_program->bind();
+    if (!m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, "../../tmp.vert")) {
+        qDebug() << "Failed to load vertex shader:" << m_program->log();
+        return;
+    }
+    if (!m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, "../../tmp.frag")) {
+        qDebug() << "Failed to load fragment shader:" << m_program->log();
+        return;
+    }
+    m_program->bindAttributeLocation("posAtt", 0);
+    m_program->bindAttributeLocation("colAtt", 1);
 
-    // uniform 위치 찾기
+    if (!m_program->link()) {
+        qDebug() << "Failed to link shader program:" << m_program->log();
+        return;
+    }
+    qDebug() << "Shader program linked successfully.";
+
+    m_program->bind();
+    qDebug() << "Shader program bound.";
+
+    // Uniform 위치 확인
     m_matrixUniform = m_program->uniformLocation("matrix");
+    if (m_matrixUniform == -1) {
+        qDebug() << "Failed to get uniform location for 'matrix'.";
+        return;
+    }
+    qDebug() << "Matrix uniform location:" << m_matrixUniform;
+
+    qDebug() << "Triangle data initialization complete.";
 }
+
+
+// // 삼각형 버텍스/컬러 데이터 초기화
+// void OpenGLShaderWindow::initTriangleData()
+// {
+//     // // 삼각형 정점 + 색상 정보
+//     // static const GLfloat vertices[] = {
+//     //     // (x, y),   (r, g, b)
+//     //     0.0f,  0.707f,
+//     //     -0.5f, -0.500f,
+//     //     0.5f, -0.500f,
+//     // };
+//     // // 삼각형 정점 + 색상 정보
+//     // static const GLfloat colors[] = {
+//     //     // (x, y),   (r, g, b)
+//     //     1.0f, 0.0f, 0.0f,
+//     //     0.0f, 1.0f, 0.0f,
+//     //     0.0f, 0.0f, 1.0f
+//     // };
+
+//     // VAO 생성 및 바인딩
+//     m_vao.create();
+//     m_vao.bind();
+//     // QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
+
+//     // VBO 생성
+//     m_vbo_vertex.create();
+//     m_vbo_vertex.bind();
+//     m_vbo_vertex.allocate(m_vertices.data(), m_vertices.size() * sizeof(GLfloat));
+//     m_vbo_color.create();
+//     m_vbo_color.bind();
+//     m_vbo_color.allocate(m_colors.data(), m_colors.size() * sizeof(GLfloat));
+
+//     qDebug() << m_vertices.data() << m_vertices.size() * sizeof(GLfloat);
+//     qDebug() << m_colors.data() << m_colors.size() * sizeof(GLfloat);
+
+//     // posAttr
+//     m_vbo_vertex.bind();
+//     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+//     glEnableVertexAttribArray(0);
+//     // colAttr
+//     m_vbo_color.bind();
+//     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+//     glEnableVertexAttribArray(1);
+
+//     // 셰이더 프로그램 생성
+//     m_program = new QOpenGLShaderProgram(this);
+//     // m_program->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource);
+//     // m_program->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentShaderSource);
+//     m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, "../../tmp.vert");
+//     m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, "../../tmp.frag");
+//     m_program->bindAttributeLocation("posAttr", 0);
+//     m_program->bindAttributeLocation("colAttr", 1);
+//     GLint isLinked;
+//     m_program->link();
+//     glGetProgramiv(m_program->programId(), GL_LINK_STATUS, &isLinked);
+//     if (!isLinked) {
+//         qDebug() << "Shader linking failed!";
+//     }
+//     m_program->bind();
+
+//     // uniform 위치 찾기
+//     m_matrixUniform = m_program->uniformLocation("matrix");
+// }
 
 // 윈도우 갱신 요청
 void OpenGLShaderWindow::renderLater()
