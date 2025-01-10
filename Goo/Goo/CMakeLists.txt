@@ -22,11 +22,14 @@ set(PROJECT_SOURCES
         glwidget.cpp
         Chapt1_1.cpp
         Chapt1_2.cpp
+        Chapt1_3.cpp
+        Chapt1_4.cpp
         Chapt1.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(Goo
+
+qt_add_executable(Goo
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         #glwidget.h glwidget.cpp

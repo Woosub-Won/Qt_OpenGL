@@ -1,32 +1,21 @@
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 #include <QWidget>
-#include <QSurfaceFormat>
+#include <QOffscreenSurface>
 #include <QDebug>
 
-class MyWidget : public QOpenGLWidget{
-    public:
-    MyWidget(QWidget* parent = nullptr):QOpenGLWidget(parent){}
-protected:
-    void initializeGL() override{
-
-    }
-    void paintGL() override{
-
-    }
-};
 
 void Chapt1_2(){
 
-    QSurfaceFormat format;
-    format.setVersion(4,0);
-    format.setProfile(QSurfaceFormat::CoreProfile);
-    MyWidget widget = MyWidget();
-    widget.setFormat(format);
-    if(widget.context()==nullptr){
-        qDebug() << "컨텍스트 없음";
-    }
-    QOpenGLFunctions* funcs = widget.context()->functions();
+    QOffscreenSurface offscreenSurface;
+    offscreenSurface.create();
+
+    QOpenGLContext glContext;
+    glContext.setFormat(offscreenSurface.format());
+    glContext.create();
+    glContext.makeCurrent(&offscreenSurface);
+
+    QOpenGLFunctions* funcs = glContext.functions();
 
     GLenum err = funcs->glGetError();
     if(err != GL_NO_ERROR){
