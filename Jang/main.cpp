@@ -1,33 +1,62 @@
-#include <GL/gl.h>
-#include <QApplication>
-#include <QSurfaceFormat>
-#include <QOpenGLFunctions>
-#include <QOffscreenSurface>
-#include "qt_opengl_window_example_main.h"
-#include "chapter1.h"
-#include "openglshaderwindow.h"
+#include <QGuiApplication>
+#include <QOpenGLWindow>
+#include "myopenglcore.h"
+
+class MyOpenGLWindow : public QOpenGLWindow
+{
+protected:
+    MyOpenGLCore *openglCore = nullptr;
+
+    void initializeGL() override {
+        std::vector<GLfloat> vertices = {
+            0.0f,  0.5f, 0.0f,  // 위쪽 꼭짓점
+            -0.5f, -0.5f, 0.0f,  // 왼쪽 아래
+            0.5f, -0.5f, 0.0f   // 오른쪽 아래
+        };
+
+        std::vector<GLfloat> colors = {
+            1.0f, 0.0f, 0.0f,  // 빨강
+            0.0f, 1.0f, 0.0f,  // 초록
+            0.0f, 0.0f, 1.0f   // 파랑
+        };
+
+        openglCore = new MyOpenGLCore(vertices, colors);
+        openglCore->initialize();
+
+        // 셰이더 파일 로드
+        if (!openglCore->loadShaders("../../tmp.vert", "../../tmp.frag")) {
+            qFatal("Failed to load shaders!");
+        }
+        // // 셰이더 파일 로드
+        // if (!openglCore->loadShaders("vertex_shader.glsl", "fragment_shader.glsl")) {
+        //     qFatal("Failed to load shaders!");
+        // }
+
+        openglCore->activeVertexInputAttributesAndIndices();
+    }
+
+    void paintGL() override {
+        openglCore->render();
+    }
+};
 
 int main(int argc, char *argv[])
 {
-    // QApplication a(argc, argv);
+    QGuiApplication app(argc, argv);
 
-    // qDebug() << "Qt version:" << QT_VERSION_STR;
+    QSurfaceFormat format;
+    format.setVersion(4, 0); // OpenGL 4.0 Core Profile
+    format.setProfile(QSurfaceFormat::CoreProfile);
 
-    // one_one_Introduction(argc, argv);
+    MyOpenGLWindow window;
+    window.setFormat(format);
+    window.resize(800, 600);
+    window.show();
 
-    // QSurfaceFormat format = QSurfaceFormat::defaultFormat();
-    // qDebug() << format.profile();
-    // qDebug() << format.version();
-
-    // one_two_GLEW(argc, argv);
-    // one_three_GLM(argc, argv);
-    // one_four_version(argc, argv);
-    // one_five_shader(argc, argv);
-
-    one_seven_shader(argc, argv);
-
-    // qt_opengl_window_example(argc, argv);
-    return 0;
-    // return a.exec();
-
+    return app.exec();
 }
+
+
+
+
+

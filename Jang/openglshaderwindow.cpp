@@ -4,6 +4,7 @@
 #include <QExposeEvent>
 #include <QEvent>
 #include <cmath>
+#include <QOpenGLFunctions_4_0_Core>
 
 // // 정적 셰이더 소스
 // const char *OpenGLShaderWindow::vertexShaderSource =
@@ -45,6 +46,7 @@ OpenGLShaderWindow::~OpenGLShaderWindow()
 {
     delete m_program;
     delete m_device;
+    delete m_functions;
     // m_context는 Qt가 소멸 시 관리 (부모가 this)
 }
 
@@ -166,15 +168,18 @@ void OpenGLShaderWindow::initTriangleData()
     m_program->bind();
     qDebug() << "Shader program bound.";
 
-    // Uniform 위치 확인
-    m_matrixUniform = m_program->uniformLocation("matrix");
-    if (m_matrixUniform == -1) {
-        qDebug() << "Failed to get uniform location for 'matrix'.";
-        return;
-    }
-    qDebug() << "Matrix uniform location:" << m_matrixUniform;
+    // // Uniform 위치 확인
+    // m_matrixUniform = m_program->uniformLocation("matrix");
+    // if (m_matrixUniform == -1) {
+    //     qDebug() << "Failed to get uniform location for 'matrix'.";
+    //     return;
+    // }
+    // qDebug() << "Matrix uniform location:" << m_matrixUniform;
 
     qDebug() << "Triangle data initialization complete.";
+
+    retrieveActiveAttributes(m_program);
+
 }
 
 
@@ -268,6 +273,12 @@ void OpenGLShaderWindow::renderNow()
     // 현재 윈도우에 컨텍스트를 연결
     m_context->makeCurrent(this);
 
+    // OpenGLFunctions 초기화 및 m_functions 설정
+    if (!m_functions) {
+        m_functions = new QOpenGLFunctions_4_0_Core();
+        m_functions->initializeOpenGLFunctions();
+    }
+
     // 첫 초기화 시점에 한 번만
     if (needsInitialize) {
         initializeOpenGLFunctions(); // QOpenGLFunctions 초기화
@@ -311,3 +322,42 @@ void OpenGLShaderWindow::exposeEvent(QExposeEvent *event)
     if (isExposed())
         renderNow();
 }
+
+void OpenGLShaderWindow::retrieveActiveAttributes(QOpenGLShaderProgram *program)
+{
+    if (!program || !m_functions) {
+        qDebug() << "Shader program or OpenGL functions are null.";
+        return;
+    }
+
+    GLint nAttribs = 0;
+    GLint maxLength = 0;
+
+    // Get the program ID
+    GLuint programHandle = program->programId();
+
+    // Retrieve the number of active attributes
+    m_functions->glGetProgramiv(programHandle, GL_ACTIVE_ATTRIBUTES, &nAttribs);
+
+    // Retrieve the maximum length of attribute names
+    m_functions->glGetProgramiv(programHandle, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &maxLength);
+
+    qDebug() << "Number of active attributes:" << nAttribs;
+    qDebug() << "Maximum length of attribute names:" << maxLength;
+
+    // Loop through the attributes to retrieve their details
+    for (GLint i = 0; i < nAttribs; ++i) {
+        std::vector<char> name(maxLength);
+        GLint size = 0;
+        GLenum type = 0;
+
+        // Get attribute information
+        m_functions->glGetActiveAttrib(programHandle, i, maxLength, nullptr, &size, &type, name.data());
+
+        qDebug() << "Attribute #" << i << ":"
+                 << "Name =" << name.data()
+                 << "Size =" << size
+                 << "Type =" << type;
+    }
+}
+

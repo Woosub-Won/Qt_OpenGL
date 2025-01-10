@@ -18,7 +18,10 @@ SOURCES += \
         1-4-GLSLandOpenGLversion.cpp \
         1-5-ComplilingShader.cpp \
         1-7-SendingDatatoShader.cpp \
+        legacyMain.cpp \
         main.cpp \
+        myopenglcore.cpp \
+        oneFileRunMain.cpp \
         openglshaderwindow.cpp \
         qt_opengl_window_example_main.cpp \
         qt_opengl_window_example_openglwindow.cpp \
@@ -31,6 +34,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     chapter1.h \
+    myopenglcore.h \
     openglshaderwindow.h \
     qt_opengl_window_example_main.h \
     qt_opengl_window_example_openglwindow.h \

@@ -46,6 +46,7 @@ protected:
 private:
     // 삼각형 렌더링 예시를 위한 내부 셰이더/버퍼 관련
     void initTriangleData();
+    void retrieveActiveAttributes(QOpenGLShaderProgram *program);
 
 private:
     bool m_animating = false;
@@ -65,6 +66,7 @@ private:
 
     // 셰이더 프로그램 관련
     QOpenGLShaderProgram *m_program = nullptr;
+    QOpenGLFunctions_4_0_Core *m_functions = nullptr; // OpenGL 4.0 Core 기능
     GLint m_matrixUniform = -1;
 
     // 간단한 버텍스 셰이더와 프래그먼트 셰이더 소스
