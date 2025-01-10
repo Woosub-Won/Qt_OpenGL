@@ -10,12 +10,14 @@
 #include <QMatrix4x4>
 #include <QPainter>
 #include <QOpenGLVertexArrayObject>
+#include <vector>
 
 class OpenGLShaderWindow : public QWindow, protected QOpenGLFunctions_4_0_Core
 {
     Q_OBJECT
 public:
     explicit OpenGLShaderWindow(QWindow *parent = nullptr);
+    OpenGLShaderWindow(const std::vector<GLfloat> &vertices, const std::vector<GLfloat> &colors, QWindow *parent = nullptr);
     ~OpenGLShaderWindow();
 
     // 렌더링 관련 함수
@@ -33,6 +35,9 @@ public:
 
     // OpenGL 직접 호출을 통한 렌더링
     virtual void render();
+
+    std::vector<GLfloat> m_vertices; // 버텍스 데이터
+    std::vector<GLfloat> m_colors;  // 컬러 데이터
 
 protected:
     bool event(QEvent *event) override;

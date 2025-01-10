@@ -5,29 +5,37 @@
 #include <QEvent>
 #include <cmath>
 
-// 정적 셰이더 소스
-const char *OpenGLShaderWindow::vertexShaderSource =
-    "attribute highp vec4 posAttr;\n"
-    "attribute lowp vec4 colAttr;\n"
-    "varying lowp vec4 col;\n"
-    "uniform highp mat4 matrix;\n"
-    "void main() {\n"
-    "   col = colAttr;\n"
-    "   gl_Position = matrix * posAttr;\n"
-    "}\n";
+// // 정적 셰이더 소스
+// const char *OpenGLShaderWindow::vertexShaderSource =
+//     "attribute highp vec4 posAttr;\n"
+//     "attribute lowp vec4 colAttr;\n"
+//     "varying lowp vec4 col;\n"
+//     "uniform highp mat4 matrix;\n"
+//     "void main() {\n"
+//     "   col = colAttr;\n"
+//     "   gl_Position = matrix * posAttr;\n"
+//     "}\n";
 
-const char *OpenGLShaderWindow::fragmentShaderSource =
-    "varying lowp vec4 col;\n"
-    "void main() {\n"
-    "   gl_FragColor = col;\n"
-    "}\n";
+// const char *OpenGLShaderWindow::fragmentShaderSource =
+//     "varying lowp vec4 col;\n"
+//     "void main() {\n"
+//     "   gl_FragColor = col;\n"
+//     "}\n";
 
 // 생성자
-OpenGLShaderWindow::OpenGLShaderWindow(QWindow *parent)
-    : QWindow(parent)
+OpenGLShaderWindow::OpenGLShaderWindow(QWindow *parent): QWindow(parent)
 {
     // OpenGL 서피스 타입 설정
     setSurfaceType(OpenGLSurface);
+}
+
+OpenGLShaderWindow::OpenGLShaderWindow(const std::vector<GLfloat> &vertices,
+                                       const std::vector<GLfloat> &colors,
+                                       QWindow *parent)
+    : QWindow(parent), m_vertices(vertices), m_colors(colors)
+{
+    setSurfaceType(OpenGLSurface);
+    qDebug() << "Custom constructor with vertices and colors is called!";
 }
 
 // 소멸자
@@ -92,20 +100,20 @@ void OpenGLShaderWindow::render()
 // 삼각형 버텍스/컬러 데이터 초기화
 void OpenGLShaderWindow::initTriangleData()
 {
-    // 삼각형 정점 + 색상 정보
-    static const GLfloat vertices[] = {
-        // (x, y),   (r, g, b)
-        0.0f,  0.707f,
-        -0.5f, -0.500f,
-        0.5f, -0.500f,
-    };
-    // 삼각형 정점 + 색상 정보
-    static const GLfloat colors[] = {
-        // (x, y),   (r, g, b)
-        1.0f, 0.0f, 0.0f,
-        0.0f, 1.0f, 0.0f,
-        0.0f, 0.0f, 1.0f
-    };
+    // // 삼각형 정점 + 색상 정보
+    // static const GLfloat vertices[] = {
+    //     // (x, y),   (r, g, b)
+    //     0.0f,  0.707f,
+    //     -0.5f, -0.500f,
+    //     0.5f, -0.500f,
+    // };
+    // // 삼각형 정점 + 색상 정보
+    // static const GLfloat colors[] = {
+    //     // (x, y),   (r, g, b)
+    //     1.0f, 0.0f, 0.0f,
+    //     0.0f, 1.0f, 0.0f,
+    //     0.0f, 0.0f, 1.0f
+    // };
 
     // VAO 생성 및 바인딩
     m_vao.create();
@@ -115,10 +123,10 @@ void OpenGLShaderWindow::initTriangleData()
     // VBO 생성
     m_vbo_vertex.create();
     m_vbo_vertex.bind();
-    m_vbo_vertex.allocate(vertices, sizeof(vertices));
+    m_vbo_vertex.allocate(m_vertices.data(), m_vertices.size() * sizeof(GLfloat));
     m_vbo_color.create();
     m_vbo_color.bind();
-    m_vbo_color.allocate(colors, sizeof(colors));
+    m_vbo_vertex.allocate(m_colors.data(), m_colors.size() * sizeof(GLfloat));
 
     // posAttr
     m_vbo_vertex.bind();

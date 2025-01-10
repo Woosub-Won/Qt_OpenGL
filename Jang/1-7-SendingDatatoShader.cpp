@@ -5,12 +5,12 @@
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 #include <QOpenGLShaderProgram>
+#include <vector>
 #include "openglshaderwindow.h"
 
 int one_seven_shader(int argc, char *argv[]) {
-    // QApplication app(argc, argv);
 
-    // qDebug() << "1-7";
+    qDebug() << "1-7";
 
     // // QSurfaceFormat 설정
     // QSurfaceFormat format;
@@ -50,12 +50,28 @@ int one_seven_shader(int argc, char *argv[]) {
     format.setSamples(16);
     // format.setDepthBufferSize(24);
     // format.setStencilBufferSize(8);
-    format.setVersion(4, 0); // OpenGL 버전 3.3
+    format.setVersion(4, 0); // OpenGL 버전 4.0
     format.setProfile(QSurfaceFormat::CoreProfile); // Core Profile
 
     qDebug() << format;
 
-    OpenGLShaderWindow window;
+    // 삼각형 정점 + 색상 정보
+    std::vector<GLfloat> vertices = {
+        // (x, y),   (r, g, b)
+        0.0f,  0.707f,
+        -0.5f, -0.500f,
+        0.5f, -0.500f,
+    };
+    // 삼각형 정점 + 색상 정보
+    std::vector<GLfloat> colors = {
+        // (x, y),   (r, g, b)
+        1.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 1.0f
+    };
+
+    OpenGLShaderWindow window(vertices, colors);
+    qDebug() << "init fin";
     window.setFormat(format);
     window.resize(640, 480);
     window.show();
