@@ -32,6 +32,7 @@ protected:
         //     qFatal("Failed to load shaders!");
         // }
 
+        // 1-8
         openglCore->activeVertexInputAttributesAndIndices();
     }
 
