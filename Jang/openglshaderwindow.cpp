@@ -154,8 +154,8 @@ void OpenGLShaderWindow::initTriangleData()
         qDebug() << "Failed to load fragment shader:" << m_program->log();
         return;
     }
-    m_program->bindAttributeLocation("posAtt", 0);
-    m_program->bindAttributeLocation("colAtt", 1);
+    // m_program->bindAttributeLocation("posAtt", 0);
+    // m_program->bindAttributeLocation("colAtt", 1);
 
     if (!m_program->link()) {
         qDebug() << "Failed to link shader program:" << m_program->log();
