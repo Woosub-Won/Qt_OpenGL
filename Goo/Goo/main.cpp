@@ -11,7 +11,10 @@ int main(int argc, char *argv[])
     // Chapt1_2();
     // Chapt1_3();
     // Chapt1_4();
-    Chapt1_5();
-    qDebug() << "실행";
+    // Chapt1_5();
+    // Chapt1_6();
+
+    Chapt1_7();
+    qDebug() << "running";
     return app.exec();             // 이벤트 루프 실행
 }

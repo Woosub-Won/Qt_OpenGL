@@ -25,7 +25,10 @@ set(PROJECT_SOURCES
         Chapt1_3.cpp
         Chapt1_4.cpp
         Chapt1_5.cpp
+        Chapt1_6.cpp
+        Chapt1_7.cpp
         Chapt1.h
+
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -33,6 +36,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 qt_add_executable(Goo
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+
+
         #glwidget.h glwidget.cpp
     )
 # Define target properties for Android with Qt 6 as:

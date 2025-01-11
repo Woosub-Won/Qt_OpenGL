@@ -5,4 +5,6 @@ void Chapt1_2();
 void Chapt1_3();
 void Chapt1_4();
 void Chapt1_5();
+void Chapt1_6();
+void Chapt1_7();
 #endif // CHAPT1_H
