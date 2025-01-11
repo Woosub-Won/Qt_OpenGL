@@ -71,20 +71,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>D:\HateCoding\OpenGL스터디\Private\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\HateCoding\OpenGL스터디\Private\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>D:\HateCoding\OpenGL스터디\Private\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\HateCoding\OpenGL스터디\Private\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\HateCoding\OpenGL스터디\Private\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\HateCoding\OpenGL스터디\Private\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>D:\HateCoding\OpenGL스터디\Private\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\HateCoding\OpenGL스터디\Private\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -152,8 +152,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\glad.c" />
-    <ClCompile Include="C3_Main.cpp" />
-    <ClCompile Include="Chapter3.cpp" />
+    <ClCompile Include="C3_Texture.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="C2_Light.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="C1_Main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -161,6 +167,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Pyramid.cpp" />
+    <ClCompile Include="Pyramid.h" />
     <ClCompile Include="ShaderClass.cpp" />
     <ClCompile Include="ShaderClass.h" />
     <ClCompile Include="Texture.cpp" />
@@ -168,7 +176,9 @@
     <ClCompile Include="VBO.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="EBO.h" />
+    <ClInclude Include="OpenGL.h" />
     <ClInclude Include="stb.cpp" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="VAO.h" />
@@ -177,9 +187,17 @@
   <ItemGroup>
     <None Include="default.vert" />
     <None Include="default.frag" />
+    <None Include="defaultPyramid.frag" />
+    <None Include="defaultPyramid.vert" />
+    <None Include="light.frag" />
+    <None Include="light.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\frog.jpg" />
+    <Image Include="planks.png" />
+    <Image Include="planksSpec.png" />
+    <Image Include="Textures\Stone\PavingStones142_1K-JPG_Color.jpg" />
+    <Image Include="Textures\Stone\PavingStones142_1K-JPG_Roughness.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

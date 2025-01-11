@@ -2,17 +2,26 @@
 
 Texture::Texture(const char* image, GLenum texType, GLenum slot, GLenum format, GLenum pixelType)
 {
+	Init(image, texType, slot, format, pixelType);
+}
+
+void Texture::Init(const char* image, GLenum texType, GLenum slot, GLenum format, GLenum pixelType)
+{
+
 	// Assigns the type of the texture ot the texture object
 	type = texType;
 
 	// Stores the width, height, and the number of color channels of the image
-	int widthImg, heightImg, numColCh; 
+	int widthImg, heightImg, numColCh;
+	// Flips the image so it appears right side up
+	stbi_set_flip_vertically_on_load(true);
+	// Reads the image from a file and stores it in bytes
 	unsigned char* bytes = stbi_load(image, &widthImg, &heightImg, &numColCh, STBI_rgb_alpha);
 
 	// Generates an OpenGL texture object
 	glGenTextures(1, &ID);
 	// Assigns the texture to a Texture Unit
-	glActiveTexture(slot);
+	glActiveTexture(GL_TEXTURE_2D + slot);
 	glBindTexture(texType, ID);
 
 	// Configures the type of algorithm that is used to make the image smaller or bigger
@@ -38,7 +47,6 @@ Texture::Texture(const char* image, GLenum texType, GLenum slot, GLenum format, 
 	// Unbinds the OpenGL Texture object so that it can't accidentally be modified
 	glBindTexture(texType, 0);
 }
-
 void Texture::texUnit(Shader& shader, const char* uniform, GLuint unit)
 {
 	// Gets the location of the uniform
@@ -49,8 +57,9 @@ void Texture::texUnit(Shader& shader, const char* uniform, GLuint unit)
 	glUniform1i(texUni, unit);
 }
 
-void Texture::Bind()
+void Texture::Bind(GLenum slot)
 {
+	glActiveTexture(GL_TEXTURE0 + slot);
 	glBindTexture(type, ID);
 }
 

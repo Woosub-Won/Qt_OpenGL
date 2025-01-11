@@ -42,13 +42,22 @@
     <ClCompile Include="ShaderClass.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="C3_Main.cpp">
+    <ClCompile Include="C3_Texture.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Chapter3.cpp">
+    <ClCompile Include="C2_Light.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyramid.h">
+      <Filter>헤더 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyramid.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,6 +77,12 @@
     <ClInclude Include="Texture.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="default.vert">
@@ -76,9 +91,33 @@
     <None Include="default.frag">
       <Filter>리소스 파일\Shaders</Filter>
     </None>
+    <None Include="light.vert">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="light.frag">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="defaultPyramid.vert">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="defaultPyramid.frag">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\frog.jpg">
+      <Filter>리소스 파일\Textures</Filter>
+    </Image>
+    <Image Include="Textures\Stone\PavingStones142_1K-JPG_Color.jpg">
+      <Filter>리소스 파일\Textures</Filter>
+    </Image>
+    <Image Include="Textures\Stone\PavingStones142_1K-JPG_Roughness.jpg">
+      <Filter>리소스 파일\Textures</Filter>
+    </Image>
+    <Image Include="planks.png">
+      <Filter>리소스 파일\Textures</Filter>
+    </Image>
+    <Image Include="planksSpec.png">
       <Filter>리소스 파일\Textures</Filter>
     </Image>
   </ItemGroup>
