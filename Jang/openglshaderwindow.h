@@ -10,12 +10,14 @@
 #include <QMatrix4x4>
 #include <QPainter>
 #include <QOpenGLVertexArrayObject>
+#include <vector>
 
 class OpenGLShaderWindow : public QWindow, protected QOpenGLFunctions_4_0_Core
 {
     Q_OBJECT
 public:
     explicit OpenGLShaderWindow(QWindow *parent = nullptr);
+    OpenGLShaderWindow(const std::vector<GLfloat> &vertices, const std::vector<GLfloat> &colors, QWindow *parent = nullptr);
     ~OpenGLShaderWindow();
 
     // 렌더링 관련 함수
@@ -34,6 +36,9 @@ public:
     // OpenGL 직접 호출을 통한 렌더링
     virtual void render();
 
+    std::vector<GLfloat> m_vertices; // 버텍스 데이터
+    std::vector<GLfloat> m_colors;  // 컬러 데이터
+
 protected:
     bool event(QEvent *event) override;
     void exposeEvent(QExposeEvent *event) override;
@@ -41,6 +46,7 @@ protected:
 private:
     // 삼각형 렌더링 예시를 위한 내부 셰이더/버퍼 관련
     void initTriangleData();
+    void retrieveActiveAttributes(QOpenGLShaderProgram *program);
 
 private:
     bool m_animating = false;
@@ -60,6 +66,7 @@ private:
 
     // 셰이더 프로그램 관련
     QOpenGLShaderProgram *m_program = nullptr;
+    QOpenGLFunctions_4_0_Core *m_functions = nullptr; // OpenGL 4.0 Core 기능
     GLint m_matrixUniform = -1;
 
     // 간단한 버텍스 셰이더와 프래그먼트 셰이더 소스
