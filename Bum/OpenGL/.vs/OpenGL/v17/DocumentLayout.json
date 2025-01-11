@@ -324,7 +324,11 @@
               "RelativeDocumentMoniker": "OpenGL\\C2_Light.cpp",
               "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\OpenGL\\Bum\\OpenGL\\OpenGL\\C2_Light.cpp",
               "RelativeToolTip": "OpenGL\\C2_Light.cpp",
+<<<<<<< HEAD
               "ViewState": "AgIAAGcAAAAAAAAAAAAAAI0AAAAAAAAAAAAAAA==",
+=======
+              "ViewState": "AgIAAGcAAAAAAAAAAAAAAIoAAAAfAAAAAAAAAA==",
+>>>>>>> origin/bum
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-01-07T04:15:32.537Z",
               "EditorCaption": ""
