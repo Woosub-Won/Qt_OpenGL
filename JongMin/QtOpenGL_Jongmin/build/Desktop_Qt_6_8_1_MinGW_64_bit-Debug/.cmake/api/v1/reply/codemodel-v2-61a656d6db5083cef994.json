@@ -7,7 +7,7 @@
 				{
 					"build" : ".",
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-ad7cdc276aebf508ca38.json",
+					"jsonFile" : "directory-.-Debug-78bd5324f2e74a7c4362.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.16"
@@ -44,7 +44,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "QtOpenGL_Jongmin::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-QtOpenGL_Jongmin-Debug-a38a98b8bc89646ccbe0.json",
+					"jsonFile" : "target-QtOpenGL_Jongmin-Debug-9ccd2685260015e188a7.json",
 					"name" : "QtOpenGL_Jongmin",
 					"projectIndex" : 0
 				},

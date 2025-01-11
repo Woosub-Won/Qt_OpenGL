@@ -4,6 +4,7 @@ project(QtOpenGL_Jongmin LANGUAGES CXX)
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets)
 find_package(Qt6 REQUIRED COMPONENTS OpenGLWidgets)
 find_package(OpenGL REQUIRED)
+find_package(Qt6 COMPONENTS Gui REQUIRED)
 
 qt_standard_project_setup()
 
@@ -17,6 +18,8 @@ qt_add_executable(QtOpenGL_Jongmin
     ch1_7_sendingdatatoshader.h ch1_7_sendingdatatoshader.cpp
     ch1_8_gettingalist.h ch1_8_gettingalist.cpp
     Shaders/fragShader.frag
+    ch1_9_sendingdatatoashader.h ch1_9_sendingdatatoashader.cpp
+    ch1_10_usinguniformblocks.h ch1_10_usinguniformblocks.cpp
 )
 
 target_link_libraries(QtOpenGL_Jongmin
@@ -25,6 +28,7 @@ target_link_libraries(QtOpenGL_Jongmin
         Qt::Widgets
         Qt6::OpenGLWidgets
         OpenGL::GL
+        Qt6::Gui
 )
 
 include(GNUInstallDirs)

@@ -1,5 +1,5 @@
-#ifndef CH1_8_GETTINGALIST_H
-#define CH1_8_GETTINGALIST_H
+#ifndef CH1_9_SENDINGDATATOASHADER_H
+#define CH1_9_SENDINGDATATOASHADER_H
 
 #include <QOpenGLWidget>
 #include <QObject>
@@ -8,14 +8,14 @@
 #include <QOpenGLFunctions>
 
 
-class ch1_8_GettingAList : public QOpenGLWidget,protected QOpenGLFunctions
+class ch1_9_SendingDataToAShader : public QOpenGLWidget, protected QOpenGLFunctions
 {
     Q_OBJECT
 public:
-    ch1_8_GettingAList(QWidget* parent = nullptr):QOpenGLWidget(parent) {
+    ch1_9_SendingDataToAShader(QWidget* parent = nullptr):QOpenGLWidget(parent){
 
-    }
-    ~ch1_8_GettingAList();
+    };
+    ~ch1_9_SendingDataToAShader();
 
 protected:
     void initializeGL();
@@ -28,6 +28,7 @@ private:
     GLuint programHandle;
     const char* loadShaderAsString(const QString &filePath);
 
+
 };
 
-#endif // ch1_8_GettingAList_H
+#endif // CH1_9_SENDINGDATATOASHADER_H

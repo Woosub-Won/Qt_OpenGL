@@ -19,7 +19,7 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>781</width>
+      <width>441</width>
       <height>421</height>
      </rect>
     </property>
@@ -58,6 +58,17 @@
       <widget class="QTextBrowser" name="textBrowser"/>
      </item>
     </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_4">
+    <property name="geometry">
+     <rect>
+      <x>459</x>
+      <y>9</y>
+      <width>331</width>
+      <height>421</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_4"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
