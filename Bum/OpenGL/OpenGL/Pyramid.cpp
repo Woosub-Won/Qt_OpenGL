@@ -42,7 +42,7 @@ void Pyramid::Init()
 		13, 15, 14 // Facing side
 	};
 
-	shaderProgram.Init("default.vert", "default.frag");
+	shaderProgram.Init("defaultPyramid.vert", "defaultPyramid.frag");
 
 	vao.Bind();
 
@@ -60,13 +60,15 @@ void Pyramid::Init()
 
 	texture.Init("frog.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 	texture.texUnit(shaderProgram, "tex0", 0);
+	 
 	texture.Unbind();
+
 }
 
 void Pyramid::Draw()
 {
 	vao.Bind();
-	texture.Bind();
+	texture.Bind(0);
 
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 

@@ -14,7 +14,7 @@ public:
 	void Inputs(GLFWwindow* window);
 	 
 protected:  
-	vec3 Orientation = vec3(0.0f, 0.0f, -1.0f);
+	vec3 Orientation = vec3(0.0f, -0.5f, -1.0f);
 	vec3 Up = vec3(0.0f, 1.0f, 0.0f);
 
 	int width;
@@ -22,7 +22,7 @@ protected:
 	bool firstClick = true;
 
 
-	float BaseSpeed = 0.003f;
+	float BaseSpeed = 0.03f;
 	float Curspeed = 0.01f;
 	float sensitivity = 100.0f;
 

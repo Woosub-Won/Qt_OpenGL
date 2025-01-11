@@ -25,6 +25,7 @@ using glm::vec2;
 
 using glm::translate;
 using glm::rotate;
+using glm::scale;
 using glm::perspective;
 using glm::normalize;
 using glm::radians;

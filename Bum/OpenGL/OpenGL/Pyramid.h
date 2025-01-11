@@ -13,6 +13,7 @@ public:
 	void Draw();
 
 	Shader GetShader() { return shaderProgram; }
+	Texture GetTexture() { return texture; }
 protected:
 	Shader shaderProgram;
 

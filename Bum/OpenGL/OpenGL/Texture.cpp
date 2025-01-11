@@ -21,7 +21,7 @@ void Texture::Init(const char* image, GLenum texType, GLenum slot, GLenum format
 	// Generates an OpenGL texture object
 	glGenTextures(1, &ID);
 	// Assigns the texture to a Texture Unit
-	glActiveTexture(slot);
+	glActiveTexture(GL_TEXTURE_2D + slot);
 	glBindTexture(texType, ID);
 
 	// Configures the type of algorithm that is used to make the image smaller or bigger
@@ -57,8 +57,9 @@ void Texture::texUnit(Shader& shader, const char* uniform, GLuint unit)
 	glUniform1i(texUni, unit);
 }
 
-void Texture::Bind()
+void Texture::Bind(GLenum slot)
 {
+	glActiveTexture(GL_TEXTURE0 + slot);
 	glBindTexture(type, ID);
 }
 
