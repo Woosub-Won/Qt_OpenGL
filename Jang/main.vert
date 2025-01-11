@@ -14,18 +14,16 @@ uniform mat4 MVP; // Projection * ModelView
 
 void main()
 {
-    // LightIntensity = vec3(1,0,0);
-    // gl_Position = vec4(VertexPosition,1.0);
     // Convert normal and position to eye coords
     vec3 tnorm = normalize( NormalMatrix * VertexNormal);
     vec4 eyeCoords = ModelViewMatrix * vec4(VertexPosition,1.0);
-    // vec3 s = normalize(vec3(LightPosition - eyeCoords));
-    // s.z = -s.z; // Z축 반전
-    vec4 lightInEyeCoords = ModelViewMatrix * LightPosition; // 뷰 좌표계로 변환
-    vec3 s = normalize(vec3(lightInEyeCoords - eyeCoords));
+    vec3 s = normalize(vec3(LightPosition - eyeCoords));
 
     // The diffuse shading equation
     LightIntensity = Ld * Kd * max( dot( s, tnorm ), 0.0 );
+    // LightIntensity = vec3(tnorm * 0.5 + 0.5); // 법선 벡터를 색상으로 확인
+    // LightIntensity = vec3(s * 0.5 + 0.5); // 조명 벡터를 색상으로 확인
+
     // Convert position to clip coordinates and pass along
     gl_Position = MVP * vec4(VertexPosition,1.0);
 }

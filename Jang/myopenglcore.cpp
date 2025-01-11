@@ -28,6 +28,9 @@ void MyOpenGLCore::initialize()
     checkDefaults();
 
     initializeOpenGLFunctions(); // OpenGL 함수 초기화
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);      // 뒷면 제거
+    glFrontFace(GL_CCW);      // 반시계 방향을 앞면으로 설정 (기본값)
 
     // VAO 생성 및 바인딩
     glGenVertexArrays(1, &m_vao);
@@ -146,14 +149,33 @@ void MyOpenGLCore::render()
     glUseProgram(m_program);
 
     // 1. 행렬 정의
-    QMatrix4x4 modelViewMatrix;
-    modelViewMatrix.setToIdentity();
-    modelViewMatrix.translate(0.0f, 0.0f, -2.0f); // 카메라 위치
-    modelViewMatrix.rotate(30, QVector3D(0, 1, 0)); // Y축 회전
+    QMatrix4x4 modelMatrix, viewMatrix, projectionMatrix;
+
+    // 1) 모델 변환 (도넛을 월드좌표 안에서 어떻게 회전/이동할지)
+    modelMatrix.setToIdentity();
+    // modelMatrix.rotate(30, QVector3D(0, 1, 0)); // 도넛 자체를 y축으로 30도 회전
+
+    // 2) 뷰 변환 (카메라가 월드에서 어디 위치해있는가)
+    viewMatrix.setToIdentity();
+    viewMatrix.translate(0.0f, 0.0f, -2.0f); // “카메라가 z=2쪽에 위치”라고 생각
+    viewMatrix.rotate(30, QVector3D(0, 1, 0)); // 카메라를 Y축으로 30도 회전
+
+    // 3) 최종 모델뷰
+    QMatrix4x4 modelViewMatrix = viewMatrix * modelMatrix;
+
+    // 4) 노멀 매트릭스
+    QMatrix3x3 normalMatrix = modelViewMatrix.normalMatrix();
+
+    // 5) 투영 행렬
+    projectionMatrix.setToIdentity();
+    projectionMatrix.perspective(45.0f, 4.0f/3.0f, 0.1f, 100.f);
+
+    // 6) MVP
+    QMatrix4x4 mvpMatrix = projectionMatrix * modelViewMatrix;
 
     // 2. 조명 위치를 뷰 좌표계로 변환
     QVector4D lightPositionWorld(1.0f, 1.0f, 1.0f, 1.0f); // 월드 좌표계 조명 위치
-    QVector4D lightPositionView = modelViewMatrix * lightPositionWorld; // 뷰 좌표계 변환
+    QVector4D lightPositionView = viewMatrix * lightPositionWorld; // 모델과는 영향 없음
 
     // 3. 조명 관련 Uniform 전달
     GLfloat lightPos[4] = { lightPositionView.x(), lightPositionView.y(), lightPositionView.z(), lightPositionView.w() };
@@ -164,12 +186,6 @@ void MyOpenGLCore::render()
     GLfloat ld[3] = { 1.0f, 1.0f, 1.0f }; // 조명 강도
     glUniform3fv(m_uniformKd, 1, kd);
     glUniform3fv(m_uniformLd, 1, ld);
-
-    // 5. 행렬 관련 Uniform 전달
-    QMatrix4x4 projectionMatrix;
-    projectionMatrix.perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f); // 투영 행렬
-    QMatrix4x4 mvpMatrix = projectionMatrix * modelViewMatrix;
-    QMatrix3x3 normalMatrix = modelViewMatrix.normalMatrix();
 
     glUniformMatrix4fv(m_uniformModelViewMatrix, 1, GL_FALSE, modelViewMatrix.constData());
     glUniformMatrix3fv(m_uniformNormalMatrix, 1, GL_FALSE, normalMatrix.constData());
