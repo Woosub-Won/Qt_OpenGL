@@ -115,11 +115,10 @@ bool MyOpenGLCore::loadShaders(const QString &vertexShaderPath, const QString &f
     glLinkProgram(m_program);
     checkProgramLinkStatus(m_program);
 
-
-    // Uniform 변수의 위치 확인
+    // Uniform 변수 로드
     m_uniformLightPosition = glGetUniformLocation(m_program, "LightPosition");
     m_uniformKd = glGetUniformLocation(m_program, "Kd");
-    m_uniformLd = glGetUniformLocation(m_program, "Ld");
+    m_uniformLd = glGetUniformLocation(m_program, "Light.Ld");
     m_uniformModelViewMatrix = glGetUniformLocation(m_program, "ModelViewMatrix");
     m_uniformNormalMatrix = glGetUniformLocation(m_program, "NormalMatrix");
     m_uniformProjectionMatrix = glGetUniformLocation(m_program, "ProjectionMatrix");
@@ -129,7 +128,7 @@ bool MyOpenGLCore::loadShaders(const QString &vertexShaderPath, const QString &f
     qDebug() << "Uniform Locations:";
     qDebug() << "LightPosition:" << m_uniformLightPosition;
     qDebug() << "Kd:" << m_uniformKd;
-    qDebug() << "Ld:" << m_uniformLd;
+    qDebug() << "Light.Ld:" << m_uniformLd;
     qDebug() << "ModelViewMatrix:" << m_uniformModelViewMatrix;
     qDebug() << "NormalMatrix:" << m_uniformNormalMatrix;
     qDebug() << "ProjectionMatrix:" << m_uniformProjectionMatrix;
@@ -178,22 +177,38 @@ void MyOpenGLCore::render()
     QVector4D lightPositionView = viewMatrix * lightPositionWorld; // 모델과는 영향 없음
 
     // 3. 조명 관련 Uniform 전달
-    GLfloat lightPos[4] = { lightPositionView.x(), lightPositionView.y(), lightPositionView.z(), lightPositionView.w() };
-    glUniform4fv(m_uniformLightPosition, 1, lightPos);
+    GLfloat lightPosition[4] = { lightPositionView.x(), lightPositionView.y(), lightPositionView.z(), lightPositionView.w() };
+    GLfloat lightLa[3] = { 0.5f, 0.5f, 0.5f };
+    // GLfloat lightLa[3] = { 0.9f, 0.9f, 0.9f };
+    // GLfloat lightLd[3] = { 1.0f, 1.0f, 1.0f };
+    // GLfloat lightLs[3] = { 1.0f, 1.0f, 1.0f };
+    GLfloat lightLd[3] = { 1.2f, 0.8f, 0.3f }; // 확산광: 밝은 주황빛
+    GLfloat lightLs[3] = { 1.2f, 0.8f, 0.3f }; // 반사광: 밝은 주황빛
 
-    // 4. 기타 Uniform 설정
-    GLfloat kd[3] = { 0.9f, 0.5f, 0.3f }; // Diffuse 반사율
-    GLfloat ld[3] = { 1.0f, 1.0f, 1.0f }; // 조명 강도
-    glUniform3fv(m_uniformKd, 1, kd);
-    glUniform3fv(m_uniformLd, 1, ld);
+    glUniform4fv(glGetUniformLocation(m_program, "Light.Position"), 1, lightPosition);
+    glUniform3fv(glGetUniformLocation(m_program, "Light.La"), 1, lightLa);
+    glUniform3fv(glGetUniformLocation(m_program, "Light.Ld"), 1, lightLd);
+    glUniform3fv(glGetUniformLocation(m_program, "Light.Ls"), 1, lightLs);
+
+    // GLfloat materialKa[3] = { 0.3f, 0.3f, 0.3f };
+    // GLfloat materialKd[3] = { 0.9f, 0.5f, 0.3f };
+    // GLfloat materialKs[3] = { 0.5f, 0.5f, 0.5f };
+    // GLfloat shininess = 32.0f;
+    GLfloat materialKa[3] = { 0.3f, 0.2f, 0.0f }; // 주변광 반사율: 약간 어두운 주황색
+    GLfloat materialKd[3] = { 1.0f, 0.6f, 0.2f }; // 확산 반사율: 밝은 주황색
+    GLfloat materialKs[3] = { 1.0f, 0.7f, 0.3f }; // 스펙큘러 반사율: 주황빛 반사 강조
+    GLfloat shininess = 32.0f; // 하이라이트 크기 유지
+
+
+    glUniform3fv(glGetUniformLocation(m_program, "Material.Ka"), 1, materialKa);
+    glUniform3fv(glGetUniformLocation(m_program, "Material.Kd"), 1, materialKd);
+    glUniform3fv(glGetUniformLocation(m_program, "Material.Ks"), 1, materialKs);
+    glUniform1f(glGetUniformLocation(m_program, "Material.Shininess"), shininess);
 
     glUniformMatrix4fv(m_uniformModelViewMatrix, 1, GL_FALSE, modelViewMatrix.constData());
     glUniformMatrix3fv(m_uniformNormalMatrix, 1, GL_FALSE, normalMatrix.constData());
     glUniformMatrix4fv(m_uniformProjectionMatrix, 1, GL_FALSE, projectionMatrix.constData());
     glUniformMatrix4fv(m_uniformMVP, 1, GL_FALSE, mvpMatrix.constData());
-
-    // 디버깅 출력
-    qDebug() << "Light Position (View Coords):" << lightPositionView;
 
     // 6. 도넛 렌더링
     glBindVertexArray(m_vao);
