@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "cookbook.exe"
+			"path" : "chapter2.exe"
 		},
 		{
-			"path" : "cookbook.pdb"
+			"path" : "chapter2.pdb"
 		}
 	],
 	"backtrace" : 4,
@@ -78,7 +78,7 @@
 			{
 				"command" : 4,
 				"file" : 1,
-				"line" : 88,
+				"line" : 89,
 				"parent" : 0
 			},
 			{
@@ -90,7 +90,7 @@
 			{
 				"command" : 6,
 				"file" : 1,
-				"line" : 66,
+				"line" : 67,
 				"parent" : 0
 			},
 			{
@@ -355,7 +355,7 @@
 			[
 				{
 					"backtrace" : 0,
-					"path" : "C:/Users/SeunghyunWoo/Documents/chapter2/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/cookbook_autogen/include"
+					"path" : "C:/Users/SeunghyunWoo/Documents/chapter2/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/chapter2_autogen/include"
 				},
 				{
 					"backtrace" : 42,
@@ -418,14 +418,14 @@
 	"dependencies" : 
 	[
 		{
-			"id" : "cookbook_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
+			"id" : "chapter2_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
 		},
 		{
 			"backtrace" : 0,
-			"id" : "cookbook_autogen::@6890427a1f51a3e7e1df"
+			"id" : "chapter2_autogen::@6890427a1f51a3e7e1df"
 		}
 	],
-	"id" : "cookbook::@6890427a1f51a3e7e1df",
+	"id" : "chapter2::@6890427a1f51a3e7e1df",
 	"install" : 
 	{
 		"destinations" : 
@@ -544,8 +544,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "cookbook",
-	"nameOnDisk" : "cookbook.exe",
+	"name" : "chapter2",
+	"nameOnDisk" : "chapter2.exe",
 	"paths" : 
 	{
 		"build" : ".",
@@ -570,7 +570,7 @@
 				7,
 				12,
 				15,
-				16
+				17
 			]
 		},
 		{
@@ -592,14 +592,15 @@
 				11,
 				13,
 				14,
-				17
+				16,
+				18
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				18
+				19
 			]
 		}
 	],
@@ -609,7 +610,7 @@
 			"backtrace" : 0,
 			"compileGroupIndex" : 0,
 			"isGenerated" : true,
-			"path" : "build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/cookbook_autogen/mocs_compilation.cpp",
+			"path" : "build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/chapter2_autogen/mocs_compilation.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -690,21 +691,26 @@
 			"sourceGroupIndex" : 1
 		},
 		{
-			"backtrace" : 0,
-			"isGenerated" : true,
-			"path" : "build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/cookbook_autogen/include/ui_widget.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 0,
-			"isGenerated" : true,
-			"path" : "build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/cookbook_autogen/timestamp",
+			"backtrace" : 4,
+			"path" : "vshader_discard.vert",
 			"sourceGroupIndex" : 3
 		},
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
-			"path" : "build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/cookbook_autogen/timestamp.rule",
+			"path" : "build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/chapter2_autogen/include/ui_widget.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/chapter2_autogen/timestamp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/chapter2_autogen/timestamp.rule",
 			"sourceGroupIndex" : 4
 		}
 	],

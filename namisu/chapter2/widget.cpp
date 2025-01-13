@@ -7,7 +7,7 @@
 #include <fstream>
 #include <sstream>
 
-#include <QTimer> // Qt 타이머를 추가
+#include <QTimer> //Qt 타이머 추가
 
 Widget::Widget(QWidget *parent)
     : QOpenGLWidget(parent), shaderProgram(0), VAO(0), VBO(0), rotationAngle(0.0f) {
@@ -17,7 +17,7 @@ Widget::Widget(QWidget *parent)
         if (rotationAngle >= 360.0f) rotationAngle -= 360.0f;
         update();
     });
-    timer->start(16); // 약 60 FPS
+    timer->start(16);
 }
 
 Widget::~Widget() {
@@ -169,30 +169,27 @@ void Widget::initializeGL() {
 
     cout << "GLEW initialized. OpenGL version: " << glGetString(GL_VERSION) << endl;
 
-    glClearColor(0.2f, 0.2f, 0.2f, 1.0f); // 어두운 회색
+    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 
-    shaderProgram = InitShader( "C:/Users/SeunghyunWoo/Documents/chapter2/vshader_flat.vert",
-                                "C:/Users/SeunghyunWoo/Documents/chapter2/fshader_flat.frag");
-
+    shaderProgram = InitShader( "C:/Users/SeunghyunWoo/Documents/chapter2/vshader_twosided.vert",
+                                "C:/Users/SeunghyunWoo/Documents/chapter2/fshader_twosided.frag");
 
     // 유니폼 초기화
     glUseProgram(shaderProgram);
 
-    //setTwoSidedUniform(shaderProgram);
     setLightUniform(shaderProgram);
-    setFlatUniform(shaderProgram);
+    setTwoSidedUniform(shaderProgram);
 
-    auto sphereVertices = generateSphereVertices(1.0f, 15, 15); // 구의 정점 데이터 생성
-    drawSize = sphereVertices.size();
-    std::cout << "Vertices count: " << sphereVertices.size() << std::endl;
-    initializeSphereBuffers(sphereVertices);
+    //setFlatUniform(shaderProgram);
 
-    //initializeCubeBuffers();
-
-    //glCullFace(GL_BACK);     // 기본적으로 뒤쪽 면 제거
+    //auto sphereVertices = generateSphereVertices(1.0f, 15, 15);
+    //drawSize = sphereVertices.size();
+    //std::cout << "Vertices count: " << sphereVertices.size() << std::endl;
+    //initializeSphereBuffers(sphereVertices);
+    initializeCubeBuffers();
+    //glCullFace(GL_BACK);
 
     glUseProgram(0);
-
 }
 
 void Widget::resizeGL(int w, int h) {
@@ -212,10 +209,11 @@ void Widget::paintGL() {
     mat4 projection = perspective(radians(45.0f), aspectRatio, 0.1f, 100.0f);
 
     glUseProgram(shaderProgram);
+
     setUniforms(shaderProgram, model, view, projection);
 
     glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, drawSize / 6);
+    glDrawArrays(GL_TRIANGLES, 0, 30);
     glBindVertexArray(0);
 
     glUseProgram(0);

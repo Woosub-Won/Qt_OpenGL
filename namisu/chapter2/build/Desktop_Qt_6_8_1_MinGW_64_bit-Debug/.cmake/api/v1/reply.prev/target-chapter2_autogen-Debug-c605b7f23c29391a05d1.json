@@ -17,12 +17,12 @@
 	"dependencies" : 
 	[
 		{
-			"id" : "cookbook_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
+			"id" : "chapter2_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
 		}
 	],
-	"id" : "cookbook_autogen::@6890427a1f51a3e7e1df",
+	"id" : "chapter2_autogen::@6890427a1f51a3e7e1df",
 	"isGeneratorProvided" : true,
-	"name" : "cookbook_autogen",
+	"name" : "chapter2_autogen",
 	"paths" : 
 	{
 		"build" : ".",
@@ -51,19 +51,19 @@
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
-			"path" : "build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/CMakeFiles/cookbook_autogen",
+			"path" : "build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/CMakeFiles/chapter2_autogen",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
-			"path" : "build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/CMakeFiles/cookbook_autogen.rule",
+			"path" : "build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/CMakeFiles/chapter2_autogen.rule",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
-			"path" : "build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/cookbook_autogen/timestamp.rule",
+			"path" : "build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/chapter2_autogen/timestamp.rule",
 			"sourceGroupIndex" : 1
 		}
 	],

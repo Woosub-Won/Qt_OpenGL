@@ -7,7 +7,7 @@
 				{
 					"build" : ".",
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-d80fc57f6868a28cd5a5.json",
+					"jsonFile" : "directory-.-Debug-16ca2937fbd7fc96161d.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.16"
@@ -30,7 +30,7 @@
 					[
 						0
 					],
-					"name" : "cookbook",
+					"name" : "chapter2",
 					"targetIndexes" : 
 					[
 						0,
@@ -43,23 +43,23 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "cookbook::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-cookbook-Debug-c9918032086237272cb3.json",
-					"name" : "cookbook",
+					"id" : "chapter2::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-chapter2-Debug-a792bfa9d9b713f64af6.json",
+					"name" : "chapter2",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
-					"id" : "cookbook_autogen::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-cookbook_autogen-Debug-6e9d57471701760c7abf.json",
-					"name" : "cookbook_autogen",
+					"id" : "chapter2_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-chapter2_autogen-Debug-c605b7f23c29391a05d1.json",
+					"name" : "chapter2_autogen",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
-					"id" : "cookbook_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-cookbook_autogen_timestamp_deps-Debug-cb7caa2887db680314f3.json",
-					"name" : "cookbook_autogen_timestamp_deps",
+					"id" : "chapter2_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-chapter2_autogen_timestamp_deps-Debug-b2e8cae1e630cbd0f627.json",
+					"name" : "chapter2_autogen_timestamp_deps",
 					"projectIndex" : 0
 				}
 			]
