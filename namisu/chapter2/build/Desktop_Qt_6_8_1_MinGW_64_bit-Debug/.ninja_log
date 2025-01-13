@@ -1,0 +1,15 @@
+# ninja log v6
+26	2735	7584494166122821	chapter2_autogen/timestamp	53e4044efec72b66
+26	2735	7584494166122821	chapter2_autogen/mocs_compilation.cpp	53e4044efec72b66
+26	2735	7584494166122821	C:/Users/SeunghyunWoo/Documents/chapter2/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/chapter2_autogen/timestamp	53e4044efec72b66
+26	2735	7584494166122821	C:/Users/SeunghyunWoo/Documents/chapter2/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/chapter2_autogen/mocs_compilation.cpp	53e4044efec72b66
+2772	6549	7584494169576872	CMakeFiles/chapter2.dir/chapter2_autogen/mocs_compilation.cpp.obj	225d343679309493
+2787	6567	7584494169726480	CMakeFiles/chapter2.dir/main.cpp.obj	d3b6a31e0911149c
+2801	7240	7584494169866261	CMakeFiles/chapter2.dir/widget.cpp.obj	f632303acd01c048
+7240	9450	7584494214255019	chapter2.exe	dcaa99c34e7bd56e
+71	657	7584494489225933	chapter2_autogen/timestamp	53e4044efec72b66
+71	657	7584494489225933	chapter2_autogen/mocs_compilation.cpp	53e4044efec72b66
+71	657	7584494489225933	C:/Users/SeunghyunWoo/Documents/chapter2/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/chapter2_autogen/timestamp	53e4044efec72b66
+71	657	7584494489225933	C:/Users/SeunghyunWoo/Documents/chapter2/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/chapter2_autogen/mocs_compilation.cpp	53e4044efec72b66
+660	5100	7584494495121051	CMakeFiles/chapter2.dir/widget.cpp.obj	f632303acd01c048
+5101	7322	7584494539524528	chapter2.exe	dcaa99c34e7bd56e

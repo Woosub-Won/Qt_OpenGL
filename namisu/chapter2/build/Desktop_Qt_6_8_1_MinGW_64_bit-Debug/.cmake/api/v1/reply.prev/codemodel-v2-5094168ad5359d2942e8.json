@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-d80fc57f6868a28cd5a5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "cookbook",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "cookbook::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cookbook-Debug-c9918032086237272cb3.json",
+					"name" : "cookbook",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cookbook_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cookbook_autogen-Debug-6e9d57471701760c7abf.json",
+					"name" : "cookbook_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cookbook_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cookbook_autogen_timestamp_deps-Debug-cb7caa2887db680314f3.json",
+					"name" : "cookbook_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/SeunghyunWoo/Documents/chapter2/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug",
+		"source" : "C:/Users/SeunghyunWoo/Documents/chapter2"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}
