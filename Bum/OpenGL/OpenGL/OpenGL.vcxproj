@@ -71,20 +71,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\HateCoding\OpenGL스터디\Private\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\HateCoding\OpenGL스터디\Private\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\HateCoding\OpenGL스터디\Private\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\HateCoding\OpenGL스터디\Private\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\HateCoding\OpenGL스터디\Private\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\HateCoding\OpenGL스터디\Private\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\HateCoding\OpenGL스터디\Private\OpenGL\Libraries\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\HateCoding\OpenGL스터디\Private\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -167,8 +167,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Pyramid.cpp" />
-    <ClCompile Include="Pyramid.h" />
+    <ClCompile Include="FogFactor.h" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MySphere.cpp" />
+    <ClCompile Include="MySphere.h" />
     <ClCompile Include="ShaderClass.cpp" />
     <ClCompile Include="ShaderClass.h" />
     <ClCompile Include="Texture.cpp" />
@@ -178,6 +180,8 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="EBO.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="OpenGL.h" />
     <ClInclude Include="stb.cpp" />
     <ClInclude Include="Texture.h" />
@@ -187,8 +191,6 @@
   <ItemGroup>
     <None Include="default.vert" />
     <None Include="default.frag" />
-    <None Include="defaultPyramid.frag" />
-    <None Include="defaultPyramid.vert" />
     <None Include="light.frag" />
     <None Include="light.vert" />
   </ItemGroup>
