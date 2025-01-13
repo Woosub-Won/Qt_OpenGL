@@ -2,6 +2,10 @@ D:\HateCoding\OpenGL스터디\Private\OpenGL\glad.c;D:\HateCoding\OpenGL스터�
 D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\C2_Light.cpp;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\C2_Light.obj
 D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\Camera.cpp;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\Camera.obj
 D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\EBO.cpp;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\EBO.obj
+<<<<<<< HEAD
+=======
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\FogFactor.h;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\FogFactor.obj
+>>>>>>> origin/bum
 D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\Mesh.cpp;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\Mesh.obj
 D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\MySphere.cpp;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\MySphere.obj
 D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\MySphere.h;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\MySphere.obj

@@ -54,11 +54,17 @@
     <ClCompile Include="Camera.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Pyramid.h">
+    <ClCompile Include="Mesh.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MySphere.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MySphere.h">
       <Filter>헤더 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Pyramid.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="FogFactor.h">
+      <Filter>헤더 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +89,12 @@
     <ClInclude Include="OpenGL.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="default.vert">
@@ -95,12 +107,6 @@
       <Filter>리소스 파일\Shaders</Filter>
     </None>
     <None Include="light.frag">
-      <Filter>리소스 파일\Shaders</Filter>
-    </None>
-    <None Include="defaultPyramid.vert">
-      <Filter>리소스 파일\Shaders</Filter>
-    </None>
-    <None Include="defaultPyramid.frag">
       <Filter>리소스 파일\Shaders</Filter>
     </None>
   </ItemGroup>

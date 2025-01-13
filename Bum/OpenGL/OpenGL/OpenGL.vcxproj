@@ -167,6 +167,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+<<<<<<< HEAD
+=======
+    <ClCompile Include="FogFactor.h" />
+>>>>>>> origin/bum
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MySphere.cpp" />
     <ClCompile Include="MySphere.h" />

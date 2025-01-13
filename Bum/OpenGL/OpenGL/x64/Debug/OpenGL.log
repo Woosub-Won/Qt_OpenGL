@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  glad.c
   C2_Light.cpp
 D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(36,2): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
@@ -84,5 +85,8 @@ D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\VAO.cpp(13,63): warning C424
 x64\Debug\MySphere.obj : warning LNK4042: 개체가 두 번 이상 지정되었습니다. 나머지는 무시됩니다.
 x64\Debug\ShaderClass.obj : warning LNK4042: 개체가 두 번 이상 지정되었습니다. 나머지는 무시됩니다.
   OpenGL.vcxproj -> D:\HateCoding\OpenGL스터디\Private\OpenGL\x64\Debug\OpenGL.exe
+=======
+﻿  OpenGL.vcxproj -> D:\HateCoding\OpenGL스터디\Private\OpenGL\x64\Debug\OpenGL.exe
+>>>>>>> origin/bum
   'pwsh.exe'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
   배치 파일이 아닙니다.
