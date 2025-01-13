@@ -1,73 +1,88 @@
 ﻿  glad.c
   C2_Light.cpp
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\OpenGL.h(36,2): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(36,2): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
   (소스 파일 'C2_Light.cpp'을(를) 컴파일하는 중)
   
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\OpenGL.h(49,7): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(49,7): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
   (소스 파일 'C2_Light.cpp'을(를) 컴파일하는 중)
   
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\OpenGL.h(59,2): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(59,2): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
   (소스 파일 'C2_Light.cpp'을(를) 컴파일하는 중)
   
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\OpenGL.h(64,7): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(64,7): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
   (소스 파일 'C2_Light.cpp'을(를) 컴파일하는 중)
   
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\C2_Light.cpp(74,53): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\C2_Light.cpp(74,40): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\C2_Light.cpp(87,32): warning C4244: '인수': 'const float'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\C2_Light.cpp(87,19): warning C4244: '인수': 'const float'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\C2_Light.cpp(125,29): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\C2_Light.cpp(125,16): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\C2_Light.cpp(121,53): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\C2_Light.cpp(121,40): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\C2_Light.cpp(134,32): warning C4244: '인수': 'const float'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\C2_Light.cpp(134,19): warning C4244: '인수': 'const float'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\C2_Light.cpp(167,29): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\C2_Light.cpp(167,16): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   Camera.cpp
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\OpenGL.h(36,2): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(36,2): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
   (소스 파일 'Camera.cpp'을(를) 컴파일하는 중)
   
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\OpenGL.h(49,7): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(49,7): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
   (소스 파일 'Camera.cpp'을(를) 컴파일하는 중)
   
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\OpenGL.h(59,2): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(59,2): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
   (소스 파일 'Camera.cpp'을(를) 컴파일하는 중)
   
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\OpenGL.h(64,7): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(64,7): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
   (소스 파일 'Camera.cpp'을(를) 컴파일하는 중)
   
   EBO.cpp
-  Pyramid.cpp
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\OpenGL.h(36,2): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
-  (소스 파일 'Pyramid.cpp'을(를) 컴파일하는 중)
+  Mesh.cpp
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(36,2): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
+  (소스 파일 'Mesh.cpp'을(를) 컴파일하는 중)
   
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\OpenGL.h(49,7): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
-  (소스 파일 'Pyramid.cpp'을(를) 컴파일하는 중)
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(49,7): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
+  (소스 파일 'Mesh.cpp'을(를) 컴파일하는 중)
   
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\OpenGL.h(59,2): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
-  (소스 파일 'Pyramid.cpp'을(를) 컴파일하는 중)
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(59,2): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
+  (소스 파일 'Mesh.cpp'을(를) 컴파일하는 중)
   
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\OpenGL.h(64,7): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
-  (소스 파일 'Pyramid.cpp'을(를) 컴파일하는 중)
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(64,7): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
+  (소스 파일 'Mesh.cpp'을(를) 컴파일하는 중)
   
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\Pyramid.cpp(73,43): warning C4267: '인수': 'size_t'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Pyramid.h
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\OpenGL.h(36,2): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
-  (소스 파일 'Pyramid.h'을(를) 컴파일하는 중)
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\Mesh.cpp(61,43): warning C4267: '인수': 'size_t'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  MySphere.cpp
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(36,2): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
+  (소스 파일 'MySphere.cpp'을(를) 컴파일하는 중)
   
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\OpenGL.h(49,7): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
-  (소스 파일 'Pyramid.h'을(를) 컴파일하는 중)
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(49,7): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
+  (소스 파일 'MySphere.cpp'을(를) 컴파일하는 중)
   
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\OpenGL.h(59,2): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
-  (소스 파일 'Pyramid.h'을(를) 컴파일하는 중)
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(59,2): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
+  (소스 파일 'MySphere.cpp'을(를) 컴파일하는 중)
   
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\OpenGL.h(64,7): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
-  (소스 파일 'Pyramid.h'을(를) 컴파일하는 중)
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(64,7): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
+  (소스 파일 'MySphere.cpp'을(를) 컴파일하는 중)
+  
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\MySphere.cpp(20,14): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\MySphere.cpp(21,14): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  MySphere.h
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(36,2): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
+  (소스 파일 'MySphere.h'을(를) 컴파일하는 중)
+  
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(49,7): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
+  (소스 파일 'MySphere.h'을(를) 컴파일하는 중)
+  
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(59,2): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
+  (소스 파일 'MySphere.h'을(를) 컴파일하는 중)
+  
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\OpenGL.h(64,7): warning C4984: 'if constexpr'은 C++17 언어 확장입니다.
+  (소스 파일 'MySphere.h'을(를) 컴파일하는 중)
   
   ShaderClass.cpp
   ShaderClass.h
   Texture.cpp
   VAO.cpp
-D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\OpenGL\VAO.cpp(13,63): warning C4244: '인수': 'GLsizeiptr'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\VAO.cpp(13,63): warning C4244: '인수': 'GLsizeiptr'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   VBO.cpp
   코드를 생성하고 있습니다...
-x64\Debug\Pyramid.obj : warning LNK4042: 개체가 두 번 이상 지정되었습니다. 나머지는 무시됩니다.
+x64\Debug\MySphere.obj : warning LNK4042: 개체가 두 번 이상 지정되었습니다. 나머지는 무시됩니다.
 x64\Debug\ShaderClass.obj : warning LNK4042: 개체가 두 번 이상 지정되었습니다. 나머지는 무시됩니다.
-  OpenGL.vcxproj -> D:\HateCoding\OpenGL스터디\OpenGL\Bum\OpenGL\x64\Debug\OpenGL.exe
+  OpenGL.vcxproj -> D:\HateCoding\OpenGL스터디\Private\OpenGL\x64\Debug\OpenGL.exe
   'pwsh.exe'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
   배치 파일이 아닙니다.

@@ -1,27 +1,36 @@
 #version 400 core
  
+in vec3 curPos;
+in vec3 normal;
 in vec3 color;
 in vec2 texCord;
-in vec3 normal;
-in vec3 curPos;
 
 out vec4 FragColor;
 
 uniform sampler2D tex0;
 uniform sampler2D tex1;
 
-uniform vec3 lightPos;
-uniform vec4 lightColor;
+struct LightInfo
+{
+	vec3 lightPos;
+	float padding;
+	vec4 lightColor;
+};
 
-uniform vec3 cameraPos;
+uniform LightInfo lights[2];
+   
+uniform vec3 camPos;
 
 vec4 pointLight()
 {	
+	vec4 Color = vec4( 0,0,0,0);
+	for(int i = 0; i < 2; i++)
+	{
 	//ambient
 	float ambient = 0.2f;
 	
 	//diffuse
-	vec3 lightVec = lightPos - curPos;
+	vec3 lightVec = lights[i].lightPos - curPos;
 	float dist = length(lightVec);
 	float a = 3.0f;
 	float b = 0.7f;
@@ -34,20 +43,22 @@ vec4 pointLight()
 
 	//specular
 	float specularLight = 0.5f;
-	vec3 viewDir = normalize(cameraPos - curPos);
+	vec3 viewDir = normalize(camPos - curPos);
 	vec3 reflectDir = reflect(-lightDir, n_normal);
 
 	float specularPow = pow(max(dot(viewDir, reflectDir), 0.0f), 16);
 	float specular = specularLight * specularPow;
 
 	 
-	//return texture(tex0, texCord) * lightColor * (diffuse + ambient + specular);
-	return texture(tex0, texCord) * (  ambient + diffuse *inten + specular * inten) * lightColor;
+	 Color += texture(tex0, texCord) * (  ambient + diffuse *inten + specular * inten) * lights[i].lightColor;
+	}
+	return Color;
 }
-
 vec4 directLight()
 {
-
+vec4 Color = vec4(0,0,0,0);
+	for(int i= 0; i <2 ;i++)
+	{
 	//ambient
 	float ambient = 0.2f;
 
@@ -58,46 +69,52 @@ vec4 directLight()
 	
 	//specular
 	float specularLight = 0.5f;
-	vec3 viewDir = normalize(cameraPos - curPos);
+	vec3 viewDir = normalize(camPos - curPos);
 	vec3 reflectDir = reflect(-lightDir, n_normal);
 	
 	float specularPow = pow(max(dot(viewDir, reflectDir), 0.0f), 16);
 	float specular = specularLight * specularPow;
 
 	  
-	return texture(tex0, texCord) * (  ambient + diffuse + specular) * lightColor;
-}
+	Color += texture(tex0, texCord) * (  ambient + diffuse + specular) * lights[i].lightColor;
+	}
 
+	return Color;
+}
 vec4 spotLight() 
 {
+	vec4 Color = vec4(0.0f, 0.0f, 0.0f, 0.0f);
+	
+	for(int i = 0; i < 2; i++)
+	{	
 	//ambient
 	float ambient = 0.2f;
 	
 	//diffuse 
+	float outerCone = 0.90f;
+	float innerCone = 0.95f;
 
 	vec3 n_normal = normalize(normal);
 
-	vec3 lightDir = normalize(lightPos - curPos);
+	vec3 lightDir = normalize(lights[i].lightPos - curPos);
 	float diffuse = max( dot( lightDir, n_normal) , 0.0f);
 
 	//specular
 	float specularLight = 0.5f;
-	vec3 viewDir = normalize(cameraPos - curPos);
+	vec3 viewDir = normalize(camPos - curPos);
 	vec3 reflectDir = reflect(-lightDir, n_normal);
 
 	float specularPow = pow(max(dot(viewDir, reflectDir), 0.0f), 16);
 	float specular = specularLight * specularPow;
-	
-	float outerCone = 0.90f; //cos value
-	float innerCone = 0.95f; //cos value
+
 	float angle = dot(vec3(0.0f, -1.0f, 0.0f), -lightDir);
-	float epsilon = innerCone - outerCone;
+	float inten = clamp((angle - outerCone) / (innerCone - outerCone), 0.0f, 1.0f);
 
-	float inten = clamp((angle - outerCone) / epsilon, 0.0f, 1.0f);
-
-	//return texture(tex0, texCord) * lightColor * (diffuse + ambient + specular);
-	return texture(tex0, texCord) * (  ambient + diffuse *inten + specular * inten) * lightColor;
- 
+	//return texture(tex0, texCord) * lights[i].lightColor * (diffuse + ambient + specular);
+	//return texture(tex0, texCord) * (  ambient + diffuse *inten + specular * inten) * lights[i].lightColor;
+	Color +=  (ambient + diffuse *inten + specular * inten) * lights[i].lightColor;
+ }
+ return Color;
 }
 void main()
 { 
