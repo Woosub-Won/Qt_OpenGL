@@ -14,6 +14,11 @@ MyOpenGLCore::MyOpenGLCore(const std::vector<GLfloat> &vertices,
     m_normals(normals)
  {}
 
+MyOpenGLCore::MyOpenGLCore(const QString &objFilePath) {
+    if (!parseObjFile(objFilePath)) {
+        qDebug() << "Failed to load OBJ file in constructor.";
+    }
+}
 
 MyOpenGLCore::~MyOpenGLCore()
 {
@@ -31,6 +36,13 @@ void MyOpenGLCore::initialize()
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);      // 뒷면 제거
     glFrontFace(GL_CCW);      // 반시계 방향을 앞면으로 설정 (기본값)
+
+    // 깊이 테스트 활성화
+    glEnable(GL_DEPTH_TEST);
+    // 깊이 비교 함수 설정 (기본값은 GL_LESS)
+    glDepthFunc(GL_LESS);
+    // 기타 초기화 작업
+    glClearColor(0.1f, 0.1f, 0.1f, 1.0f); // 배경 색상 설정
 
     // VAO 생성 및 바인딩
     glGenVertexArrays(1, &m_vao);
@@ -158,6 +170,8 @@ void MyOpenGLCore::render()
     viewMatrix.setToIdentity();
     viewMatrix.translate(0.0f, 0.0f, -2.0f); // “카메라가 z=2쪽에 위치”라고 생각
     viewMatrix.rotate(30, QVector3D(0, 1, 0)); // 카메라를 Y축으로 30도 회전
+    updateCameraView(viewMatrix); // 카메라 상태를 반영
+
 
     // 3) 최종 모델뷰
     QMatrix4x4 modelViewMatrix = viewMatrix * modelMatrix;
@@ -173,37 +187,33 @@ void MyOpenGLCore::render()
     QMatrix4x4 mvpMatrix = projectionMatrix * modelViewMatrix;
 
     // 2. 조명 위치를 뷰 좌표계로 변환
-    QVector4D lightPositionWorld(1.0f, 1.0f, 1.0f, 1.0f); // 월드 좌표계 조명 위치
+    QVector4D lightPositionWorld(3.0f, 3.0f, 3.0f, 1.0f); // 월드 좌표계 조명 위치
     QVector4D lightPositionView = viewMatrix * lightPositionWorld; // 모델과는 영향 없음
 
     // 3. 조명 관련 Uniform 전달
     GLfloat lightPosition[4] = { lightPositionView.x(), lightPositionView.y(), lightPositionView.z(), lightPositionView.w() };
-    GLfloat lightLa[3] = { 0.5f, 0.5f, 0.5f };
-    // GLfloat lightLa[3] = { 0.9f, 0.9f, 0.9f };
-    // GLfloat lightLd[3] = { 1.0f, 1.0f, 1.0f };
-    // GLfloat lightLs[3] = { 1.0f, 1.0f, 1.0f };
-    GLfloat lightLd[3] = { 1.2f, 0.8f, 0.3f }; // 확산광: 밝은 주황빛
-    GLfloat lightLs[3] = { 1.2f, 0.8f, 0.3f }; // 반사광: 밝은 주황빛
+    GLfloat lightIntensity[3] = { 1.2f, 0.8f, 0.3f }; // 반사광: 밝은 주황빛
 
-    glUniform4fv(glGetUniformLocation(m_program, "Light.Position"), 1, lightPosition);
-    glUniform3fv(glGetUniformLocation(m_program, "Light.La"), 1, lightLa);
-    glUniform3fv(glGetUniformLocation(m_program, "Light.Ld"), 1, lightLd);
-    glUniform3fv(glGetUniformLocation(m_program, "Light.Ls"), 1, lightLs);
+    glUniform4fv(glGetUniformLocation(m_program, "LightPosition"), 1, lightPosition);
+    glUniform3fv(glGetUniformLocation(m_program, "LightIntensity"), 1, lightIntensity);
 
-    // GLfloat materialKa[3] = { 0.3f, 0.3f, 0.3f };
-    // GLfloat materialKd[3] = { 0.9f, 0.5f, 0.3f };
-    // GLfloat materialKs[3] = { 0.5f, 0.5f, 0.5f };
-    // GLfloat shininess = 32.0f;
-    GLfloat materialKa[3] = { 0.3f, 0.2f, 0.0f }; // 주변광 반사율: 약간 어두운 주황색
-    GLfloat materialKd[3] = { 1.0f, 0.6f, 0.2f }; // 확산 반사율: 밝은 주황색
-    GLfloat materialKs[3] = { 1.0f, 0.7f, 0.3f }; // 스펙큘러 반사율: 주황빛 반사 강조
+    GLfloat ka[3] = { 0.3f, 0.2f, 0.0f }; // 주변광 반사율: 약간 어두운 주황색
+    GLfloat kd[3] = { 1.0f, 0.6f, 0.2f }; // 확산 반사율: 밝은 주황색
+    GLfloat ks[3] = { 1.0f, 0.7f, 0.3f }; // 스펙큘러 반사율: 주황빛 반사 강조
     GLfloat shininess = 32.0f; // 하이라이트 크기 유지
 
+    glUniform3fv(glGetUniformLocation(m_program, "Ka"), 1, ka);
+    glUniform3fv(glGetUniformLocation(m_program, "Kd"), 1, kd);
+    glUniform3fv(glGetUniformLocation(m_program, "Ks"), 1, ks);
+    glUniform1f(glGetUniformLocation(m_program, "Shininess"), shininess);
 
-    glUniform3fv(glGetUniformLocation(m_program, "Material.Ka"), 1, materialKa);
-    glUniform3fv(glGetUniformLocation(m_program, "Material.Kd"), 1, materialKd);
-    glUniform3fv(glGetUniformLocation(m_program, "Material.Ks"), 1, materialKs);
-    glUniform1f(glGetUniformLocation(m_program, "Material.Shininess"), shininess);
+    GLfloat fogMinDist = 3.0f;
+    GLfloat fogMaxDist = 10.0f;
+    GLfloat fogColor[3] = { 0.1f, 0.1f, 0.1f }; // 스펙큘러 반사율: 주황빛 반사 강조
+
+    glUniform1f(glGetUniformLocation(m_program, "FogMinDist"), fogMinDist);
+    glUniform1f(glGetUniformLocation(m_program, "FogMaxDist"), fogMaxDist);
+    glUniform3fv(glGetUniformLocation(m_program, "FogColor"), 1, fogColor);
 
     glUniformMatrix4fv(m_uniformModelViewMatrix, 1, GL_FALSE, modelViewMatrix.constData());
     glUniformMatrix3fv(m_uniformNormalMatrix, 1, GL_FALSE, normalMatrix.constData());
@@ -295,3 +305,206 @@ void MyOpenGLCore::checkDefaults() {
         std::cout << "[INFO] Texture coordinates are custom-defined." << std::endl;
     }
 }
+
+bool MyOpenGLCore::parseObjFile(const QString &filePath) {
+    QFile file(filePath);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug() << "Failed to open OBJ file:" << filePath;
+        return false;
+    }
+
+    QTextStream in(&file);
+
+    // 임시 저장소
+    std::vector<QVector3D> tempVertices;
+    std::vector<QVector3D> tempNormals;
+    std::vector<QVector2D> tempTexCoords;
+    std::vector<GLuint> vertexIndices, normalIndices, texCoordIndices;
+
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        if (line.startsWith("#") || line.trimmed().isEmpty()) {
+            continue; // 주석 또는 빈 줄 무시
+        }
+
+        QTextStream lineStream(&line);
+        QString prefix;
+        lineStream >> prefix;
+
+        if (prefix == "v") {
+            // 정점
+            float x, y, z;
+            lineStream >> x >> y >> z;
+            tempVertices.emplace_back(x, y, z);
+        } else if (prefix == "vn") {
+            // 법선
+            float nx, ny, nz;
+            lineStream >> nx >> ny >> nz;
+            tempNormals.emplace_back(nx, ny, nz);
+        } else if (prefix == "vt") {
+            // 텍스처 좌표
+            float u, v;
+            lineStream >> u >> v;
+            tempTexCoords.emplace_back(u, v);
+        } else if (prefix == "f") {
+            // 면
+            QString face;
+            for (int i = 0; i < 3; ++i) {
+                lineStream >> face;
+                QStringList indices = face.split("/");
+                if (indices.size() >= 1) vertexIndices.push_back(indices[0].toUInt() - 1);
+                if (indices.size() >= 2 && !indices[1].isEmpty()) texCoordIndices.push_back(indices[1].toUInt() - 1);
+                if (indices.size() == 3 && !indices[2].isEmpty()) normalIndices.push_back(indices[2].toUInt() - 1);
+            }
+        }
+    }
+
+    // 정점 데이터 및 인덱스 변환
+    m_vertices.clear();
+    m_normals.clear();
+    m_texCoords.clear();
+    m_indices.clear();
+
+    for (size_t i = 0; i < vertexIndices.size(); ++i) {
+        // 정점
+        const QVector3D &v = tempVertices[vertexIndices[i]];
+        m_vertices.push_back(v.x());
+        m_vertices.push_back(v.y());
+        m_vertices.push_back(v.z());
+
+        // 텍스처 좌표
+        if (!texCoordIndices.empty()) {
+            const QVector2D &t = tempTexCoords[texCoordIndices[i]];
+            m_texCoords.push_back(t.x());
+            m_texCoords.push_back(t.y());
+        }
+
+        // 법선
+        if (!normalIndices.empty()) {
+            const QVector3D &n = tempNormals[normalIndices[i]];
+            m_normals.push_back(n.x());
+            m_normals.push_back(n.y());
+            m_normals.push_back(n.z());
+        }
+
+        // 인덱스
+        m_indices.push_back(static_cast<GLuint>(i));
+    }
+
+    if (m_normals.empty()) {
+        qDebug() << "Normals not found in OBJ file. Generating normals...";
+        generateNormals(m_vertices, m_indices, m_normals);
+    }
+
+    qDebug() << "OBJ file loaded successfully!";
+    qDebug() << "Vertices:" << m_vertices.size() / 3;
+    qDebug() << "Normals:" << m_normals.size() / 3;
+    qDebug() << "Texture Coords:" << m_texCoords.size() / 2;
+    qDebug() << "Indices:" << m_indices.size();
+
+    return true;
+}
+
+// 법선 생성 함수
+void MyOpenGLCore::generateNormals(const std::vector<GLfloat> &vertices,
+                     const std::vector<GLuint> &indices,
+                     std::vector<GLfloat> &normals) {
+    normals.clear();
+    normals.resize(vertices.size(), 0.0f); // 정점 개수만큼 초기화 (x, y, z)
+
+    // 각 면의 법선 계산
+    for (size_t i = 0; i < indices.size(); i += 3) {
+        GLuint idx0 = indices[i];
+        GLuint idx1 = indices[i + 1];
+        GLuint idx2 = indices[i + 2];
+
+        QVector3D v0(vertices[idx0 * 3], vertices[idx0 * 3 + 1], vertices[idx0 * 3 + 2]);
+        QVector3D v1(vertices[idx1 * 3], vertices[idx1 * 3 + 1], vertices[idx1 * 3 + 2]);
+        QVector3D v2(vertices[idx2 * 3], vertices[idx2 * 3 + 1], vertices[idx2 * 3 + 2]);
+
+        QVector3D edge1 = v1 - v0;
+        QVector3D edge2 = v2 - v0;
+        QVector3D faceNormal = QVector3D::crossProduct(edge1, edge2).normalized();
+
+        // 각 정점에 면의 법선 추가
+        normals[idx0 * 3]     += faceNormal.x();
+        normals[idx0 * 3 + 1] += faceNormal.y();
+        normals[idx0 * 3 + 2] += faceNormal.z();
+
+        normals[idx1 * 3]     += faceNormal.x();
+        normals[idx1 * 3 + 1] += faceNormal.y();
+        normals[idx1 * 3 + 2] += faceNormal.z();
+
+        normals[idx2 * 3]     += faceNormal.x();
+        normals[idx2 * 3 + 1] += faceNormal.y();
+        normals[idx2 * 3 + 2] += faceNormal.z();
+    }
+
+    // 정점 법선 정규화
+    for (size_t i = 0; i < normals.size(); i += 3) {
+        QVector3D normal(normals[i], normals[i + 1], normals[i + 2]);
+        normal.normalize();
+        normals[i]     = normal.x();
+        normals[i + 1] = normal.y();
+        normals[i + 2] = normal.z();
+    }
+}
+
+void MyOpenGLCore::updateCameraView(QMatrix4x4 &viewMatrix)
+{
+    viewMatrix.translate(-m_cameraPosition); // 카메라 위치 적용
+    viewMatrix.rotate(m_cameraRotation);    // 카메라 회전 적용
+}
+
+void MyOpenGLCore::handleKeyPressEvent(QKeyEvent *event)
+{
+    QVector3D forward = m_cameraRotation.rotatedVector(QVector3D(0.0f, 0.0f, -1.0f)); // 전방
+    QVector3D right = m_cameraRotation.rotatedVector(QVector3D(1.0f, 0.0f, 0.0f));    // 오른쪽
+    QVector3D up = QVector3D(0.0f, 1.0f, 0.0f);                                       // 상방 (고정)
+
+    if (event->key() == Qt::Key_W) {
+        m_cameraPosition += forward * m_moveSpeed; // 현재 방향 기준 앞으로 이동
+    } else if (event->key() == Qt::Key_S) {
+        m_cameraPosition -= forward * m_moveSpeed; // 현재 방향 기준 뒤로 이동
+    } else if (event->key() == Qt::Key_A) {
+        m_cameraPosition -= right * m_moveSpeed;   // 현재 방향 기준 왼쪽 이동
+    } else if (event->key() == Qt::Key_D) {
+        m_cameraPosition += right * m_moveSpeed;  // 현재 방향 기준 오른쪽 이동
+    }
+}
+
+void MyOpenGLCore::handleMousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton) {
+        m_isMousePressed = true;               // 마우스 클릭 상태 활성화
+        m_lastMousePosition = event->pos();   // 마우스 클릭 위치 저장
+    }
+}
+
+void MyOpenGLCore::handleMouseReleaseEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton) {
+        m_isMousePressed = false; // 마우스 클릭 상태 비활성화
+    }
+}
+
+void MyOpenGLCore::handleMouseMoveEvent(QMouseEvent *event)
+{
+    if (!m_isMousePressed) {
+        return; // 마우스를 클릭하고 있지 않으면 회전하지 않음
+    }
+
+    QPoint delta = event->pos() - m_lastMousePosition; // 마우스 이동 거리 계산
+    m_lastMousePosition = event->pos();               // 현재 마우스 위치 저장
+
+    // 마우스 이동에 따른 회전 각도 계산
+    float yaw = delta.x() * m_rotationSpeed;   // 좌우 이동은 yaw
+    float pitch = -delta.y() * m_rotationSpeed; // 상하 이동은 pitch (음수로 뒤집음)
+
+    // 쿼터니언을 사용한 회전 적용
+    QQuaternion yawRotation = QQuaternion::fromAxisAndAngle(0.0f, 1.0f, 0.0f, yaw);  // Y축 회전
+    QQuaternion pitchRotation = QQuaternion::fromAxisAndAngle(1.0f, 0.0f, 0.0f, pitch); // X축 회전
+    m_cameraRotation = yawRotation * m_cameraRotation * pitchRotation; // 누적 회전
+}
+
+
