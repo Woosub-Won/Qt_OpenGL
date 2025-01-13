@@ -23,6 +23,11 @@ qt_add_executable(QtOpenGL_Jongmin
     ch2_3implementingpervertex.cpp ch2_3implementingpervertex.h
     Shaders/fragShader2_3.frag
     Shaders/vertShader2_3.vert
+    ch2_2_implementingdiffuse.cpp ch2_2_implementingdiffuse.h
+    ch3_7_creatingacartoonshading.h ch3_7_creatingacartoonshading.cpp
+    ch3_7_creatingacartoonshading.cpp ch3_7_creatingacartoonshading.h
+    Shaders/vertShader3_7.vert
+    Shaders/fragShader3_7.frag
 )
 
 target_link_libraries(QtOpenGL_Jongmin

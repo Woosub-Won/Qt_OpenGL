@@ -6,7 +6,7 @@
 #include "ch1_9_sendingdatatoashader.h"
 #include "ch1_10_usinguniformblocks.h"
 #include "ch2_3implementingpervertex.h"
-
+#include "ch3_7_creatingacartoonshading.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -21,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
     //ch1_9_SendingDataToAShader* ch1_9Widget = new ch1_9_SendingDataToAShader(this);
     //ch1_10_UsingUniformBlocks* ch1_10Widget = new ch1_10_UsingUniformBlocks(this);
     ch2_3ImplementingPerVertex* ch2_3Widget = new ch2_3ImplementingPerVertex(this);
+    ch3_7_CreatingACartoonShading* ch3_7Widget = new ch3_7_CreatingACartoonShading(this);
+    ui->verticalLayout_2->addWidget(ch3_7Widget);
     ui->verticalLayout->addWidget(ch2_3Widget);
 }
 

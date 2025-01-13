@@ -58,14 +58,15 @@ void ch2_3ImplementingPerVertex::initializeGL()
     glUseProgram(programHandle); // 셰이더 활성화
 
     // 유니폼 변수 설정
-    QVector4D lightPosition(5.0f, 5.0f, -4.0f, 1.0f); // 광원 위치
+    QVector4D lightPosition(20.0f, 10.0f, -4.0f, 1.0f);
+    //QVector4D lightPosition(5.0f, 5.0f, -4.0f, 1.0f); // 광원 위치
     QVector3D kd(0.5f, 0.5f, 0.5f);                 // 디퓨즈 반사 계수 (빨간색)
     QVector3D ld(0.5f, 0.5f, 0.5f);                 // 광원의 강도 (흰색)
 
     QMatrix4x4 modelViewMatrix;
-    modelViewMatrix.translate(0.0f, 0.0f, -5.0f); // 카메라 위치 설정
-    modelViewMatrix.rotate(-35.0f, 1.0f, 0.0f, 0.0f); // x축 기준 -35도 회전
-    modelViewMatrix.rotate(30.0f, 0.0f, 1.0f, 0.0f);  // y축 기준 30도 회전
+    modelViewMatrix.translate(0.0f, -1.0f, -7.0f); // 카메라 위치 설정
+    modelViewMatrix.rotate(-60.0f, 1.0f, 0.0f, 0.0f); // x축 기준 -35도 회전
+    modelViewMatrix.rotate(0.0f, 0.0f, 1.0f, 0.0f);  // y축 기준 30도 회전
 
     QMatrix4x4 projectionMatrix;
     projectionMatrix.perspective(45.0f, float(width()) / height(), 0.1f, 100.0f);

@@ -339,9 +339,21 @@
 			null
 		],
 		[
+			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch2_2_implementingdiffuse.h",
+			"MU",
+			"EWIEGA46WW/moc_ch2_2_implementingdiffuse.cpp",
+			null
+		],
+		[
 			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch2_3implementingpervertex.h",
 			"MU",
 			"EWIEGA46WW/moc_ch2_3implementingpervertex.cpp",
+			null
+		],
+		[
+			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch3_7_creatingacartoonshading.h",
+			"MU",
+			"EWIEGA46WW/moc_ch3_7_creatingacartoonshading.cpp",
 			null
 		],
 		[
@@ -446,7 +458,17 @@
 			null
 		],
 		[
+			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch2_2_implementingdiffuse.cpp",
+			"MU",
+			null
+		],
+		[
 			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch2_3implementingpervertex.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch3_7_creatingacartoonshading.cpp",
 			"MU",
 			null
 		],
