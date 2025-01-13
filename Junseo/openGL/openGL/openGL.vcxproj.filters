@@ -15,8 +15,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="test.cpp">
+    <ClCompile Include="DLS.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\basic.frag">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="shaders\basic.vert">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="shaders\DLS.vert" />
+    <None Include="shaders\DLS.frag" />
   </ItemGroup>
 </Project>
