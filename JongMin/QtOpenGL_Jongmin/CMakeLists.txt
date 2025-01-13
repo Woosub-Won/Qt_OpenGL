@@ -20,6 +20,9 @@ qt_add_executable(QtOpenGL_Jongmin
     Shaders/fragShader.frag
     ch1_9_sendingdatatoashader.h ch1_9_sendingdatatoashader.cpp
     ch1_10_usinguniformblocks.h ch1_10_usinguniformblocks.cpp
+    ch2_3implementingpervertex.cpp ch2_3implementingpervertex.h
+    Shaders/fragShader2_3.frag
+    Shaders/vertShader2_3.vert
 )
 
 target_link_libraries(QtOpenGL_Jongmin

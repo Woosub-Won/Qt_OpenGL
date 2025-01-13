@@ -339,6 +339,12 @@
 			null
 		],
 		[
+			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch2_3implementingpervertex.h",
+			"MU",
+			"EWIEGA46WW/moc_ch2_3implementingpervertex.cpp",
+			null
+		],
+		[
 			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/mainwindow.h",
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp",
@@ -436,6 +442,11 @@
 		],
 		[
 			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch1_9_sendingdatatoashader.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch2_3implementingpervertex.cpp",
 			"MU",
 			null
 		],

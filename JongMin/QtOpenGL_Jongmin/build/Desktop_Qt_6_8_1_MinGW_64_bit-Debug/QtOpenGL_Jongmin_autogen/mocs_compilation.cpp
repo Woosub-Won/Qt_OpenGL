@@ -3,4 +3,5 @@
 #include "EWIEGA46WW/moc_ch1_7_sendingdatatoshader.cpp"
 #include "EWIEGA46WW/moc_ch1_8_gettingalist.cpp"
 #include "EWIEGA46WW/moc_ch1_9_sendingdatatoashader.cpp"
+#include "EWIEGA46WW/moc_ch2_3implementingpervertex.cpp"
 #include "EWIEGA46WW/moc_mainwindow.cpp"

@@ -5,6 +5,8 @@
 #include "ch1_8_gettingalist.h"
 #include "ch1_9_sendingdatatoashader.h"
 #include "ch1_10_usinguniformblocks.h"
+#include "ch2_3implementingpervertex.h"
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,8 +19,9 @@ MainWindow::MainWindow(QWidget *parent)
     //Ch1_7_SendingDataToShader* ch1_7Widget = new Ch1_7_SendingDataToShader(this);
     //ch1_8_GettingAList* ch1_8Widget = new ch1_8_GettingAList(this);
     //ch1_9_SendingDataToAShader* ch1_9Widget = new ch1_9_SendingDataToAShader(this);
-    ch1_10_UsingUniformBlocks* ch1_10Widget = new ch1_10_UsingUniformBlocks(this);
-    ui->verticalLayout->addWidget(ch1_10Widget);
+    //ch1_10_UsingUniformBlocks* ch1_10Widget = new ch1_10_UsingUniformBlocks(this);
+    ch2_3ImplementingPerVertex* ch2_3Widget = new ch2_3ImplementingPerVertex(this);
+    ui->verticalLayout->addWidget(ch2_3Widget);
 }
 
 MainWindow::~MainWindow()
