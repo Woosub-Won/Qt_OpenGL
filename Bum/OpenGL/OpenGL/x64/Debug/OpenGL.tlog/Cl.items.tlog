@@ -1,8 +1,15 @@
 D:\HateCoding\OpenGL스터디\Private\OpenGL\glad.c;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\glad.obj
-D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\C2_Light.cpp;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\C2_Light.obj
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\mainGL.cpp;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\mainGL.obj
 D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\Camera.cpp;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\Camera.obj
 D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\EBO.cpp;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\EBO.obj
 D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\FogFactor.h;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\FogFactor.obj
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\imgui\imgui.cpp;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\imgui.obj
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\imgui\imgui_demo.cpp;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\imgui_demo.obj
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\imgui\imgui_draw.cpp;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\imgui_draw.obj
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\imgui\imgui_impl_glfw.cpp;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\imgui_impl_glfw.obj
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\imgui\imgui_impl_opengl3.cpp;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\imgui_impl_opengl3.obj
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\imgui\imgui_tables.cpp;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\imgui_tables.obj
+D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\imgui\imgui_widgets.cpp;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\imgui_widgets.obj
 D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\Mesh.cpp;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\Mesh.obj
 D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\MySphere.cpp;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\MySphere.obj
 D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\MySphere.h;D:\HateCoding\OpenGL스터디\Private\OpenGL\OpenGL\x64\Debug\MySphere.obj

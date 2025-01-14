@@ -19,6 +19,9 @@ protected:
 
 	int width;
 	int height;
+	float lastX;
+	float lastY;
+
 	bool firstClick = true;
 
 

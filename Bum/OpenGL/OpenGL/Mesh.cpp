@@ -37,6 +37,7 @@ void Mesh::Draw(Shader& shader, Camera& camera)
 	// Keep track of how many of each type of textures we have
 	unsigned int numDiffuse = 0;
 	unsigned int numSpecular = 0;
+	unsigned int numTex = 0;
 
 	for (unsigned int i = 0; i < textures.size(); i++)
 	{
@@ -49,6 +50,11 @@ void Mesh::Draw(Shader& shader, Camera& camera)
 		else if (type == "specular")
 		{
 			num = std::to_string(numSpecular++);
+		}
+		else if (type == "tex")
+		{
+			num = std::to_string(numTex++);
+
 		}
 		textures[i].texUnit(shader, (type + num).c_str(), i);
 		textures[i].Bind();

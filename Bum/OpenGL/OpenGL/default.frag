@@ -12,6 +12,9 @@ out vec4 BackColor;
 uniform sampler2D tex0;
 uniform sampler2D tex1;
 
+//imgui
+uniform bool bFogEffect;
+
 struct LightInfo
 {
 	vec3 lightPos;
@@ -61,36 +64,38 @@ vec4 pointLight()
 	float specularPow = pow(max(dot(viewDir, reflectDir), 0.0f), 16);
 	float specular = specularLight * specularPow;
 
+	vec4 boxColor = texture(tex0, texCord);
+	vec4 frogColor = texture(tex1, texCord);
+	vec4 texColor = mix(boxColor, frogColor, 0.5);
 	 
-	 Color += texture(tex0, texCord) * (  ambient + diffuse *inten + specular * inten) * lights[i].lightColor;
+	 Color += texColor* (  ambient + diffuse *inten + specular * inten) * lights[i].lightColor;
 	}
 	return Color;
 }
 vec4 directLight()
 {
 	vec4 Color = vec4(0,0,0,0);
-	for(int i= 0; i < 2 ;i++)
+
 	{
 		//ambient
-		float ambient = 0.2f;
+		float ambient = 0.1f;
 
 		//diffuse
 		vec3 n_normal = normalize(normal);
 		
 		vec3 lightDir = vec3(0,0,0);
 
-		if( i == 0 )
-			lightDir = normalize(vec3(0.0f, 1.0f, 0.0f));
-		if( i == 1 )
-			lightDir = normalize(vec3(0.0f, -1.0f, 0.0f));
+		lightDir = normalize(vec3(0.0f, -1.0f, 0.0f));
 		 
 		float diffuse = 0.0f;
 		
-		if(gl_FrontFacing)
-			diffuse = max( dot( lightDir, n_normal) , 0.0f);
-		else
-			diffuse = max( dot( lightDir, -n_normal) , 0.0f);
+		//if(gl_FrontFacing)
+		//	diffuse = max( dot( lightDir, n_normal) , 0.0f);
+		//else
+		//	diffuse = max( dot( lightDir, -n_normal) , 0.0f);
 		
+		diffuse = max(dot(lightDir, -n_normal), 0.0f);
+
 		//specular
 		float specularLight = 0.5f;
 		vec3 viewDir = normalize(camPos - curPos);
@@ -99,8 +104,10 @@ vec4 directLight()
 		float specularPow = pow(max(dot(viewDir, reflectDir), 0.0f), 16);
 		float specular = specularLight * specularPow;
 
+		vec4 lightColor = vec4(1,1,1,1);
 		  
-		Color += texture(tex0, texCord) * (  ambient + diffuse + specular) * lights[i].lightColor;
+		//Color += texture(tex0, texCord) * (  ambient + diffuse + specular) * lights[i].lightColor;
+		Color += (ambient + diffuse  + specular) * lightColor;
 	}
 
 	return Color;
@@ -134,32 +141,44 @@ vec4 spotLight()
 	float angle = dot(vec3(0.0f, -1.0f, 0.0f), -lightDir);
 	float inten = clamp((angle - outerCone) / (innerCone - outerCone), 0.0f, 1.0f);
 
+
 	//return texture(tex0, texCord) * lights[i].lightColor * (diffuse + ambient + specular);
 	//return texture(tex0, texCord) * (  ambient + diffuse *inten + specular * inten) * lights[i].lightColor;
-	Color +=  (ambient + diffuse *inten + specular * inten) * lights[i].lightColor;
+	Color += (ambient + diffuse *inten + specular * inten) * lights[i].lightColor;
  }
  return Color;
 }
 void main()
-{ 
-	 
-	//FragColor = pointLight();
-	//FragColor = directLight();
-	//FragColor = spotLight(); 
+{  
+	vec4 spotLight = spotLight();
+	vec4 directLight = directLight();
 
-	//float dist = length(camPos - curPos);
-	//float fogFactor  = (Fog.maxDist - dist) / (Fog.maxDist - Fog.minDist);
-	//fogFactor = clamp(fogFactor, 0.0f, 1.0f);
-	//
-	//vec4 shadeColor = spotLight();
-	//vec3 color = mix( Fog.color, shadeColor.xyz, fogFactor );
-	//FragColor = vec4(color, fogFactor);
+	vec4 light = spotLight+ directLight * 0.1f;
 
-	float density = 0.5f;
-	float dist = length(camPos - curPos);
-	float fogFactor = exp(-pow(density * dist,2));
+	if(bFogEffect)
+	{
+		float density = 0.5f;
+		float dist = length(camPos - curPos);
+		float fogFactor = exp(-pow(density * dist,2));
+		
+		vec3 finalColor = mix(Fog.color, light.xyz, fogFactor);
+		light = vec4(finalColor, 1.0f);
+	}  
 	
-	vec4 shadeColor = spotLight();
-	vec3 finalColor = mix(Fog.color, shadeColor.xyz, fogFactor);
-	FragColor = vec4(finalColor, 1.0f);
+	
+	vec4 boxColor = texture(tex0, texCord);
+	vec4 frogColor = texture(tex1, texCord);
+	vec4 texColor = vec4(0,0,0,0);
+
+	if(frogColor.a < 0.15)
+	{	
+		discard;
+		//texColor = boxColor;
+	}
+	 
+	else
+		texColor = frogColor;
+		 
+	FragColor = texColor * light;
+
 }
