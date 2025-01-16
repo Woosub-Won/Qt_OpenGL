@@ -37,7 +37,7 @@ int main() {
 	if (GLEW_OK != err) {
 		fprintf(stderr, "Error initializing GLEW: %s\n", glewGetErrorString(err));
 	}
-	Shader shader = Shader("shader/Chapt1_11.vert", "shader/Chapt1_11.frag");
+	Shader shader = Shader("shader/Chapt1_11(2).vert", "shader/Chapt1_11(2).frag");
 	shader.use();
 
 	float vertices[] = {
@@ -70,11 +70,6 @@ int main() {
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
 
-	//glEnableVertexAttribArray(0);
-	//glBindAttribLocation(shader.ID, 0, "VertexPosition");
-	//glEnableVertexAttribArray(1);
-	//glBindAttribLocation(shader.ID, 1, "VertexTexCoord");
-
 	GLint nUniforms, maxLen;
 	glGetProgramiv(shader.ID, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxLen);
 	glGetProgramiv(shader.ID, GL_ACTIVE_UNIFORMS, &nUniforms);
@@ -98,8 +93,7 @@ int main() {
 	// 4. 조회된 속성을 저장할 배열 포인터
 	glGetActiveUniformBlockiv(shader.ID, blockIndex, GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize);
 	GLubyte* blockBuffer = (GLubyte*)malloc(blockSize);
-
-	const GLchar* names[] = { "InnerColor", "OuterColor", "RadiusInner", "RadiusOuter" };
+	const GLchar* names[] = { "BlobSettings.InnerColor", "BlobSettings.OuterColor", "BlobSettings.RadiusInner", "BlobSettings.RadiusOuter" };
 	GLuint indices[4];
 
 	// 유니폼 블록안에 속해 있는 유니폼들의 인덱스를 얻는데 쓰는 함수
@@ -125,15 +119,17 @@ int main() {
 	GLfloat innerColor[] = { 1.0f, 1.0f, 0.75f, 1.0f };
 	GLfloat innerRadius = 0.25f, outerRadius = 0.45f;
 
+
+
 	// 지정된 원본 메모리 블록을 목적지 메모리 블록으로 복사하는 함수
 	// 매개변수
 	// 1. 목적지 메모리의 포인터
 	// 2. 원본 메모리의 포인터
 	// 3. 복사할 바이트 수
-	memcpy(blockBuffer + offset[0], innerColor, sizeof(innerColor));
-	memcpy(blockBuffer + offset[1], outerColor, sizeof(outerColor)); 
-	memcpy(blockBuffer + offset[2], &innerRadius, sizeof(innerRadius));
-	memcpy(blockBuffer + offset[3], &outerRadius, sizeof(outerRadius));
+	memcpy(blockBuffer + 0, innerColor, sizeof(innerColor));
+	memcpy(blockBuffer + 16, outerColor, sizeof(outerColor));
+	memcpy(blockBuffer + 32, &innerRadius, sizeof(innerRadius));
+	memcpy(blockBuffer + 36, &outerRadius, sizeof(outerRadius));
 
 	GLuint UBO;
 	glGenBuffers(1, &UBO);
@@ -141,7 +137,7 @@ int main() {
 	// 유니폼 버퍼 : 셰이더 프로그램이 필요로 하는 데이터를 유니폼 변수로 한번에 전달하는 버퍼
 	glBindBuffer(GL_UNIFORM_BUFFER, UBO);
 	glBufferData(GL_UNIFORM_BUFFER, blockSize, blockBuffer, GL_DYNAMIC_DRAW);
-	
+
 	glBindBufferBase(GL_UNIFORM_BUFFER, blockIndex, UBO);
 
 	free(blockBuffer);
@@ -157,11 +153,6 @@ int main() {
 		}
 
 		glDrawElements(GL_TRIANGLES, sizeof(eIndices) / sizeof(eIndices[0]), GL_UNSIGNED_INT, 0);
-		error = glGetError();
-		if (error != GL_NO_ERROR) {
-			cout << "OpenGL Error: " << error << endl;
-		}
-
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

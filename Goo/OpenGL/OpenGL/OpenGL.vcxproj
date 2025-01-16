@@ -139,7 +139,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\glad.c" />
-    <ClCompile Include="1_11.cpp" />
+    <ClCompile Include="1_11%282%29.cpp" />
     <ClCompile Include="shader.cpp" />
   </ItemGroup>
   <ItemGroup>
