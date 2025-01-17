@@ -35,6 +35,11 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         fshader_ch1.frag
         vshader_ch1.vert
+        fshader_ch3.frag
+        vshader_ch3.vert
+        vshader_ch4.vert
+        fshader_ch4.frag
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET chapter4 APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

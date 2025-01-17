@@ -14,8 +14,12 @@ uniform mat3 NormalMatrix;
 uniform mat4 MVP;
 
 void main() {
-    // 텍스처 좌표 전달
-    TexCoord = VertexTexCoord;
+
+    float u = 0.5 + atan(vNormal.z, vNormal.x);
+    float v = 0.5 - asin(vNormal.y);
+
+    TexCoord = vec2(u, v);
+
     Normal = normalize(NormalMatrix * vNormal.xyz);
     Position = vec3(ModelViewMatrix * vPosition);
 

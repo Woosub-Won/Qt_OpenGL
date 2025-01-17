@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-7dd6d6e35600b27fa658.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "chapter4",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "chapter4::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-chapter4-Debug-9366e39aa30d59d04a0c.json",
+					"name" : "chapter4",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "chapter4_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-chapter4_autogen-Debug-6c5a58478815bbdbb725.json",
+					"name" : "chapter4_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "chapter4_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-chapter4_autogen_timestamp_deps-Debug-ec59afc04d827755260c.json",
+					"name" : "chapter4_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/SeunghyunWoo/Documents/chapter4/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug",
+		"source" : "C:/Users/SeunghyunWoo/Documents/chapter4"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}
