@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin
+# Install script for directory: C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,7 +38,7 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/QtOpenGL_Jongmin.exe")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/QtOpenGL_Jongmin.exe")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/QtOpenGL_Jongmin.exe" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/QtOpenGL_Jongmin.exe")
     if(CMAKE_INSTALL_DO_STRIP)
@@ -48,7 +48,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  include("C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/.qt/deploy_QtOpenGL_Jongmin_5bf0c8913d.cmake")
+  include("C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/.qt/deploy_QtOpenGL_Jongmin_5bf0c8913d.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -59,5 +59,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

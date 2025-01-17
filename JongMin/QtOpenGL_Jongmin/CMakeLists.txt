@@ -28,6 +28,10 @@ qt_add_executable(QtOpenGL_Jongmin
     ch3_7_creatingacartoonshading.cpp ch3_7_creatingacartoonshading.h
     Shaders/vertShader3_7.vert
     Shaders/fragShader3_7.frag
+    ch4_2_applyinga2dtexture.h ch4_2_applyinga2dtexture.cpp
+    ch4_2_applyinga2dtexture.cpp
+    Shaders/vertShader4_2.vert
+    Shaders/fragShader4_2.frag
 )
 
 target_link_libraries(QtOpenGL_Jongmin

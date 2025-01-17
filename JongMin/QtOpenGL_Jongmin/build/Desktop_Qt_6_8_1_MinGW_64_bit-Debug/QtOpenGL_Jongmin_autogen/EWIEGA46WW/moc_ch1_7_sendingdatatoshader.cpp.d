@@ -1,5 +1,5 @@
-C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/QtOpenGL_Jongmin_autogen/EWIEGA46WW/moc_ch1_7_sendingdatatoshader.cpp: C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch1_7_sendingdatatoshader.h \
-  C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/QtOpenGL_Jongmin_autogen/moc_predefs.h \
+C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/QtOpenGL_Jongmin_autogen/EWIEGA46WW/moc_ch1_7_sendingdatatoshader.cpp: C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch1_7_sendingdatatoshader.h \
+  C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/QtOpenGL_Jongmin_autogen/moc_predefs.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/QObject \
   C:/Qt/6.8.1/mingw_64/include/QtCore/q20functional.h \
   C:/Qt/6.8.1/mingw_64/include/QtCore/q20iterator.h \

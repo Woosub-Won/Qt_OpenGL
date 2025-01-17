@@ -610,28 +610,30 @@ QtOpenGL_Jongmin_autogen/timestamp: \
 	C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/vadefs.h \
 	C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/wchar.h \
 	C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/wctype.h \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/CMakeLists.txt \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/.qtc/package-manager/auto-setup.cmake \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeCXXCompiler.cmake \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeRCCompiler.cmake \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeSystem.cmake \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/QtOpenGL_Jongmin_autogen/moc_predefs.h \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch1_10_usinguniformblocks.cpp \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch1_10_usinguniformblocks.h \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch1_7_sendingdatatoshader.cpp \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch1_7_sendingdatatoshader.h \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch1_8_gettingalist.cpp \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch1_8_gettingalist.h \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch1_9_sendingdatatoashader.cpp \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch1_9_sendingdatatoashader.h \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch2_2_implementingdiffuse.cpp \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch2_2_implementingdiffuse.h \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch2_3implementingpervertex.cpp \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch2_3implementingpervertex.h \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch3_7_creatingacartoonshading.cpp \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch3_7_creatingacartoonshading.h \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/main.cpp \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/mainwindow.cpp \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/mainwindow.h \
-	C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/mainwindow.ui \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/CMakeLists.txt \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/.qtc/package-manager/auto-setup.cmake \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeCXXCompiler.cmake \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeRCCompiler.cmake \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeSystem.cmake \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/QtOpenGL_Jongmin_autogen/moc_predefs.h \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch1_10_usinguniformblocks.cpp \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch1_10_usinguniformblocks.h \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch1_7_sendingdatatoshader.cpp \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch1_7_sendingdatatoshader.h \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch1_8_gettingalist.cpp \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch1_8_gettingalist.h \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch1_9_sendingdatatoashader.cpp \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch1_9_sendingdatatoashader.h \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch2_2_implementingdiffuse.cpp \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch2_2_implementingdiffuse.h \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch2_3implementingpervertex.cpp \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch2_3implementingpervertex.h \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch3_7_creatingacartoonshading.cpp \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch3_7_creatingacartoonshading.h \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch4_2_applyinga2dtexture.cpp \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch4_2_applyinga2dtexture.h \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/main.cpp \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/mainwindow.cpp \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/mainwindow.h \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/mainwindow.ui \
 	C:/Qt/Tools/CMake_64/bin/cmake.exe

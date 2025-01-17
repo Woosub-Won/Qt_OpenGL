@@ -1,18 +1,18 @@
 {
 	"AUTOGEN_COMMAND_LINE_LENGTH_MAX" : 32000,
-	"BUILD_DIR" : "C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/QtOpenGL_Jongmin_autogen",
-	"CMAKE_BINARY_DIR" : "C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug",
-	"CMAKE_CURRENT_BINARY_DIR" : "C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug",
-	"CMAKE_CURRENT_SOURCE_DIR" : "C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin",
+	"BUILD_DIR" : "C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/QtOpenGL_Jongmin_autogen",
+	"CMAKE_BINARY_DIR" : "C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin",
 	"CMAKE_EXECUTABLE" : "C:/Qt/Tools/CMake_64/bin/cmake.exe",
 	"CMAKE_LIST_FILES" : 
 	[
-		"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/CMakeLists.txt",
-		"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/.qtc/package-manager/auto-setup.cmake",
-		"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeSystem.cmake",
+		"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/CMakeLists.txt",
+		"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/.qtc/package-manager/auto-setup.cmake",
+		"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeSystem.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/Platform/Windows-Initialize.cmake",
-		"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeCXXCompiler.cmake",
+		"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeCXXCompiler.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake",
@@ -25,7 +25,7 @@
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/Platform/Windows-GNU.cmake",
-		"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeRCCompiler.cmake",
+		"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeRCCompiler.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeRCInformation.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/Platform/Windows-windres.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX-ABI.cmake",
@@ -308,64 +308,70 @@
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/GNUInstallDirs.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/GNUInstallDirs.cmake"
 	],
-	"CMAKE_SOURCE_DIR" : "C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin",
+	"CMAKE_SOURCE_DIR" : "C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin",
 	"CROSS_CONFIG" : false,
-	"DEP_FILE" : "C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/QtOpenGL_Jongmin_autogen/deps",
+	"DEP_FILE" : "C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/QtOpenGL_Jongmin_autogen/deps",
 	"DEP_FILE_RULE_NAME" : "QtOpenGL_Jongmin_autogen/timestamp",
 	"HEADERS" : 
 	[
 		[
-			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch1_10_usinguniformblocks.h",
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch1_10_usinguniformblocks.h",
 			"MU",
 			"EWIEGA46WW/moc_ch1_10_usinguniformblocks.cpp",
 			null
 		],
 		[
-			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch1_7_sendingdatatoshader.h",
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch1_7_sendingdatatoshader.h",
 			"MU",
 			"EWIEGA46WW/moc_ch1_7_sendingdatatoshader.cpp",
 			null
 		],
 		[
-			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch1_8_gettingalist.h",
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch1_8_gettingalist.h",
 			"MU",
 			"EWIEGA46WW/moc_ch1_8_gettingalist.cpp",
 			null
 		],
 		[
-			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch1_9_sendingdatatoashader.h",
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch1_9_sendingdatatoashader.h",
 			"MU",
 			"EWIEGA46WW/moc_ch1_9_sendingdatatoashader.cpp",
 			null
 		],
 		[
-			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch2_2_implementingdiffuse.h",
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch2_2_implementingdiffuse.h",
 			"MU",
 			"EWIEGA46WW/moc_ch2_2_implementingdiffuse.cpp",
 			null
 		],
 		[
-			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch2_3implementingpervertex.h",
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch2_3implementingpervertex.h",
 			"MU",
 			"EWIEGA46WW/moc_ch2_3implementingpervertex.cpp",
 			null
 		],
 		[
-			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch3_7_creatingacartoonshading.h",
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch3_7_creatingacartoonshading.h",
 			"MU",
 			"EWIEGA46WW/moc_ch3_7_creatingacartoonshading.cpp",
 			null
 		],
 		[
-			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/mainwindow.h",
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch4_2_applyinga2dtexture.h",
+			"MU",
+			"EWIEGA46WW/moc_ch4_2_applyinga2dtexture.cpp",
+			null
+		],
+		[
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/mainwindow.h",
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp",
 			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
-	"INCLUDE_DIR" : "C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/QtOpenGL_Jongmin_autogen/include",
-	"MOC_COMPILATION_FILE" : "C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/QtOpenGL_Jongmin_autogen/mocs_compilation.cpp",
+	"INCLUDE_DIR" : "C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/QtOpenGL_Jongmin_autogen/include",
+	"MOC_COMPILATION_FILE" : "C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/QtOpenGL_Jongmin_autogen/mocs_compilation.cpp",
 	"MOC_DEFINITIONS" : 
 	[
 		"MINGW_HAS_SECURE_API=1",
@@ -424,57 +430,66 @@
 		"-c",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeCXXCompilerABI.cpp"
 	],
-	"MOC_PREDEFS_FILE" : "C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/QtOpenGL_Jongmin_autogen/moc_predefs.h",
+	"MOC_PREDEFS_FILE" : "C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/QtOpenGL_Jongmin_autogen/moc_predefs.h",
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : false,
 	"PARALLEL" : 16,
-	"PARSE_CACHE_FILE" : "C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/CMakeFiles/QtOpenGL_Jongmin_autogen.dir/ParseCache.txt",
+	"PARSE_CACHE_FILE" : "C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/CMakeFiles/QtOpenGL_Jongmin_autogen.dir/ParseCache.txt",
 	"QT_MOC_EXECUTABLE" : "C:/Qt/6.8.1/mingw_64/bin/moc.exe",
 	"QT_UIC_EXECUTABLE" : "C:/Qt/6.8.1/mingw_64/bin/uic.exe",
 	"QT_VERSION_MAJOR" : 6,
 	"QT_VERSION_MINOR" : 8,
-	"SETTINGS_FILE" : "C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/CMakeFiles/QtOpenGL_Jongmin_autogen.dir/AutogenUsed.txt",
+	"SETTINGS_FILE" : "C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/CMakeFiles/QtOpenGL_Jongmin_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
 		[
-			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch1_10_usinguniformblocks.cpp",
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch1_10_usinguniformblocks.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch1_7_sendingdatatoshader.cpp",
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch1_7_sendingdatatoshader.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch1_8_gettingalist.cpp",
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch1_8_gettingalist.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch1_9_sendingdatatoashader.cpp",
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch1_9_sendingdatatoashader.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch2_2_implementingdiffuse.cpp",
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch2_2_implementingdiffuse.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch2_3implementingpervertex.cpp",
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch2_3implementingpervertex.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/ch3_7_creatingacartoonshading.cpp",
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch3_7_creatingacartoonshading.cpp",
 			"MU",
 			null
 		],
-		[ "C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/main.cpp", "MU", null ],
 		[
-			"C:/Users/user/Desktop/QtStudy/QtOpenGL_Jongmin/mainwindow.cpp",
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch4_2_applyinga2dtexture.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/main.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/mainwindow.cpp",
 			"MU",
 			null
 		]

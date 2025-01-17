@@ -76,6 +76,7 @@ void ch3_7_CreatingACartoonShading::initializeGL()
     QMatrix3x3 normalMatrix = modelViewMatrix.normalMatrix();
     int levels = 10; // 단계 수
     // OpenGL에 유니폼 변수 전달
+
     glUniform4fv(glGetUniformLocation(programHandle, "Light.position"), 1, &lightPosition[0]);
     glUniform3fv(glGetUniformLocation(programHandle, "Light.intensity"), 1, &lightIntensity[0]);
     glUniform3fv(glGetUniformLocation(programHandle, "Kd"), 1, &kd[0]);

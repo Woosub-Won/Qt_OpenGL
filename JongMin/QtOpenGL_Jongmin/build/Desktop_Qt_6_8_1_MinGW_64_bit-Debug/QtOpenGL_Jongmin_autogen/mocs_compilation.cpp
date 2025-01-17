@@ -6,4 +6,5 @@
 #include "EWIEGA46WW/moc_ch2_2_implementingdiffuse.cpp"
 #include "EWIEGA46WW/moc_ch2_3implementingpervertex.cpp"
 #include "EWIEGA46WW/moc_ch3_7_creatingacartoonshading.cpp"
+#include "EWIEGA46WW/moc_ch4_2_applyinga2dtexture.cpp"
 #include "EWIEGA46WW/moc_mainwindow.cpp"
