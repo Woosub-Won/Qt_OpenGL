@@ -5,13 +5,24 @@
 #include <QString>
 #include <vector>
 
+#include <QQuaternion>
+#include <QMouseEvent>
+#include <QKeyEvent>
+
 class MyOpenGLCore : public QOpenGLFunctions_4_0_Core
 {
+public:
+    void handleMousePressEvent(QMouseEvent *event);
+    void handleMouseMoveEvent(QMouseEvent *event);
+    void handleKeyPressEvent(QKeyEvent *event);
+    void handleMouseReleaseEvent(QMouseEvent *event);
 public:
     // 생성자 (Vertex, Normal, Color, Texture 좌표)
     explicit MyOpenGLCore(const std::vector<GLfloat> &vertices,
                           const std::vector<GLuint> &indices = {},
                           const std::vector<GLfloat> &normals = {});
+    explicit MyOpenGLCore(const QString &objFilePath);
+
     ~MyOpenGLCore();
 
     void initialize();
@@ -20,7 +31,7 @@ public:
     void activeVertexInputAttributesAndIndices();
     void activeUniformVariables();
     void checkDefaults();
-
+    bool parseObjFile(const QString &filePath);
 
 private:
     GLuint m_program;   // 셰이더 프로그램 ID
@@ -61,6 +72,17 @@ private:
     GLint m_uniformNormalMatrix;
     GLint m_uniformProjectionMatrix;
     GLint m_uniformMVP;            // Projection * ModelView matrix
+    void generateNormals(const std::vector<GLfloat> &vertices, const std::vector<GLuint> &indices, std::vector<GLfloat> &normals);
+private:
+    QVector3D m_cameraPosition = QVector3D(0.0f, 0.0f, 5.0f); // 초기 카메라 위치
+    QQuaternion m_cameraRotation;                             // 카메라 회전
+    QPoint m_lastMousePosition;                               // 마지막 마우스 위치
+    bool m_isMousePressed = false;                            // 마우스 클릭 상태
+    float m_moveSpeed = 0.1f;                                 // 이동 속도
+    float m_rotationSpeed = 0.2f;                             // 회전 속도
+
+    void updateCameraView(QMatrix4x4 &viewMatrix);
+    void centerObjectAtOrigin();
 };
 
 #endif // MYOPENGLCORE_H
