@@ -169,7 +169,7 @@ void MyOpenGLCore::render()
     // 2) 뷰 변환 (카메라가 월드에서 어디 위치해있는가)
     viewMatrix.setToIdentity();
     viewMatrix.translate(0.0f, 0.0f, -2.0f); // “카메라가 z=2쪽에 위치”라고 생각
-    viewMatrix.rotate(30, QVector3D(0, 1, 0)); // 카메라를 Y축으로 30도 회전
+    // viewMatrix.rotate(30, QVector3D(0, 1, 0)); // 카메라를 Y축으로 30도 회전
     updateCameraView(viewMatrix); // 카메라 상태를 반영
 
 
@@ -391,6 +391,10 @@ bool MyOpenGLCore::parseObjFile(const QString &filePath) {
         m_indices.push_back(static_cast<GLuint>(i));
     }
 
+    if (!m_vertices.empty()) {
+        centerObjectAtOrigin();
+    }
+
     if (m_normals.empty()) {
         qDebug() << "Normals not found in OBJ file. Generating normals...";
         generateNormals(m_vertices, m_indices, m_normals);
@@ -450,10 +454,36 @@ void MyOpenGLCore::generateNormals(const std::vector<GLfloat> &vertices,
     }
 }
 
+void MyOpenGLCore::centerObjectAtOrigin() {
+    if (m_vertices.empty()) {
+        qDebug() << "No vertices to center.";
+        return;
+    }
+
+    QVector3D center(0.0f, 0.0f, 0.0f);
+
+    // 모든 정점의 평균값 계산
+    for (size_t i = 0; i < m_vertices.size(); i += 3) {
+        center += QVector3D(m_vertices[i], m_vertices[i + 1], m_vertices[i + 2]);
+    }
+    center /= (m_vertices.size() / 3.0f);
+
+    // 중심점을 원점으로 이동
+    for (size_t i = 0; i < m_vertices.size(); i += 3) {
+        m_vertices[i]     -= center.x();
+        m_vertices[i + 1] -= center.y();
+        m_vertices[i + 2] -= center.z();
+    }
+
+    qDebug() << "Object centered at origin. Center offset was:" << center;
+}
+
 void MyOpenGLCore::updateCameraView(QMatrix4x4 &viewMatrix)
 {
-    viewMatrix.translate(-m_cameraPosition); // 카메라 위치 적용
-    viewMatrix.rotate(m_cameraRotation);    // 카메라 회전 적용
+    viewMatrix.rotate( m_cameraRotation.conjugated() );
+    viewMatrix.translate( -m_cameraPosition );
+    // viewMatrix.translate(-m_cameraPosition); // 카메라 위치 적용
+    // viewMatrix.rotate(m_cameraRotation);    // 카메라 회전 적용
 }
 
 void MyOpenGLCore::handleKeyPressEvent(QKeyEvent *event)
@@ -498,7 +528,7 @@ void MyOpenGLCore::handleMouseMoveEvent(QMouseEvent *event)
     m_lastMousePosition = event->pos();               // 현재 마우스 위치 저장
 
     // 마우스 이동에 따른 회전 각도 계산
-    float yaw = delta.x() * m_rotationSpeed;   // 좌우 이동은 yaw
+    float yaw = -delta.x() * m_rotationSpeed;   // 좌우 이동은 yaw
     float pitch = -delta.y() * m_rotationSpeed; // 상하 이동은 pitch (음수로 뒤집음)
 
     // 쿼터니언을 사용한 회전 적용

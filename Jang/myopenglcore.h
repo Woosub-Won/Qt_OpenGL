@@ -82,6 +82,7 @@ private:
     float m_rotationSpeed = 0.2f;                             // 회전 속도
 
     void updateCameraView(QMatrix4x4 &viewMatrix);
+    void centerObjectAtOrigin();
 };
 
 #endif // MYOPENGLCORE_H
