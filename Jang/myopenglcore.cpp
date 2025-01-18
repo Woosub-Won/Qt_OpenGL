@@ -188,67 +188,16 @@ void MyOpenGLCore::render()
     // 6) MVP
     QMatrix4x4 mvpMatrix = projectionMatrix * modelViewMatrix;
 
-    // 조명 데이터 정의
-    GLfloat lightPositions[5][4] = {
-        {-100.0f, 100.0f, 100.0f, 1.0f},  // 첫 번째 조명 위치
-        {100.0f, -100.0f, 100.0f, 1.0f},  // 두 번째 조명 위치
-        {100.0f, 100.0f, -100.0f, 1.0f},  // 세 번째 조명 위치
-        {100.0f, 100.0f, 100.0f, 1.0f},  // 세 번째 조명 위치
-        {0.0f, 500.0f, 500.0f, 1.0f}  // 세 번째 조명 위치
-    };
+    // 2. 조명 위치를 뷰 좌표계로 변환
+    QVector4D lightPositionWorld(300.0f, 300.0f, 300.0f, 0.0f); // 월드 좌표계 조명 위치
+    QVector4D lightPositionView = viewMatrix * lightPositionWorld; // 모델과는 영향 없음
 
-    GLfloat lightIntensities[5][3] = {
-        {0.5f, 0.0f, 0.0f},  // 첫 번째 조명 강도
-        {0.0f, 0.5f, 0.0f},  // 두 번째 조명 강도
-        {0.0f, 0.0f, 0.5f},   // 세 번째 조명 강도
-        {0.2f, 0.2f, 0.2f},   // 세 번째 조명 강도
-        {0.1f, 0.1f, 0.8f}   // 세 번째 조명 강도
-    };
+    // 3. 조명 관련 Uniform 전달
+    GLfloat lightPosition[4] = { lightPositionView.x(), lightPositionView.y(), lightPositionView.z(), lightPositionView.w() };
+    GLfloat lightIntensity[3] = { 1.2f, 0.8f, 0.3f }; // 반사광: 밝은 주황빛
 
-    // 위치와 강도를 가져와 OpenGL에 전달
-    for (int i = 0; i < 4; ++i) {
-        std::string positionName = "lights[" + std::to_string(i) + "].Position";
-        std::string intensityName = "lights[" + std::to_string(i) + "].Intensity";
-
-        GLint positionLoc = glGetUniformLocation(m_program, positionName.c_str());
-        GLint intensityLoc = glGetUniformLocation(m_program, intensityName.c_str());
-
-        // 조명 위치를 QVector4D로 변환 (월드 좌표)
-        QVector4D lightWorldPos(
-            lightPositions[i][0],
-            lightPositions[i][1],
-            lightPositions[i][2],
-            lightPositions[i][3]
-            );
-
-        // 뷰 좌표계로 변환
-        QVector4D lightViewPos = viewMatrix * lightWorldPos;
-
-        // 변환된 좌표를 OpenGL 형식으로 저장
-        GLfloat lightPositionView[4] = {
-            lightViewPos.x(),
-            lightViewPos.y(),
-            lightViewPos.z(),
-            lightViewPos.w()
-        };
-
-        glUniform4fv(positionLoc, 1, lightPositionView);
-        glUniform3fv(intensityLoc, 1, lightIntensities[i]);
-    }
-
-
-
-
-    // // 2. 조명 위치를 뷰 좌표계로 변환
-    // QVector4D lightPositionWorld(3.0f, 3.0f, 3.0f, 1.0f); // 월드 좌표계 조명 위치
-    // QVector4D lightPositionView = viewMatrix * lightPositionWorld; // 모델과는 영향 없음
-
-    // // 3. 조명 관련 Uniform 전달
-    // GLfloat lightPosition[4] = { lightPositionView.x(), lightPositionView.y(), lightPositionView.z(), lightPositionView.w() };
-    // GLfloat lightIntensity[3] = { 1.2f, 0.8f, 0.3f }; // 반사광: 밝은 주황빛
-
-    // glUniform4fv(glGetUniformLocation(m_program, "LightPosition"), 1, lightPosition);
-    // glUniform3fv(glGetUniformLocation(m_program, "LightIntensity"), 1, lightIntensity);
+    glUniform4fv(glGetUniformLocation(m_program, "LightPosition"), 1, lightPosition);
+    glUniform3fv(glGetUniformLocation(m_program, "LightIntensity"), 1, lightIntensity);
 
     GLfloat ka[3] = { 0.3f, 0.2f, 0.0f }; // 주변광 반사율: 약간 어두운 주황색
     GLfloat kd[3] = { 1.0f, 0.6f, 0.2f }; // 확산 반사율: 밝은 주황색
