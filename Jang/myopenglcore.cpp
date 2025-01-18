@@ -199,7 +199,6 @@ void MyOpenGLCore::render()
     GLfloat materialKs[3] = { 1.0f, 0.7f, 0.3f }; // 스펙큘러 반사율: 주황빛 반사 강조
     GLfloat shininess = 32.0f; // 하이라이트 크기 유지
 
-
     glUniform3fv(glGetUniformLocation(m_program, "Material.Ka"), 1, materialKa);
     glUniform3fv(glGetUniformLocation(m_program, "Material.Kd"), 1, materialKd);
     glUniform3fv(glGetUniformLocation(m_program, "Material.Ks"), 1, materialKs);
@@ -212,6 +211,25 @@ void MyOpenGLCore::render()
 
     // 6. 도넛 렌더링
     glBindVertexArray(m_vao);
+
+    GLuint adsIndex = glGetSubroutineIndex( m_program, GL_VERTEX_SHADER,"phongModel" );
+    GLuint diffuseIndex =glGetSubroutineIndex( m_program, GL_VERTEX_SHADER, "diffuseOnly");
+    glUniformSubroutinesuiv( GL_VERTEX_SHADER, 1, &adsIndex);
+    // Render the left teapot
+    glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, nullptr);
+    glUniformSubroutinesuiv( GL_VERTEX_SHADER, 1, &diffuseIndex);
+
+    // Render the right teapot
+    modelMatrix.translate(0.5,0,0);
+    modelViewMatrix = viewMatrix * modelMatrix;
+    normalMatrix = modelViewMatrix.normalMatrix();
+    mvpMatrix = projectionMatrix * modelViewMatrix;
+    glUniformMatrix4fv(m_uniformModelViewMatrix, 1, GL_FALSE, modelViewMatrix.constData());
+    glUniformMatrix3fv(m_uniformNormalMatrix, 1, GL_FALSE, normalMatrix.constData());
+    glUniformMatrix4fv(m_uniformProjectionMatrix, 1, GL_FALSE, projectionMatrix.constData());
+    glUniformMatrix4fv(m_uniformMVP, 1, GL_FALSE, mvpMatrix.constData());
+    glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, nullptr);
+
     glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
 }

@@ -1,4 +1,7 @@
 #version 400
+subroutine vec3 shadeModelType( vec4 position, vec3 normal);
+subroutine uniform shadeModelType shadeModel;
+
 layout (location = 0) in vec3 VertexPosition;
 layout (location = 1) in vec3 VertexNormal;
 out vec3 LightIntensity;
@@ -22,7 +25,14 @@ uniform mat3 NormalMatrix;
 uniform mat4 ProjectionMatrix;
 uniform mat4 MVP;
 
-void main()
+void getEyeSpace( out vec3 norm, out vec4 position )
+{
+    norm = normalize( NormalMatrix * VertexNormal);
+    position = ModelViewMatrix * vec4(VertexPosition,1.0);
+}
+
+subroutine( shadeModelType )
+vec3 phongModel( vec4 position, vec3 norm )
 {
     vec3 tnorm = normalize( NormalMatrix * VertexNormal);
     vec4 eyeCoords = ModelViewMatrix *
@@ -37,6 +47,23 @@ void main()
     if( sDotN > 0.0 ){
         spec = Light.Ls * Material.Ks * pow( max( dot(r,v), 0.0 ), Material.Shininess );
     }
-    LightIntensity = ambient + diffuse + spec;
+    return LightIntensity = ambient + diffuse + spec;
+}
+
+subroutine( shadeModelType )
+vec3 diffuseOnly( vec4 position, vec3 norm )
+{
+    vec3 s = normalize( vec3(Light.Position - position) );
+    return Light.Ld * Material.Kd * max( dot(s, norm), 0.0 );
+}
+
+void main()
+{
+    vec3 eyeNorm;
+    vec4 eyePosition;
+    getEyeSpace(eyeNorm, eyePosition);
+    // Evaluate the shading equation. This will call one of
+    // the functions: diffuseOnly or phongModel.
+    LightIntensity = shadeModel( eyePosition, eyeNorm );
     gl_Position = MVP * vec4(VertexPosition,1.0);
 }
