@@ -75,12 +75,12 @@ void MyOpenGLCore::initialize()
     //     1.0f, 1.0f, // 오른쪽 위
     // };
 
-    // TBO 생성 및 데이터 전송 (텍스처 좌표)
-    glGenBuffers(1, &m_tbo);
-    glBindBuffer(GL_ARRAY_BUFFER, m_tbo);
-    glBufferData(GL_ARRAY_BUFFER, m_texCoords.size() * sizeof(GLfloat), m_texCoords.data(), GL_STATIC_DRAW);
-    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
-    glEnableVertexAttribArray(3);
+    // // TBO 생성 및 데이터 전송 (텍스처 좌표)
+    // glGenBuffers(1, &m_tbo);
+    // glBindBuffer(GL_ARRAY_BUFFER, m_tbo);
+    // glBufferData(GL_ARRAY_BUFFER, m_texCoords.size() * sizeof(GLfloat), m_texCoords.data(), GL_STATIC_DRAW);
+    // glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+    // glEnableVertexAttribArray(3);
 
     // EBO 생성 및 데이터 전송 (인덱스)
     glGenBuffers(1, &m_ebo);
@@ -135,8 +135,6 @@ bool MyOpenGLCore::loadShaders(const QString &vertexShaderPath, const QString &f
 
     // Uniform 변수 로드
     m_uniformLightPosition = glGetUniformLocation(m_program, "LightPosition");
-    m_uniformKd = glGetUniformLocation(m_program, "Kd");
-    m_uniformLd = glGetUniformLocation(m_program, "Light.Ld");
     m_uniformModelViewMatrix = glGetUniformLocation(m_program, "ModelViewMatrix");
     m_uniformNormalMatrix = glGetUniformLocation(m_program, "NormalMatrix");
     m_uniformProjectionMatrix = glGetUniformLocation(m_program, "ProjectionMatrix");
@@ -145,8 +143,6 @@ bool MyOpenGLCore::loadShaders(const QString &vertexShaderPath, const QString &f
     // Uniform 위치 확인 디버깅
     qDebug() << "Uniform Locations:";
     qDebug() << "LightPosition:" << m_uniformLightPosition;
-    qDebug() << "Kd:" << m_uniformKd;
-    qDebug() << "Light.Ld:" << m_uniformLd;
     qDebug() << "ModelViewMatrix:" << m_uniformModelViewMatrix;
     qDebug() << "NormalMatrix:" << m_uniformNormalMatrix;
     qDebug() << "ProjectionMatrix:" << m_uniformProjectionMatrix;
@@ -174,7 +170,7 @@ void MyOpenGLCore::render()
 
     // 2) 뷰 변환 (카메라가 월드에서 어디 위치해있는가)
     viewMatrix.setToIdentity();
-    viewMatrix.translate(0.0f, 0.0f, -2.0f); // “카메라가 z=2쪽에 위치”라고 생각
+    viewMatrix.translate(0.0f, 0.0f, -24.0f); // “카메라가 z=2쪽에 위치”라고 생각
     // viewMatrix.rotate(30, QVector3D(0, 1, 0)); // 카메라를 Y축으로 30도 회전
     updateCameraView(viewMatrix); // 카메라 상태를 반영
 
@@ -192,16 +188,67 @@ void MyOpenGLCore::render()
     // 6) MVP
     QMatrix4x4 mvpMatrix = projectionMatrix * modelViewMatrix;
 
-    // 2. 조명 위치를 뷰 좌표계로 변환
-    QVector4D lightPositionWorld(3.0f, 3.0f, 3.0f, 1.0f); // 월드 좌표계 조명 위치
-    QVector4D lightPositionView = viewMatrix * lightPositionWorld; // 모델과는 영향 없음
+    // 조명 데이터 정의
+    GLfloat lightPositions[5][4] = {
+        {-100.0f, 100.0f, 100.0f, 1.0f},  // 첫 번째 조명 위치
+        {100.0f, -100.0f, 100.0f, 1.0f},  // 두 번째 조명 위치
+        {100.0f, 100.0f, -100.0f, 1.0f},  // 세 번째 조명 위치
+        {100.0f, 100.0f, 100.0f, 1.0f},  // 세 번째 조명 위치
+        {0.0f, 500.0f, 500.0f, 1.0f}  // 세 번째 조명 위치
+    };
 
-    // 3. 조명 관련 Uniform 전달
-    GLfloat lightPosition[4] = { lightPositionView.x(), lightPositionView.y(), lightPositionView.z(), lightPositionView.w() };
-    GLfloat lightIntensity[3] = { 1.2f, 0.8f, 0.3f }; // 반사광: 밝은 주황빛
+    GLfloat lightIntensities[5][3] = {
+        {0.5f, 0.0f, 0.0f},  // 첫 번째 조명 강도
+        {0.0f, 0.5f, 0.0f},  // 두 번째 조명 강도
+        {0.0f, 0.0f, 0.5f},   // 세 번째 조명 강도
+        {0.2f, 0.2f, 0.2f},   // 세 번째 조명 강도
+        {0.1f, 0.1f, 0.8f}   // 세 번째 조명 강도
+    };
 
-    glUniform4fv(glGetUniformLocation(m_program, "LightPosition"), 1, lightPosition);
-    glUniform3fv(glGetUniformLocation(m_program, "LightIntensity"), 1, lightIntensity);
+    // 위치와 강도를 가져와 OpenGL에 전달
+    for (int i = 0; i < 4; ++i) {
+        std::string positionName = "lights[" + std::to_string(i) + "].Position";
+        std::string intensityName = "lights[" + std::to_string(i) + "].Intensity";
+
+        GLint positionLoc = glGetUniformLocation(m_program, positionName.c_str());
+        GLint intensityLoc = glGetUniformLocation(m_program, intensityName.c_str());
+
+        // 조명 위치를 QVector4D로 변환 (월드 좌표)
+        QVector4D lightWorldPos(
+            lightPositions[i][0],
+            lightPositions[i][1],
+            lightPositions[i][2],
+            lightPositions[i][3]
+            );
+
+        // 뷰 좌표계로 변환
+        QVector4D lightViewPos = viewMatrix * lightWorldPos;
+
+        // 변환된 좌표를 OpenGL 형식으로 저장
+        GLfloat lightPositionView[4] = {
+            lightViewPos.x(),
+            lightViewPos.y(),
+            lightViewPos.z(),
+            lightViewPos.w()
+        };
+
+        glUniform4fv(positionLoc, 1, lightPositionView);
+        glUniform3fv(intensityLoc, 1, lightIntensities[i]);
+    }
+
+
+
+
+    // // 2. 조명 위치를 뷰 좌표계로 변환
+    // QVector4D lightPositionWorld(3.0f, 3.0f, 3.0f, 1.0f); // 월드 좌표계 조명 위치
+    // QVector4D lightPositionView = viewMatrix * lightPositionWorld; // 모델과는 영향 없음
+
+    // // 3. 조명 관련 Uniform 전달
+    // GLfloat lightPosition[4] = { lightPositionView.x(), lightPositionView.y(), lightPositionView.z(), lightPositionView.w() };
+    // GLfloat lightIntensity[3] = { 1.2f, 0.8f, 0.3f }; // 반사광: 밝은 주황빛
+
+    // glUniform4fv(glGetUniformLocation(m_program, "LightPosition"), 1, lightPosition);
+    // glUniform3fv(glGetUniformLocation(m_program, "LightIntensity"), 1, lightIntensity);
 
     GLfloat ka[3] = { 0.3f, 0.2f, 0.0f }; // 주변광 반사율: 약간 어두운 주황색
     GLfloat kd[3] = { 1.0f, 0.6f, 0.2f }; // 확산 반사율: 밝은 주황색
@@ -212,14 +259,6 @@ void MyOpenGLCore::render()
     glUniform3fv(glGetUniformLocation(m_program, "Kd"), 1, kd);
     glUniform3fv(glGetUniformLocation(m_program, "Ks"), 1, ks);
     glUniform1f(glGetUniformLocation(m_program, "Shininess"), shininess);
-
-    GLfloat fogMinDist = 3.0f;
-    GLfloat fogMaxDist = 10.0f;
-    GLfloat fogColor[3] = { 0.1f, 0.1f, 0.1f }; // 스펙큘러 반사율: 주황빛 반사 강조
-
-    glUniform1f(glGetUniformLocation(m_program, "FogMinDist"), fogMinDist);
-    glUniform1f(glGetUniformLocation(m_program, "FogMaxDist"), fogMaxDist);
-    glUniform3fv(glGetUniformLocation(m_program, "FogColor"), 1, fogColor);
 
     glUniformMatrix4fv(m_uniformModelViewMatrix, 1, GL_FALSE, modelViewMatrix.constData());
     glUniformMatrix3fv(m_uniformNormalMatrix, 1, GL_FALSE, normalMatrix.constData());
@@ -507,6 +546,8 @@ void MyOpenGLCore::handleKeyPressEvent(QKeyEvent *event)
     } else if (event->key() == Qt::Key_D) {
         m_cameraPosition += right * m_moveSpeed;  // 현재 방향 기준 오른쪽 이동
     }
+
+    qDebug() << m_cameraPosition;
 }
 
 void MyOpenGLCore::handleMousePressEvent(QMouseEvent *event)
