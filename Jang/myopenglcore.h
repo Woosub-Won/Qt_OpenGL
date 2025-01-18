@@ -8,10 +8,10 @@
 class MyOpenGLCore : public QOpenGLFunctions_4_0_Core
 {
 public:
-    // 생성자 (Vertex, Color, Texture 좌표)
+    // 생성자 (Vertex, Normal, Color, Texture 좌표)
     explicit MyOpenGLCore(const std::vector<GLfloat> &vertices,
-                   const std::vector<GLfloat> &colors = {},
-                   const std::vector<GLfloat> &texCoords = {});
+                          const std::vector<GLuint> &indices = {},
+                          const std::vector<GLfloat> &normals = {});
     ~MyOpenGLCore();
 
     void initialize();
@@ -26,12 +26,16 @@ private:
     GLuint m_program;   // 셰이더 프로그램 ID
     GLuint m_vao;       // VAO 핸들
     GLuint m_vbo;       // VBO 핸들 (정점)
+    GLuint m_nbo;       // NBO 핸들 (법선)
     GLuint m_cbo;       // CBO 핸들 (색상)
-    GLuint m_tbo;   // Texture Coordinate Buffer Object
+    GLuint m_tbo;       // TBO 핸들 (텍스처)
+    GLuint m_ebo;       // EBO 핸들 (인덱스)
 
     std::vector<GLfloat> m_vertices;   // 정점 데이터
+    std::vector<GLfloat> m_normals;    // 법선 데이터
     std::vector<GLfloat> m_colors;     // 색상 데이터
-    std::vector<GLfloat> m_texCoords;
+    std::vector<GLfloat> m_texCoords;  // 텍스처 좌표 데이터
+    std::vector<GLuint> m_indices; // 인덱스 데이터
 
     // 초기 기본값 (상수)
     const std::vector<GLfloat> defaultColors = {
@@ -48,6 +52,15 @@ private:
     };
     void checkShaderCompileStatus(GLuint shader);
     void checkProgramLinkStatus(GLuint program);
+
+private:
+    GLint m_uniformLightPosition;  // Light position
+    GLint m_uniformKd;             // Diffuse reflectivity
+    GLint m_uniformLd;             // Light source intensity
+    GLint m_uniformModelViewMatrix;
+    GLint m_uniformNormalMatrix;
+    GLint m_uniformProjectionMatrix;
+    GLint m_uniformMVP;            // Projection * ModelView matrix
 };
 
 #endif // MYOPENGLCORE_H
