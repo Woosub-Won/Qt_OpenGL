@@ -1,6 +1,7 @@
 #version 400
 in vec3 Position;
 in vec3 Normal;
+in vec2 TexCoord;
 
 layout( location = 0 ) out vec4 FragColor;
 
@@ -46,6 +47,11 @@ vec3 ads_middle( )
 }
 
 void main() {
+    const float scale = 15.0;
+    bvec2 toDiscard = greaterThan( fract(TexCoord * scale), vec2(0.2,0.2) );
+    if( all(toDiscard) )
+        discard;
+
     float dist = abs( Position.z );
     float fogFactor = (FogMaxDist - dist) / (FogMaxDist - FogMinDist);
     fogFactor = clamp( fogFactor, 0.0, 1.0 );

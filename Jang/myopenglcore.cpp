@@ -69,12 +69,18 @@ void MyOpenGLCore::initialize()
     // glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
     // glEnableVertexAttribArray(2);
 
-    // // TBO 생성 및 데이터 전송 (텍스처 좌표)
-    // glGenBuffers(1, &m_tbo);
-    // glBindBuffer(GL_ARRAY_BUFFER, m_tbo);
-    // glBufferData(GL_ARRAY_BUFFER, m_texCoords.size() * sizeof(GLfloat), m_texCoords.data(), GL_STATIC_DRAW);
-    // glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
-    // glEnableVertexAttribArray(3);
+    // m_texCoords = {
+    //     0.0f, 0.0f, // 왼쪽 아래
+    //     1.0f, 0.0f, // 오른쪽 아래
+    //     1.0f, 1.0f, // 오른쪽 위
+    // };
+
+    // TBO 생성 및 데이터 전송 (텍스처 좌표)
+    glGenBuffers(1, &m_tbo);
+    glBindBuffer(GL_ARRAY_BUFFER, m_tbo);
+    glBufferData(GL_ARRAY_BUFFER, m_texCoords.size() * sizeof(GLfloat), m_texCoords.data(), GL_STATIC_DRAW);
+    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glEnableVertexAttribArray(3);
 
     // EBO 생성 및 데이터 전송 (인덱스)
     glGenBuffers(1, &m_ebo);

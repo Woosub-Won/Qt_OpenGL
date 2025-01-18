@@ -22,7 +22,7 @@ protected:
 
         // openglCore = new MyOpenGLCore(vertices, indices, normals);
 
-        QString objPath = "../../teapot.obj";
+        QString objPath = "../../teapot_vt.obj";
         openglCore = new MyOpenGLCore(objPath);
         openglCore->initialize();
 
