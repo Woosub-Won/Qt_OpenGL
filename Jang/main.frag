@@ -24,6 +24,15 @@ vec3 ads( )
     return LightIntensity * ( Ka +Kd * max( dot(s, n), 0.0 ) + Ks * pow( max( dot(r,v), 0.0 ), Shininess ) );
 }
 
+vec3 ads_back( )
+{
+    vec3 n = normalize( -Normal );
+    vec3 s = normalize( vec3(LightPosition) - Position );
+    vec3 v = normalize(vec3(-Position));
+    vec3 r = reflect( -s, n );
+    return LightIntensity * ( Ka +Kd * max( dot(s, n), 0.0 ) + Ks * pow( max( dot(r,v), 0.0 ), Shininess ) );
+}
+
 vec3 ads_middle( )
 {
     vec3 s = normalize( LightPosition.xyz - Position.xyz );
@@ -40,7 +49,14 @@ void main() {
     float dist = abs( Position.z );
     float fogFactor = (FogMaxDist - dist) / (FogMaxDist - FogMinDist);
     fogFactor = clamp( fogFactor, 0.0, 1.0 );
-    vec3 shadeColor = ads_middle();
-    vec3 color = mix( FogColor, shadeColor, fogFactor );
-    FragColor = vec4(color, 1.0);
+    // vec3 shadeColor = ads_middle();
+    // vec3 shadeColor = ads();
+    // vec3 color = mix( FogColor, shadeColor, fogFactor );
+    if (gl_FrontFacing){
+        FragColor = vec4(ads(), 1.0);
+    }
+    else{
+        FragColor = vec4(ads_back(), 1.0);
+    }
+    // FragColor = vec4(shadeColor, 1.0);
 }
