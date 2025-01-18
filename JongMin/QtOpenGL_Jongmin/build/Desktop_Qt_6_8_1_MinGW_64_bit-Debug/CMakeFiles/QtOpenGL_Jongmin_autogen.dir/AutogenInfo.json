@@ -367,6 +367,12 @@
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp",
 			null
+		],
+		[
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/objreader.h",
+			"MU",
+			"EWIEGA46WW/moc_objreader.cpp",
+			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
@@ -490,6 +496,11 @@
 		],
 		[
 			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/mainwindow.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/objreader.cpp",
 			"MU",
 			null
 		]

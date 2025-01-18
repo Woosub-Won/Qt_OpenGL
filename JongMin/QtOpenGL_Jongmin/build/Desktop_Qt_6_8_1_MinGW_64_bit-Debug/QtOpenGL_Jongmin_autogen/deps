@@ -1,6 +1,9 @@
 QtOpenGL_Jongmin_autogen/timestamp: \
 	C:/Qt/6.8.1/mingw_64/include/QtCore/QFile \
 	C:/Qt/6.8.1/mingw_64/include/QtCore/QObject \
+	C:/Qt/6.8.1/mingw_64/include/QtCore/QScopedPointer \
+	C:/Qt/6.8.1/mingw_64/include/QtCore/QString \
+	C:/Qt/6.8.1/mingw_64/include/QtCore/QVector \
 	C:/Qt/6.8.1/mingw_64/include/QtCore/q20functional.h \
 	C:/Qt/6.8.1/mingw_64/include/QtCore/q20iterator.h \
 	C:/Qt/6.8.1/mingw_64/include/QtCore/q20memory.h \
@@ -122,6 +125,7 @@ QtOpenGL_Jongmin_autogen/timestamp: \
 	C:/Qt/6.8.1/mingw_64/include/QtCore/qutf8stringview.h \
 	C:/Qt/6.8.1/mingw_64/include/QtCore/qvariant.h \
 	C:/Qt/6.8.1/mingw_64/include/QtCore/qvarlengtharray.h \
+	C:/Qt/6.8.1/mingw_64/include/QtCore/qvector.h \
 	C:/Qt/6.8.1/mingw_64/include/QtCore/qversiontagging.h \
 	C:/Qt/6.8.1/mingw_64/include/QtCore/qxptype_traits.h \
 	C:/Qt/6.8.1/mingw_64/include/QtCore/qyieldcpu.h \
@@ -129,6 +133,8 @@ QtOpenGL_Jongmin_autogen/timestamp: \
 	C:/Qt/6.8.1/mingw_64/include/QtGui/QOpenGLExtraFunctions \
 	C:/Qt/6.8.1/mingw_64/include/QtGui/QOpenGLFunctions \
 	C:/Qt/6.8.1/mingw_64/include/QtGui/QSurfaceFormat \
+	C:/Qt/6.8.1/mingw_64/include/QtGui/QVector2D \
+	C:/Qt/6.8.1/mingw_64/include/QtGui/QVector3D \
 	C:/Qt/6.8.1/mingw_64/include/QtGui/qaction.h \
 	C:/Qt/6.8.1/mingw_64/include/QtGui/qbitmap.h \
 	C:/Qt/6.8.1/mingw_64/include/QtGui/qbrush.h \
@@ -162,14 +168,19 @@ QtOpenGL_Jongmin_autogen/timestamp: \
 	C:/Qt/6.8.1/mingw_64/include/QtGui/qtguiexports.h \
 	C:/Qt/6.8.1/mingw_64/include/QtGui/qtguiglobal.h \
 	C:/Qt/6.8.1/mingw_64/include/QtGui/qtransform.h \
+	C:/Qt/6.8.1/mingw_64/include/QtGui/qvector2d.h \
 	C:/Qt/6.8.1/mingw_64/include/QtGui/qvector3d.h \
 	C:/Qt/6.8.1/mingw_64/include/QtGui/qvector4d.h \
 	C:/Qt/6.8.1/mingw_64/include/QtGui/qvectornd.h \
 	C:/Qt/6.8.1/mingw_64/include/QtGui/qwindowdefs.h \
 	C:/Qt/6.8.1/mingw_64/include/QtGui/qwindowdefs_win.h \
 	C:/Qt/6.8.1/mingw_64/include/QtOpenGL/QOpenGLBuffer \
+	C:/Qt/6.8.1/mingw_64/include/QtOpenGL/QOpenGLShader \
+	C:/Qt/6.8.1/mingw_64/include/QtOpenGL/QOpenGLTexture \
 	C:/Qt/6.8.1/mingw_64/include/QtOpenGL/QOpenGLVertexArrayObject \
 	C:/Qt/6.8.1/mingw_64/include/QtOpenGL/qopenglbuffer.h \
+	C:/Qt/6.8.1/mingw_64/include/QtOpenGL/qopenglshaderprogram.h \
+	C:/Qt/6.8.1/mingw_64/include/QtOpenGL/qopengltexture.h \
 	C:/Qt/6.8.1/mingw_64/include/QtOpenGL/qopenglvertexarrayobject.h \
 	C:/Qt/6.8.1/mingw_64/include/QtOpenGL/qtopenglexports.h \
 	C:/Qt/6.8.1/mingw_64/include/QtOpenGL/qtopenglglobal.h \
@@ -635,5 +646,7 @@ QtOpenGL_Jongmin_autogen/timestamp: \
 	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/main.cpp \
 	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/mainwindow.cpp \
 	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/mainwindow.h \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/objreader.cpp \
+	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/objreader.h \
 	C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/mainwindow.ui \
 	C:/Qt/Tools/CMake_64/bin/cmake.exe

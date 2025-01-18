@@ -32,6 +32,10 @@ qt_add_executable(QtOpenGL_Jongmin
     ch4_2_applyinga2dtexture.cpp
     Shaders/vertShader4_2.vert
     Shaders/fragShader4_2.frag
+    objreader.h objreader.cpp
+    objreader.h
+    objreader.cpp
+
 )
 
 target_link_libraries(QtOpenGL_Jongmin

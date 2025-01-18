@@ -2,6 +2,9 @@
 C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch4_2_applyinga2dtexture.h
  mmc:Q_OBJECT
  mdp:C:/Qt/6.8.1/mingw_64/include/QtCore/QObject
+ mdp:C:/Qt/6.8.1/mingw_64/include/QtCore/QScopedPointer
+ mdp:C:/Qt/6.8.1/mingw_64/include/QtCore/QString
+ mdp:C:/Qt/6.8.1/mingw_64/include/QtCore/QVector
  mdp:C:/Qt/6.8.1/mingw_64/include/QtCore/q20functional.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtCore/q20iterator.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtCore/q20memory.h
@@ -120,11 +123,14 @@ C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch4_2_applyinga2dtextur
  mdp:C:/Qt/6.8.1/mingw_64/include/QtCore/qutf8stringview.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtCore/qvariant.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtCore/qvarlengtharray.h
+ mdp:C:/Qt/6.8.1/mingw_64/include/QtCore/qvector.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtCore/qversiontagging.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtCore/qxptype_traits.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtCore/qyieldcpu.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/QOpenGLFunctions
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/QSurfaceFormat
+ mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/QVector2D
+ mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/QVector3D
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qaction.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qbitmap.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qbrush.h
@@ -133,9 +139,11 @@ C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch4_2_applyinga2dtextur
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qfont.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qfontinfo.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qfontmetrics.h
+ mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qgenericmatrix.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qicon.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qimage.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qkeysequence.h
+ mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qmatrix4x4.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qopengl.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qopenglcontext.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qopenglcontext_platform.h
@@ -146,6 +154,7 @@ C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch4_2_applyinga2dtextur
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qpixelformat.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qpixmap.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qpolygon.h
+ mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qquaternion.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qregion.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qrgb.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qrgba64.h
@@ -154,11 +163,19 @@ C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch4_2_applyinga2dtextur
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qtguiexports.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qtguiglobal.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qtransform.h
+ mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qvector2d.h
+ mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qvector3d.h
+ mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qvector4d.h
+ mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qvectornd.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qwindowdefs.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtGui/qwindowdefs_win.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtOpenGL/QOpenGLBuffer
+ mdp:C:/Qt/6.8.1/mingw_64/include/QtOpenGL/QOpenGLShader
+ mdp:C:/Qt/6.8.1/mingw_64/include/QtOpenGL/QOpenGLTexture
  mdp:C:/Qt/6.8.1/mingw_64/include/QtOpenGL/QOpenGLVertexArrayObject
  mdp:C:/Qt/6.8.1/mingw_64/include/QtOpenGL/qopenglbuffer.h
+ mdp:C:/Qt/6.8.1/mingw_64/include/QtOpenGL/qopenglshaderprogram.h
+ mdp:C:/Qt/6.8.1/mingw_64/include/QtOpenGL/qopengltexture.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtOpenGL/qopenglvertexarrayobject.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtOpenGL/qtopenglexports.h
  mdp:C:/Qt/6.8.1/mingw_64/include/QtOpenGL/qtopenglglobal.h
@@ -381,6 +398,7 @@ C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch4_2_applyinga2dtextur
  mdp:C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/wchar.h
  mdp:C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/QtOpenGL_Jongmin_autogen/moc_predefs.h
  mdp:C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch4_2_applyinga2dtexture.h
+ mdp:C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/objreader.h
 C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch1_10_usinguniformblocks.h
  mmc:Q_OBJECT
  mdp:C:/Qt/6.8.1/mingw_64/include/QtCore/QFile
@@ -3462,6 +3480,7 @@ C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch2_3implementingperver
  mdp:C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/wchar.h
  mdp:C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/QtOpenGL_Jongmin_autogen/moc_predefs.h
  mdp:C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch2_3implementingpervertex.h
+C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/objreader.h
 C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch1_10_usinguniformblocks.cpp
 C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/mainwindow.cpp
  uic:ui_mainwindow.h
@@ -3472,3 +3491,4 @@ C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch2_3implementingperver
 C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch3_7_creatingacartoonshading.cpp
 C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/ch4_2_applyinga2dtexture.cpp
 C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/main.cpp
+C:/Users/user/Desktop/Qt_OpenGL/JongMin/QtOpenGL_Jongmin/objreader.cpp
