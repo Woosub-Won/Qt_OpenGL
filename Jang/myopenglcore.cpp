@@ -211,7 +211,7 @@ void MyOpenGLCore::render()
     glUniform1f(glGetUniformLocation(m_program, "Shininess"), shininess);
 
     // SpotLightInfo 설정 (모델-뷰 좌표계로 변환)
-    QVector4D spotLightWorldPos(0.0f, 10.0f, 0.0f, 1.0f); // 월드 좌표계 위치
+    QVector4D spotLightWorldPos(0.0f, 15.0f, 0.0f, 1.0f); // 월드 좌표계 위치
     QVector4D spotLightMVPos = modelViewMatrix * spotLightWorldPos; // 모델-뷰 좌표계로 변환
 
     GLfloat spotPosition[4] = {
@@ -233,7 +233,7 @@ void MyOpenGLCore::render()
 
     GLfloat spotIntensity[3] = { 1.0f, 1.0f, 1.0f };
     // GLfloat spotDirection[3] = { 0.0f, -1.0f, 0.0f };
-    GLfloat spotExponent = 5.0f;
+    GLfloat spotExponent = 50.0f;
     GLfloat spotCutoff = 45.0f;
 
     // SpotLightInfo를 GLSL에 전달
