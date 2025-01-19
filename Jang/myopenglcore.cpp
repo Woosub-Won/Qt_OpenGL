@@ -189,11 +189,12 @@ void MyOpenGLCore::render()
     QMatrix4x4 mvpMatrix = projectionMatrix * modelViewMatrix;
 
     // 2. 조명 위치를 뷰 좌표계로 변환
-    QVector4D lightPositionWorld(300.0f, 300.0f, 300.0f, 0.0f); // 월드 좌표계 조명 위치
+    QVector4D lightPositionWorld(300.0f, 300.0f, 300.0f, 1.0f); // 월드 좌표계 조명 위치
     QVector4D lightPositionView = viewMatrix * lightPositionWorld; // 모델과는 영향 없음
 
     // 3. 조명 관련 Uniform 전달
     GLfloat lightPosition[4] = { lightPositionView.x(), lightPositionView.y(), lightPositionView.z(), lightPositionView.w() };
+    // GLfloat lightIntensity[3] = { 0.3f, 0.2f, 0.1f }; // 반사광: 밝은 주황빛
     GLfloat lightIntensity[3] = { 1.2f, 0.8f, 0.3f }; // 반사광: 밝은 주황빛
 
     glUniform4fv(glGetUniformLocation(m_program, "LightPosition"), 1, lightPosition);
@@ -208,6 +209,39 @@ void MyOpenGLCore::render()
     glUniform3fv(glGetUniformLocation(m_program, "Kd"), 1, kd);
     glUniform3fv(glGetUniformLocation(m_program, "Ks"), 1, ks);
     glUniform1f(glGetUniformLocation(m_program, "Shininess"), shininess);
+
+    // SpotLightInfo 설정 (모델-뷰 좌표계로 변환)
+    QVector4D spotLightWorldPos(0.0f, 15.0f, 0.0f, 1.0f); // 월드 좌표계 위치
+    QVector4D spotLightMVPos = modelViewMatrix * spotLightWorldPos; // 모델-뷰 좌표계로 변환
+
+    GLfloat spotPosition[4] = {
+        spotLightMVPos.x(),
+        spotLightMVPos.y(),
+        spotLightMVPos.z(),
+        spotLightMVPos.w()
+    };
+
+    // 스포트라이트 방향 (모델-뷰 좌표계로 변환)
+    QVector4D spotDirectionWorld(0.0f, -1.0f, 0.0f, 0.0f); // 월드 좌표계 방향 (w = 0)
+    QVector4D spotDirectionMV = modelViewMatrix * spotDirectionWorld;
+
+    GLfloat spotDirection[3] = {
+        spotDirectionMV.x(),
+        spotDirectionMV.y(),
+        spotDirectionMV.z()
+    };
+
+    GLfloat spotIntensity[3] = { 1.0f, 1.0f, 1.0f };
+    // GLfloat spotDirection[3] = { 0.0f, -1.0f, 0.0f };
+    GLfloat spotExponent = 50.0f;
+    GLfloat spotCutoff = 45.0f;
+
+    // SpotLightInfo를 GLSL에 전달
+    glUniform4fv(glGetUniformLocation(m_program, "Spot.position"), 1, spotPosition);
+    glUniform3fv(glGetUniformLocation(m_program, "Spot.intensity"), 1, spotIntensity);
+    glUniform3fv(glGetUniformLocation(m_program, "Spot.direction"), 1, spotDirection);
+    glUniform1f(glGetUniformLocation(m_program, "Spot.exponent"), spotExponent);
+    glUniform1f(glGetUniformLocation(m_program, "Spot.cutoff"), spotCutoff);
 
     glUniformMatrix4fv(m_uniformModelViewMatrix, 1, GL_FALSE, modelViewMatrix.constData());
     glUniformMatrix3fv(m_uniformNormalMatrix, 1, GL_FALSE, normalMatrix.constData());
