@@ -21,7 +21,7 @@
     <ClCompile Include="shader.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="2_7.cpp">
+    <ClCompile Include="4_2(2).cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
