@@ -4,39 +4,26 @@ layout (location = 1) in vec3 VertexNormal;
 layout (location = 2) in vec2 VertexTexCoord;
 layout (location = 3) in vec4 VertexTangent;
 
-out vec3 LightDir;
-out vec2 TexCoord;
-out vec3 ViewDir;
-out vec3 Normal;
+out vec3 ReflectDir; // The direction of the reflected ray
 
-uniform vec4 LightPosition;
-uniform vec3 LightIntensity;
-
+uniform bool DrawSkyBox; // Are we drawing the sky box?
+uniform vec3 WorldCameraPosition;
 uniform mat4 ModelViewMatrix;
+uniform mat4 ModelMatrix;
 uniform mat3 NormalMatrix;
 uniform mat4 ProjectionMatrix;
 uniform mat4 MVP;
-
 void main()
 {
-    // Transform normal and tangent to eye space
-    vec3 norm = normalize(NormalMatrix * VertexNormal);
-    vec3 tang = normalize(NormalMatrix * vec3(VertexTangent));
-    // Compute the binormal
-    vec3 binormal = normalize( cross( norm, tang ) ) *
-    VertexTangent.w;
-    // Matrix for transformation to tangent space
-    mat3 toObjectLocal = mat3(
-    tang.x, binormal.x, norm.x,
-    tang.y, binormal.y, norm.y,
-    tang.z, binormal.z, norm.z ) ;
-    // Get the position in eye coordinates
-    vec3 pos = vec3( ModelViewMatrix * vec4(VertexPosition,1.0) );
-    // Transform light dir. and view dir. to tangent space
-    LightDir = normalize( toObjectLocal * (LightPosition.xyz - pos) );
-    ViewDir = toObjectLocal * normalize(-pos);
-    // Pass along the texture coordinate
-    TexCoord = VertexTexCoord;
+    if( DrawSkyBox ) {
+        ReflectDir = VertexPosition;
+    }
+    else {
+        // Compute the reflected direction in world coords.
+        vec3 worldPos = vec3( ModelMatrix * vec4(VertexPosition,1.0) );
+        vec3 worldNorm = vec3(ModelMatrix * vec4(VertexNormal, 0.0));
+        vec3 worldView = normalize( WorldCameraPosition - worldPos );
+        ReflectDir = reflect(-worldView, worldNorm );
+    }
     gl_Position = MVP * vec4(VertexPosition,1.0);
-    Normal = normalize( NormalMatrix * VertexNormal);
 }

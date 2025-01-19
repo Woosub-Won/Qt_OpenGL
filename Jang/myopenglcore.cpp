@@ -436,32 +436,64 @@ void MyOpenGLCore::render()
     // ---------------------------------
     renderSkybox(m_viewMatrix, m_projectionMatrix);
 
-    // // 2) 스카이박스용 행렬은 "카메라 회전"만 따로 추출
-    // QMatrix4x4 skyRotation;
-    // skyRotation.setToIdentity();
-    // skyRotation.rotate(m_cameraRotation.conjugated());
-    // renderSkybox(skyRotation, m_projectionMatrix);
-
-
     //---------------------------------
     // 4. 일반 오브젝트(노멀 매핑) 렌더
     //---------------------------------
+    GLint drawSkybox = 1;
     glUseProgram(m_program);
+    glUniform1i(glGetUniformLocation(m_program, "DrawSkyBox"), drawSkybox);
 
-    // 필요한 텍스처 바인딩
+    // 5. 큐브맵 텍스처 바인딩
     glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, m_cubeMapTexture);
+    GLint cubeMapLoc = glGetUniformLocation(m_program, "CubeMapTex");
+    if (cubeMapLoc >= 0) {
+        glUniform1i(cubeMapLoc, 0);
+    } else {
+        qWarning() << "CubeMapTex uniform location not found!";
+    }
+
+    // 6. 추가 유니폼 설정 (카메라 위치, 머티리얼 컬러, 반사 계수)
+    QVector3D cameraPos = m_cameraPosition;
+    glUniform3f(glGetUniformLocation(m_program, "WorldCameraPosition"),
+                cameraPos.x(), cameraPos.y(), cameraPos.z());
+
+    QVector4D materialColor(1.0f, 1.0f, 1.0f, 1.0f);
+    float color[4] = { materialColor.x(), materialColor.y(), materialColor.z(), materialColor.w() };
+    glUniform4fv(glGetUniformLocation(m_program, "MaterialColor"), 1, color);
+
+    float reflectFactor = 0.5f;
+    glUniform1f(glGetUniformLocation(m_program, "ReflectFactor"), reflectFactor);
+
+    // 7. 텍스처 설정
+    glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, m_texture);
     GLint texLoc = glGetUniformLocation(m_program, "ColorTex");
     if (texLoc >= 0) {
-        glUniform1i(texLoc, 0);
+        glUniform1i(texLoc, 1);
     }
 
-    glActiveTexture(GL_TEXTURE1);
+    glActiveTexture(GL_TEXTURE2);
     glBindTexture(GL_TEXTURE_2D, m_texture2);
     GLint texLoc2 = glGetUniformLocation(m_program, "NormalMapTex");
     if (texLoc2 >= 0) {
-        glUniform1i(texLoc2, 1);
+        glUniform1i(texLoc2, 2);
     }
+
+    // // 필요한 텍스처 바인딩
+    // glActiveTexture(GL_TEXTURE0);
+    // glBindTexture(GL_TEXTURE_2D, m_texture);
+    // GLint texLoc = glGetUniformLocation(m_program, "ColorTex");
+    // if (texLoc >= 0) {
+    //     glUniform1i(texLoc, 0);
+    // }
+
+    // glActiveTexture(GL_TEXTURE1);
+    // glBindTexture(GL_TEXTURE_2D, m_texture2);
+    // GLint texLoc2 = glGetUniformLocation(m_program, "NormalMapTex");
+    // if (texLoc2 >= 0) {
+    //     glUniform1i(texLoc2, 1);
+    // }
 
     // 5. setMatrices()에서 m_viewMatrix, m_projectionMatrix를 참조해
     //    모델 행렬 합성, 조명 좌표 변환, 유니폼 설정
@@ -472,61 +504,6 @@ void MyOpenGLCore::render()
     glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
 }
-
-// void MyOpenGLCore::render()
-// {
-//     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-//     //---------------------------------
-//     // 1) 스카이박스 먼저 렌더링
-//     //---------------------------------
-//     // 카메라 변환 행렬 설정
-//     // (1) view
-//     QMatrix4x4 viewMatrix;
-//     viewMatrix.setToIdentity();
-//     viewMatrix.translate(0,0,-24); // 필요하면
-//     updateCameraView(viewMatrix);
-
-//     // (2) proj
-//     QMatrix4x4 projMatrix;
-//     projMatrix.setToIdentity();
-//     projMatrix.perspective(45.f, 4.0f/3.0f, 0.1f, 500.f); // 넉넉히
-
-//     // 스카이박스 (같은 view/proj)
-//     renderSkybox(viewMatrix, projMatrix);
-
-//     glUseProgram(m_program);
-
-//     // 카메라/조명/행렬 설정
-//     setMatrices(viewMatrix, projMatrix);  // <= 바꿔야 함
-
-//     // 텍스처 활성화
-//     glActiveTexture(GL_TEXTURE0);
-//     glBindTexture(GL_TEXTURE_2D, m_texture);
-
-//     // 텍스처 유니폼
-//     GLint texLoc = glGetUniformLocation(m_program, "ColorTex");
-//     if (texLoc >= 0) {
-//         glUniform1i(texLoc, 0);
-//     }
-
-//     // 텍스처 활성화
-//     glActiveTexture(GL_TEXTURE1);
-//     glBindTexture(GL_TEXTURE_2D, m_texture2);
-
-//     // 텍스처 유니폼
-//     GLint texLoc2 = glGetUniformLocation(m_program, "NormalMapTex");
-//     if (texLoc2 >= 0) {
-//         glUniform1i(texLoc2, 1);
-//     }
-
-
-//     // 도형 렌더링
-//     glBindVertexArray(m_vao);
-//     glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, nullptr);
-//     glBindVertexArray(0);
-// }
-
 //--------------------------------------
 // 조명, 행렬 관련 설정(뷰, 투영 등)
 //--------------------------------------
@@ -576,66 +553,6 @@ void MyOpenGLCore::setMatrices()
     glUniformMatrix4fv(m_uniformProjectionMatrix,  1, GL_FALSE, m_projectionMatrix.constData());
     glUniformMatrix4fv(m_uniformMVP,               1, GL_FALSE, mvpMatrix.constData());
 }
-
-// void MyOpenGLCore::setMatrices()
-// {
-//     // 1) 모델 행렬
-//     QMatrix4x4 modelMatrix;
-//     modelMatrix.setToIdentity();
-//     // 필요 시 회전, 스케일, 이동 적용 가능
-
-//     // 2) 뷰 행렬 (카메라)
-//     QMatrix4x4 viewMatrix;
-//     viewMatrix.setToIdentity();
-//     viewMatrix.translate(0.0f, 0.0f, -24.0f);
-//     updateCameraView(viewMatrix);
-
-//     // 3) 모델뷰
-//     QMatrix4x4 modelViewMatrix = viewMatrix * modelMatrix;
-
-//     // 4) 노멀 매트릭스
-//     QMatrix3x3 normalMatrix = modelViewMatrix.normalMatrix();
-
-//     // 5) 투영 행렬
-//     QMatrix4x4 projectionMatrix;
-//     projectionMatrix.setToIdentity();
-//     projectionMatrix.perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.f);
-
-//     // 6) MVP
-//     QMatrix4x4 mvpMatrix = projectionMatrix * modelViewMatrix;
-
-//     // 조명 위치(월드->뷰)
-//     QVector4D lightPosWorld(300.f, 300.f, 300.f, 1.f);
-//     QVector4D lightPosView = viewMatrix * lightPosWorld;
-//     GLfloat lightPosition[4] = {
-//         lightPosView.x(), lightPosView.y(),
-//         lightPosView.z(), lightPosView.w()
-//     };
-
-//     // 유니폼 전달
-//     glUniform4fv(glGetUniformLocation(m_program, "LightPosition"), 1, lightPosition);
-
-//     // 머티리얼, 조명 세팅 예시
-//     GLfloat lightIntensity[3] = { 1.2f, 0.8f, 0.3f };
-//     glUniform3fv(glGetUniformLocation(m_program, "LightIntensity"), 1, lightIntensity);
-
-//     // 예시 머티리얼 값
-//     GLfloat ka[3] = { 0.3f, 0.2f, 0.0f };
-//     GLfloat kd[3] = { 1.0f, 0.6f, 0.2f };
-//     GLfloat ks[3] = { 1.0f, 0.7f, 0.3f };
-//     GLfloat shininess = 32.0f;
-//     glUniform3fv(glGetUniformLocation(m_program, "Ka"), 1, ka);
-//     glUniform3fv(glGetUniformLocation(m_program, "Kd"), 1, kd);
-//     glUniform3fv(glGetUniformLocation(m_program, "Ks"), 1, ks);
-//     glUniform1f(glGetUniformLocation(m_program, "Shininess"), shininess);
-
-//     // 행렬 유니폼 전달
-//     glUniformMatrix4fv(m_uniformModelViewMatrix, 1, GL_FALSE, modelViewMatrix.constData());
-//     glUniformMatrix3fv(m_uniformNormalMatrix, 1, GL_FALSE, normalMatrix.constData());
-//     glUniformMatrix4fv(m_uniformProjectionMatrix, 1, GL_FALSE, projectionMatrix.constData());
-//     glUniformMatrix4fv(m_uniformMVP, 1, GL_FALSE, mvpMatrix.constData());
-// }
-
 //--------------------------------------
 // 카메라 변환 적용
 //--------------------------------------
@@ -713,8 +630,8 @@ void MyOpenGLCore::handleMouseMoveEvent(QMouseEvent *event)
     // 전역 Y축으로 yaw, yaw가 적용된 좌표계에서 로컬 X축으로 pitch
     m_cameraRotation = yawQ * pitchQ;
 
-    qDebug() << "yawDelta =" << yawDelta << "pitchDelta =" << pitchDelta;
-    qDebug() << "m_yaw =" << m_yaw << "m_pitch =" << m_pitch;
+    // qDebug() << "yawDelta =" << yawDelta << "pitchDelta =" << pitchDelta;
+    // qDebug() << "m_yaw =" << m_yaw << "m_pitch =" << m_pitch;
 
 }
 
