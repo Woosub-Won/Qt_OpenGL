@@ -24,7 +24,7 @@ MyOpenGLCore::MyOpenGLCore(const QString &objFilePath,
     m_isMousePressed(false),
     m_moveSpeed(0.1f),
     m_rotationSpeed(0.2f),
-    m_uniformLightPosition(-1),
+    m_uniformModelMatrix(-1),
     m_uniformModelViewMatrix(-1),
     m_uniformNormalMatrix(-1),
     m_uniformProjectionMatrix(-1),
@@ -225,20 +225,6 @@ void MyOpenGLCore::loadShaders(const QString &vertexShaderPath,
     // 필요 없어진 셰이더 객체 삭제
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
-
-    // Uniform 변수 로드
-    m_uniformLightPosition      = glGetUniformLocation(m_program, "LightPosition");
-    m_uniformModelViewMatrix    = glGetUniformLocation(m_program, "ModelViewMatrix");
-    m_uniformNormalMatrix       = glGetUniformLocation(m_program, "NormalMatrix");
-    m_uniformProjectionMatrix   = glGetUniformLocation(m_program, "ProjectionMatrix");
-    m_uniformMVP                = glGetUniformLocation(m_program, "MVP");
-
-    qDebug() << "[MyOpenGLCore::loadShaders] Uniform Locations:"
-             << "\n LightPosition:" << m_uniformLightPosition
-             << "\n ModelViewMatrix:" << m_uniformModelViewMatrix
-             << "\n NormalMatrix:" << m_uniformNormalMatrix
-             << "\n ProjectionMatrix:" << m_uniformProjectionMatrix
-             << "\n MVP:" << m_uniformMVP;
 }
 
 //--------------------------------------
@@ -439,9 +425,13 @@ void MyOpenGLCore::render()
     //---------------------------------
     // 4. 일반 오브젝트(노멀 매핑) 렌더
     //---------------------------------
-    GLint drawSkybox = 1;
-    glUseProgram(m_program);
-    glUniform1i(glGetUniformLocation(m_program, "DrawSkyBox"), drawSkybox);
+
+    // 모델 변환 행렬 (예: 회전, 이동 포함)
+    QMatrix4x4 modelMatrix;
+    modelMatrix.setToIdentity();
+    // 모델의 위치를 설정하거나 조정이 필요한 경우 추가
+    // modelMatrix.translate(0.0f, 0.0f, 0.0f);
+    // modelMatrix.rotate(45, 0, 1, 0);  // 예제 회전
 
     // 5. 큐브맵 텍스처 바인딩
     glActiveTexture(GL_TEXTURE0);
@@ -453,17 +443,44 @@ void MyOpenGLCore::render()
         qWarning() << "CubeMapTex uniform location not found!";
     }
 
+    GLint boundTex;
+    glGetIntegerv(GL_TEXTURE_BINDING_CUBE_MAP, &boundTex);
+    qDebug() << "Bound CubeMap Texture ID: " << boundTex;
+
+    GLint drawSkybox = 0;
+    glUseProgram(m_program);
+    glUniform1i(glGetUniformLocation(m_program, "DrawSkyBox"), drawSkybox);
+
     // 6. 추가 유니폼 설정 (카메라 위치, 머티리얼 컬러, 반사 계수)
     QVector3D cameraPos = m_cameraPosition;
+    // QVector3D cameraPos = m_cameraPosition;
     glUniform3f(glGetUniformLocation(m_program, "WorldCameraPosition"),
                 cameraPos.x(), cameraPos.y(), cameraPos.z());
 
-    QVector4D materialColor(1.0f, 1.0f, 1.0f, 1.0f);
-    float color[4] = { materialColor.x(), materialColor.y(), materialColor.z(), materialColor.w() };
-    glUniform4fv(glGetUniformLocation(m_program, "MaterialColor"), 1, color);
+    GLfloat eta = 1.0f / 1.52f;  // 공기에서 유리로 이동
+    glUniform1f(glGetUniformLocation(m_program, "Eta"), eta);
+    float reflectFactor = 0.1f;
+    glUniform1f(glGetUniformLocation(m_program, "ReflectionFactor"), reflectFactor);
+    GLint etaLoc = glGetUniformLocation(m_program, "Eta");
+    GLint reflectFactorLoc = glGetUniformLocation(m_program, "ReflectionFactor");
 
-    float reflectFactor = 0.5f;
-    glUniform1f(glGetUniformLocation(m_program, "ReflectFactor"), reflectFactor);
+    if (etaLoc == -1) {
+        qDebug() << "Uniform 'Eta' not found!";
+    } else {
+        qDebug() << "Uniform 'Eta' location:" << etaLoc;
+    }
+
+    if (reflectFactorLoc == -1) {
+        qDebug() << "Uniform 'ReflectionFactor' not found!";
+    } else {
+        qDebug() << "Uniform 'ReflectionFactor' location:" << reflectFactorLoc;
+    }
+
+    GLenum err;
+    while ((err = glGetError()) != GL_NO_ERROR) {
+        qDebug() << "OpenGL error after setting uniforms:" << err;
+    }
+
 
     // 7. 텍스처 설정
     glActiveTexture(GL_TEXTURE1);
@@ -547,7 +564,15 @@ void MyOpenGLCore::setMatrices()
     glUniform3fv(glGetUniformLocation(m_program, "Ks"), 1, ks);
     glUniform1f(glGetUniformLocation(m_program, "Shininess"), shininess);
 
+    // Uniform 변수 로드
+    m_uniformModelMatrix    = glGetUniformLocation(m_program, "ModelMatrix");
+    m_uniformModelViewMatrix    = glGetUniformLocation(m_program, "ModelViewMatrix");
+    m_uniformNormalMatrix       = glGetUniformLocation(m_program, "NormalMatrix");
+    m_uniformProjectionMatrix   = glGetUniformLocation(m_program, "ProjectionMatrix");
+    m_uniformMVP                = glGetUniformLocation(m_program, "MVP");
+
     // 6) 행렬 유니폼 전달
+    glUniformMatrix4fv(m_uniformModelMatrix,   1, GL_FALSE, modelMatrix.constData());
     glUniformMatrix4fv(m_uniformModelViewMatrix,   1, GL_FALSE, modelViewMatrix.constData());
     glUniformMatrix3fv(m_uniformNormalMatrix,      1, GL_FALSE, normalMatrix.constData());
     glUniformMatrix4fv(m_uniformProjectionMatrix,  1, GL_FALSE, m_projectionMatrix.constData());
@@ -634,24 +659,6 @@ void MyOpenGLCore::handleMouseMoveEvent(QMouseEvent *event)
     // qDebug() << "m_yaw =" << m_yaw << "m_pitch =" << m_pitch;
 
 }
-
-// void MyOpenGLCore::handleMouseMoveEvent(QMouseEvent *event)
-// {
-//     if (!m_isMousePressed) return;
-
-//     QPoint delta = event->pos() - m_lastMousePosition;
-//     m_lastMousePosition = event->pos();
-
-//     float yaw   = -delta.x() * m_rotationSpeed;
-//     float pitch = -delta.y() * m_rotationSpeed;
-
-//     // 쿼터니언 회전
-//     QQuaternion yawRotation   = QQuaternion::fromAxisAndAngle(0.f, 1.f, 0.f, yaw);
-//     QQuaternion pitchRotation = QQuaternion::fromAxisAndAngle(1.f, 0.f, 0.f, pitch);
-
-//     m_cameraRotation = yawRotation * m_cameraRotation * pitchRotation;
-// }
-
 //--------------------------------------
 // OBJ 파일 파싱
 //--------------------------------------

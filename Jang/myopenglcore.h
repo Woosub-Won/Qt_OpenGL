@@ -113,7 +113,7 @@ private:
     float        m_pitch;
 
     // 셰이더에서 사용할 Uniform 위치
-    GLint m_uniformLightPosition;
+    GLint m_uniformModelMatrix;
     GLint m_uniformModelViewMatrix;
     GLint m_uniformNormalMatrix;
     GLint m_uniformProjectionMatrix;

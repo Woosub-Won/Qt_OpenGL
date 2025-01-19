@@ -5,6 +5,13 @@ layout (location = 2) in vec2 VertexTexCoord;
 layout (location = 3) in vec4 VertexTangent;
 
 out vec3 ReflectDir; // The direction of the reflected ray
+out vec3 RefractDir; // Transmitted direction
+
+out vec3 worldNorm;
+out vec3 worldView;
+
+uniform float Eta;
+uniform float ReflectionFactor;
 
 uniform bool DrawSkyBox; // Are we drawing the sky box?
 uniform vec3 WorldCameraPosition;
@@ -19,11 +26,11 @@ void main()
         ReflectDir = VertexPosition;
     }
     else {
-        // Compute the reflected direction in world coords.
         vec3 worldPos = vec3( ModelMatrix * vec4(VertexPosition,1.0) );
         vec3 worldNorm = vec3(ModelMatrix * vec4(VertexNormal, 0.0));
         vec3 worldView = normalize( WorldCameraPosition - worldPos );
         ReflectDir = reflect(-worldView, worldNorm );
+        RefractDir = refract(-worldView, worldNorm, Eta );
     }
     gl_Position = MVP * vec4(VertexPosition,1.0);
 }
