@@ -1,10 +1,11 @@
 #version 400
-in vec3 Position;
-in vec3 Normal;
+in vec3 LightDir;
 in vec2 TexCoord;
+in vec3 ViewDir;
+in vec3 Normal;
 
-uniform sampler2D BrickTex;
-uniform sampler2D MossTex;
+uniform sampler2D ColorTex;
+uniform sampler2D NormalMapTex;
 
 uniform vec4 LightPosition;
 uniform vec3 LightIntensity;
@@ -15,32 +16,21 @@ uniform float Shininess; // Specular shininess factor
 
 layout( location = 0 ) out vec4 FragColor;
 
-void phongModel( vec3 pos, vec3 norm,
-                out vec3 ambAndDiff, out vec3 spec ) {
-    vec3 n = normalize( norm );
-    vec3 s = normalize( vec3(LightPosition) - pos );
-    vec3 v = normalize(vec3(-pos));
-    vec3 h = normalize( v + s );
-    ambAndDiff = LightIntensity * ( Ka + Kd * max( dot(s, n), 0.0 ));
-    spec = LightIntensity * (Ks * pow( max( dot(h, v), 0.0 ), Shininess ));
+vec3 phongModel( vec3 norm, vec3 diffR ) {
+    vec3 r = reflect( -LightDir, norm );
+    vec3 ambient = LightIntensity * Ka;
+    float sDotN = max( dot(LightDir, norm), 0.0 );
+    vec3 diffuse = LightIntensity * diffR * sDotN;
+    vec3 spec = vec3(0.0);
+    if( sDotN > 0.0 )
+        spec = LightIntensity * Ks * pow( max( dot(r,ViewDir), 0.0 ),Shininess );
+    return ambient + diffuse + spec;
 }
-
-// vec3 ads( )
-// {
-//     vec3 n = normalize( Normal );
-//     vec3 s = normalize( vec3(LightPosition) - Position );
-//     vec3 v = normalize(vec3(-Position));
-//     vec3 h = normalize( v + s );
-//     return LightIntensity * ( Ka + Kd * max( dot(s, n), 0.0 ) + Ks * pow( max( dot(h, v), 0.0 ), Shininess ) );
-// }
-
 void main() {
-    vec3 ambAndDiff, spec;
-    vec4 brickTexColor = texture( BrickTex, TexCoord );
-    vec4 mossTexColor = texture( MossTex, TexCoord );
-    if(mossTexColor.a < 0.15 )
-        discard;
-    phongModel(Position, Normal, ambAndDiff, spec);
-    vec4 texColor = mix(brickTexColor, mossTexColor, mossTexColor.a);
-    FragColor = vec4(ambAndDiff, 1.0) * texColor + vec4(spec, 1.0);
+    // Lookup the normal from the normal map
+    vec4 normal = texture( NormalMapTex, TexCoord );
+    // vec4 normal = vec4(Normal, 1.0);
+    // The color texture is used as the diffuse reflectivity
+    vec4 texColor = texture( ColorTex, TexCoord );
+    FragColor = vec4( phongModel(normal.xyz, texColor.rgb), 1.0 );
 }

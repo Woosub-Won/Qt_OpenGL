@@ -14,7 +14,7 @@ protected:
         // QOpenGLWindow과 관련된 GL context 세팅 이후 호출
         openglCore = new MyOpenGLCore(
             "../../teapot_vt.obj",       // 원하는 obj 파일 경로
-            "../../brick.jpg"       // 원하는 텍스처 이미지 경로
+            "../../dry-rocky-ground_albedo.png"       // 원하는 텍스처 이미지 경로
             );
         // 이제 셰이더 로드 및 각종 초기화
         openglCore->initialize("../../main.vert", "../../main.frag");

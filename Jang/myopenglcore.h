@@ -56,6 +56,7 @@ private:
     void generateNormals(const std::vector<GLfloat> &vertices,
                          const std::vector<GLuint> &indices,
                          std::vector<GLfloat> &normals);
+    void generateTangents(const std::vector<GLfloat> &vertices, const std::vector<GLfloat> &normals, const std::vector<GLfloat> &texCoords, const std::vector<GLuint> &indices, std::vector<GLfloat> &tangents);
     void centerObjectAtOrigin();
 
     // 카메라/조명/행렬 설정
@@ -78,6 +79,9 @@ private:
     GLuint m_texture;
     GLuint m_texture2;
 
+    // 탄젠트 VBO 추가
+    GLuint m_tangentBuffer = 0;
+
     // obj, texture 경로
     QString m_objFilePath;
     QString m_textureFilePath;
@@ -89,6 +93,7 @@ private:
     std::vector<GLfloat> m_colors;
     std::vector<GLfloat> m_texCoords;
     std::vector<GLuint>  m_indices;
+    std::vector<GLfloat> m_tangents;   // <= NEW
 
     // 텍스처 이미지
     QImage m_textureImage;

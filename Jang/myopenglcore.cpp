@@ -144,7 +144,7 @@ void MyOpenGLCore::loadTexture()
 }
 void MyOpenGLCore::loadTexture2()
 {
-    m_textureFilePath2 = "../../moss.png";
+    m_textureFilePath2 = "../../dry-rocky-ground_normal-ogl.png";
     if (!m_textureFilePath2.isEmpty()) {
         qDebug() << "[MyOpenGLCore::loadTexture] Loading texture from" << m_textureFilePath2;
         if (!m_textureImage2.load(m_textureFilePath2)) {
@@ -305,6 +305,19 @@ void MyOpenGLCore::createBuffers()
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
     glEnableVertexAttribArray(2);
 
+    // Tangent VBO (4 floats per vertex)
+    if (!m_tangents.empty()) {
+        glGenBuffers(1, &m_tangentBuffer);
+        glBindBuffer(GL_ARRAY_BUFFER, m_tangentBuffer);
+        glBufferData(GL_ARRAY_BUFFER,
+                     m_tangents.size() * sizeof(GLfloat),
+                     m_tangents.data(),
+                     GL_STATIC_DRAW);
+        // layout(location = 3) in vec4 VertexTangent;
+        glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, 0, nullptr);
+        glEnableVertexAttribArray(3);
+    }
+
     // EBO: 인덱스
     glGenBuffers(1, &m_ebo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
@@ -399,7 +412,7 @@ void MyOpenGLCore::render()
     glBindTexture(GL_TEXTURE_2D, m_texture);
 
     // 텍스처 유니폼
-    GLint texLoc = glGetUniformLocation(m_program, "BrickTex");
+    GLint texLoc = glGetUniformLocation(m_program, "ColorTex");
     if (texLoc >= 0) {
         glUniform1i(texLoc, 0);
     }
@@ -409,7 +422,7 @@ void MyOpenGLCore::render()
     glBindTexture(GL_TEXTURE_2D, m_texture2);
 
     // 텍스처 유니폼
-    GLint texLoc2 = glGetUniformLocation(m_program, "MossTex");
+    GLint texLoc2 = glGetUniformLocation(m_program, "NormalMapTex");
     if (texLoc2 >= 0) {
         glUniform1i(texLoc2, 1);
     }
@@ -640,6 +653,12 @@ bool MyOpenGLCore::parseObjFile(const QString &filePath)
         generateNormals(m_vertices, m_indices, m_normals);
     }
 
+    if (!m_vertices.empty() && !m_normals.empty() && !m_texCoords.empty()) {
+        qDebug() << "Generating tangents for normal mapping...";
+        generateTangents(m_vertices, m_normals, m_texCoords, m_indices, m_tangents);
+        qDebug() << "Tangents generated. Count:" << m_tangents.size() / 4;
+    }
+
     qDebug() << "OBJ loaded. V:" << m_vertices.size()/3
              << "N:" << m_normals.size()/3
              << "T:" << m_texCoords.size()/2
@@ -779,5 +798,84 @@ void MyOpenGLCore::checkProgramLinkStatus(GLuint program)
         char infoLog[512];
         glGetProgramInfoLog(program, 512, nullptr, infoLog);
         std::cerr << "ERROR: Program Linking Failed\n" << infoLog << std::endl;
+    }
+}
+
+void MyOpenGLCore::generateTangents(const std::vector<GLfloat> &vertices,
+                                    const std::vector<GLfloat> &normals,
+                                    const std::vector<GLfloat> &texCoords,
+                                    const std::vector<GLuint> &indices,
+                                    std::vector<GLfloat> &tangents)
+{
+    // tangents: 정점 개수만큼 vec4가 필요.
+    // (x,y,z) = 탄젠트, w = handedness(±1)
+    size_t numVerts = vertices.size() / 3;
+    tangents.clear();
+    tangents.resize(numVerts * 4, 0.0f);  // 4개씩 (x,y,z,w)
+
+    // 임시로 각 정점에 tangent, bitangent를 누적해서 더함
+    // 마지막에 정규화(normalize)할 예정
+    std::vector<QVector3D> tan1(numVerts, QVector3D(0,0,0));
+    std::vector<QVector3D> bitan1(numVerts, QVector3D(0,0,0));
+
+    // 삼각형(인덱스 3개씩) 순회
+    for (size_t i = 0; i < indices.size(); i += 3)
+    {
+        GLuint i0 = indices[i + 0];
+        GLuint i1 = indices[i + 1];
+        GLuint i2 = indices[i + 2];
+
+        // 각 정점의 위치
+        QVector3D v0(vertices[i0*3+0], vertices[i0*3+1], vertices[i0*3+2]);
+        QVector3D v1(vertices[i1*3+0], vertices[i1*3+1], vertices[i1*3+2]);
+        QVector3D v2(vertices[i2*3+0], vertices[i2*3+1], vertices[i2*3+2]);
+
+        // 각 정점의 UV
+        float u0 = texCoords[i0*2+0];
+        float v0_ = texCoords[i0*2+1];
+        float u1 = texCoords[i1*2+0];
+        float v1_ = texCoords[i1*2+1];
+        float u2 = texCoords[i2*2+0];
+        float v2_ = texCoords[i2*2+1];
+
+        // 가장 간단한 계산: (MikkTSpace 등의 고급 방법도 있음)
+        QVector3D e1 = v1 - v0;
+        QVector3D e2 = v2 - v0;
+        float x1 = u1 - u0;
+        float x2 = u2 - u0;
+        float y1 = v1_ - v0_;
+        float y2 = v2_ - v0_;
+        float r = x1*y2 - x2*y1;
+        float f = (fabs(r) < 1e-10f) ? 1.0f : (1.0f / r);
+
+        // 탄젠트, 비탄젠트
+        QVector3D T = f * (e1 * y2 - e2 * y1);
+        QVector3D B = f * (e2 * x1 - e1 * x2);
+
+        // 각 정점에 누적
+        tan1[i0] += T; tan1[i1] += T; tan1[i2] += T;
+        bitan1[i0] += B; bitan1[i1] += B; bitan1[i2] += B;
+    }
+
+    // 이제 각 정점별로 T를 N과 직교화하고, B와의 관계로 부호 w를 구함
+    for (size_t i = 0; i < numVerts; i++)
+    {
+        QVector3D n(normals[i*3+0], normals[i*3+1], normals[i*3+2]);
+        QVector3D t = tan1[i];
+
+        // 탄젠트를 normal과 직교화 (Gram-Schmidt)
+        // t' = normalize( t - ( n dot t ) * n )
+        QVector3D tOrtho = (t - QVector3D::dotProduct(n, t)*n).normalized();
+
+        // handedness = sign( (n x t) dot b ) (±1)
+        // binormal = cross( n, t )이므로 여기에 B가 같은 방향이면 +1, 반대면 -1
+        QVector3D b = bitan1[i];
+        float handedness = (QVector3D::dotProduct(QVector3D::crossProduct(n, t), b) < 0.0f) ? -1.0f : 1.0f;
+
+        // 결과를 tangents 벡터에 저장
+        tangents[i*4 + 0] = tOrtho.x();
+        tangents[i*4 + 1] = tOrtho.y();
+        tangents[i*4 + 2] = tOrtho.z();
+        tangents[i*4 + 3] = handedness;
     }
 }
