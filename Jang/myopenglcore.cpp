@@ -82,6 +82,20 @@ void MyOpenGLCore::initialize(const QString &vertexShaderPath,
     glDepthFunc(GL_LESS);
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
+    // 6장 이미지 경로
+    std::vector<QString> cubeFaces = {
+        "../../sky/right.jpg",  // +x
+        "../../sky/left.jpg",   // -x
+        "../../sky/top.jpg",    // +y
+        "../../sky/bottom.jpg", // -y
+        "../../sky/front.jpg",  // +z
+        "../../sky/back.jpg"    // -z
+    };
+
+    loadCubeMap(cubeFaces);
+    createSkyboxGeometry();
+    loadSkyboxShaders("../../skybox.vert", "../../skybox.frag");
+
     qDebug() << "[MyOpenGLCore::initialize] Done";
 }
 
@@ -403,85 +417,150 @@ void MyOpenGLCore::configureTexture2()
 //--------------------------------------
 void MyOpenGLCore::render()
 {
+    // 1. 컬러/깊이 버퍼 초기화
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    // 2. 카메라 변환행렬: m_viewMatrix, m_projectionMatrix 통일
+    m_viewMatrix.setToIdentity();
+    updateCameraView(m_viewMatrix);
+    // 예시로, 카메라 전체를 z축 -24만큼 뒤로 빼고,
+    // updateCameraView로 m_cameraPosition, m_cameraRotation 적용
+    m_viewMatrix.translate(0.0f, 0.0f, -24.0f);
+
+    m_projectionMatrix.setToIdentity();
+    // 스카이박스 크기가 100배라 far=100으로 부족하므로, 넉넉히 500
+    m_projectionMatrix.perspective(45.0f, 4.0f/3.0f, 0.1f, 500.0f);
+
+    //---------------------------------
+    // 3. 스카이박스 먼저 렌더링
+    // ---------------------------------
+    renderSkybox(m_viewMatrix, m_projectionMatrix);
+
+    // // 2) 스카이박스용 행렬은 "카메라 회전"만 따로 추출
+    // QMatrix4x4 skyRotation;
+    // skyRotation.setToIdentity();
+    // skyRotation.rotate(m_cameraRotation.conjugated());
+    // renderSkybox(skyRotation, m_projectionMatrix);
+
+
+    //---------------------------------
+    // 4. 일반 오브젝트(노멀 매핑) 렌더
+    //---------------------------------
     glUseProgram(m_program);
 
-    // 텍스처 활성화
+    // 필요한 텍스처 바인딩
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, m_texture);
-
-    // 텍스처 유니폼
     GLint texLoc = glGetUniformLocation(m_program, "ColorTex");
     if (texLoc >= 0) {
         glUniform1i(texLoc, 0);
     }
 
-    // 텍스처 활성화
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, m_texture2);
-
-    // 텍스처 유니폼
     GLint texLoc2 = glGetUniformLocation(m_program, "NormalMapTex");
     if (texLoc2 >= 0) {
         glUniform1i(texLoc2, 1);
     }
 
-    // 카메라/조명/행렬 설정
+    // 5. setMatrices()에서 m_viewMatrix, m_projectionMatrix를 참조해
+    //    모델 행렬 합성, 조명 좌표 변환, 유니폼 설정
     setMatrices();
 
-    // 도형 렌더링
+    // 6. 실제 지오메트리 렌더링
     glBindVertexArray(m_vao);
     glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
 }
+
+// void MyOpenGLCore::render()
+// {
+//     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+//     //---------------------------------
+//     // 1) 스카이박스 먼저 렌더링
+//     //---------------------------------
+//     // 카메라 변환 행렬 설정
+//     // (1) view
+//     QMatrix4x4 viewMatrix;
+//     viewMatrix.setToIdentity();
+//     viewMatrix.translate(0,0,-24); // 필요하면
+//     updateCameraView(viewMatrix);
+
+//     // (2) proj
+//     QMatrix4x4 projMatrix;
+//     projMatrix.setToIdentity();
+//     projMatrix.perspective(45.f, 4.0f/3.0f, 0.1f, 500.f); // 넉넉히
+
+//     // 스카이박스 (같은 view/proj)
+//     renderSkybox(viewMatrix, projMatrix);
+
+//     glUseProgram(m_program);
+
+//     // 카메라/조명/행렬 설정
+//     setMatrices(viewMatrix, projMatrix);  // <= 바꿔야 함
+
+//     // 텍스처 활성화
+//     glActiveTexture(GL_TEXTURE0);
+//     glBindTexture(GL_TEXTURE_2D, m_texture);
+
+//     // 텍스처 유니폼
+//     GLint texLoc = glGetUniformLocation(m_program, "ColorTex");
+//     if (texLoc >= 0) {
+//         glUniform1i(texLoc, 0);
+//     }
+
+//     // 텍스처 활성화
+//     glActiveTexture(GL_TEXTURE1);
+//     glBindTexture(GL_TEXTURE_2D, m_texture2);
+
+//     // 텍스처 유니폼
+//     GLint texLoc2 = glGetUniformLocation(m_program, "NormalMapTex");
+//     if (texLoc2 >= 0) {
+//         glUniform1i(texLoc2, 1);
+//     }
+
+
+//     // 도형 렌더링
+//     glBindVertexArray(m_vao);
+//     glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, nullptr);
+//     glBindVertexArray(0);
+// }
 
 //--------------------------------------
 // 조명, 행렬 관련 설정(뷰, 투영 등)
 //--------------------------------------
 void MyOpenGLCore::setMatrices()
 {
-    // 1) 모델 행렬
+    // 1) 모델 행렬(개별 오브젝트 변환)
     QMatrix4x4 modelMatrix;
     modelMatrix.setToIdentity();
-    // 필요 시 회전, 스케일, 이동 적용 가능
+    // 필요 시 오브젝트 자체 회전 or 이동
+    // modelMatrix.rotate(...);
+    // modelMatrix.translate(...);
 
-    // 2) 뷰 행렬 (카메라)
-    QMatrix4x4 viewMatrix;
-    viewMatrix.setToIdentity();
-    viewMatrix.translate(0.0f, 0.0f, -24.0f);
-    updateCameraView(viewMatrix);
+    // 2) 모델뷰
+    QMatrix4x4 modelViewMatrix = m_viewMatrix * modelMatrix;
 
-    // 3) 모델뷰
-    QMatrix4x4 modelViewMatrix = viewMatrix * modelMatrix;
-
-    // 4) 노멀 매트릭스
+    // 3) 노멀 매트릭스
     QMatrix3x3 normalMatrix = modelViewMatrix.normalMatrix();
 
-    // 5) 투영 행렬
-    QMatrix4x4 projectionMatrix;
-    projectionMatrix.setToIdentity();
-    projectionMatrix.perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.f);
+    // 4) MVP
+    QMatrix4x4 mvpMatrix = m_projectionMatrix * modelViewMatrix;
 
-    // 6) MVP
-    QMatrix4x4 mvpMatrix = projectionMatrix * modelViewMatrix;
-
-    // 조명 위치(월드->뷰)
+    // 5) 조명 좌표(월드->뷰)
     QVector4D lightPosWorld(300.f, 300.f, 300.f, 1.f);
-    QVector4D lightPosView = viewMatrix * lightPosWorld;
+    QVector4D lightPosView = m_viewMatrix * lightPosWorld;
     GLfloat lightPosition[4] = {
         lightPosView.x(), lightPosView.y(),
         lightPosView.z(), lightPosView.w()
     };
-
-    // 유니폼 전달
     glUniform4fv(glGetUniformLocation(m_program, "LightPosition"), 1, lightPosition);
 
-    // 머티리얼, 조명 세팅 예시
+    // 머티리얼/조명 세팅 (기존 동일)
     GLfloat lightIntensity[3] = { 1.2f, 0.8f, 0.3f };
     glUniform3fv(glGetUniformLocation(m_program, "LightIntensity"), 1, lightIntensity);
 
-    // 예시 머티리얼 값
     GLfloat ka[3] = { 0.3f, 0.2f, 0.0f };
     GLfloat kd[3] = { 1.0f, 0.6f, 0.2f };
     GLfloat ks[3] = { 1.0f, 0.7f, 0.3f };
@@ -491,12 +570,71 @@ void MyOpenGLCore::setMatrices()
     glUniform3fv(glGetUniformLocation(m_program, "Ks"), 1, ks);
     glUniform1f(glGetUniformLocation(m_program, "Shininess"), shininess);
 
-    // 행렬 유니폼 전달
-    glUniformMatrix4fv(m_uniformModelViewMatrix, 1, GL_FALSE, modelViewMatrix.constData());
-    glUniformMatrix3fv(m_uniformNormalMatrix, 1, GL_FALSE, normalMatrix.constData());
-    glUniformMatrix4fv(m_uniformProjectionMatrix, 1, GL_FALSE, projectionMatrix.constData());
-    glUniformMatrix4fv(m_uniformMVP, 1, GL_FALSE, mvpMatrix.constData());
+    // 6) 행렬 유니폼 전달
+    glUniformMatrix4fv(m_uniformModelViewMatrix,   1, GL_FALSE, modelViewMatrix.constData());
+    glUniformMatrix3fv(m_uniformNormalMatrix,      1, GL_FALSE, normalMatrix.constData());
+    glUniformMatrix4fv(m_uniformProjectionMatrix,  1, GL_FALSE, m_projectionMatrix.constData());
+    glUniformMatrix4fv(m_uniformMVP,               1, GL_FALSE, mvpMatrix.constData());
 }
+
+// void MyOpenGLCore::setMatrices()
+// {
+//     // 1) 모델 행렬
+//     QMatrix4x4 modelMatrix;
+//     modelMatrix.setToIdentity();
+//     // 필요 시 회전, 스케일, 이동 적용 가능
+
+//     // 2) 뷰 행렬 (카메라)
+//     QMatrix4x4 viewMatrix;
+//     viewMatrix.setToIdentity();
+//     viewMatrix.translate(0.0f, 0.0f, -24.0f);
+//     updateCameraView(viewMatrix);
+
+//     // 3) 모델뷰
+//     QMatrix4x4 modelViewMatrix = viewMatrix * modelMatrix;
+
+//     // 4) 노멀 매트릭스
+//     QMatrix3x3 normalMatrix = modelViewMatrix.normalMatrix();
+
+//     // 5) 투영 행렬
+//     QMatrix4x4 projectionMatrix;
+//     projectionMatrix.setToIdentity();
+//     projectionMatrix.perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.f);
+
+//     // 6) MVP
+//     QMatrix4x4 mvpMatrix = projectionMatrix * modelViewMatrix;
+
+//     // 조명 위치(월드->뷰)
+//     QVector4D lightPosWorld(300.f, 300.f, 300.f, 1.f);
+//     QVector4D lightPosView = viewMatrix * lightPosWorld;
+//     GLfloat lightPosition[4] = {
+//         lightPosView.x(), lightPosView.y(),
+//         lightPosView.z(), lightPosView.w()
+//     };
+
+//     // 유니폼 전달
+//     glUniform4fv(glGetUniformLocation(m_program, "LightPosition"), 1, lightPosition);
+
+//     // 머티리얼, 조명 세팅 예시
+//     GLfloat lightIntensity[3] = { 1.2f, 0.8f, 0.3f };
+//     glUniform3fv(glGetUniformLocation(m_program, "LightIntensity"), 1, lightIntensity);
+
+//     // 예시 머티리얼 값
+//     GLfloat ka[3] = { 0.3f, 0.2f, 0.0f };
+//     GLfloat kd[3] = { 1.0f, 0.6f, 0.2f };
+//     GLfloat ks[3] = { 1.0f, 0.7f, 0.3f };
+//     GLfloat shininess = 32.0f;
+//     glUniform3fv(glGetUniformLocation(m_program, "Ka"), 1, ka);
+//     glUniform3fv(glGetUniformLocation(m_program, "Kd"), 1, kd);
+//     glUniform3fv(glGetUniformLocation(m_program, "Ks"), 1, ks);
+//     glUniform1f(glGetUniformLocation(m_program, "Shininess"), shininess);
+
+//     // 행렬 유니폼 전달
+//     glUniformMatrix4fv(m_uniformModelViewMatrix, 1, GL_FALSE, modelViewMatrix.constData());
+//     glUniformMatrix3fv(m_uniformNormalMatrix, 1, GL_FALSE, normalMatrix.constData());
+//     glUniformMatrix4fv(m_uniformProjectionMatrix, 1, GL_FALSE, projectionMatrix.constData());
+//     glUniformMatrix4fv(m_uniformMVP, 1, GL_FALSE, mvpMatrix.constData());
+// }
 
 //--------------------------------------
 // 카메라 변환 적용
@@ -506,6 +644,8 @@ void MyOpenGLCore::updateCameraView(QMatrix4x4 &viewMatrix)
     // 회전은 쿼터니언의 역(컨주게이트) 곱 적용
     viewMatrix.rotate(m_cameraRotation.conjugated());
     viewMatrix.translate(-m_cameraPosition);
+    // viewMatrix.translate(-m_cameraPosition);
+    // viewMatrix.rotate(m_cameraRotation.conjugated());
 }
 
 //--------------------------------------
@@ -553,15 +693,47 @@ void MyOpenGLCore::handleMouseMoveEvent(QMouseEvent *event)
     QPoint delta = event->pos() - m_lastMousePosition;
     m_lastMousePosition = event->pos();
 
-    float yaw   = -delta.x() * m_rotationSpeed;
-    float pitch = -delta.y() * m_rotationSpeed;
+    // 마우스 x 이동 -> yaw, y 이동 -> pitch
+    float yawDelta   = -delta.x() * m_rotationSpeed;
+    float pitchDelta = -delta.y() * m_rotationSpeed;
 
-    // 쿼터니언 회전
-    QQuaternion yawRotation   = QQuaternion::fromAxisAndAngle(0.f, 1.f, 0.f, yaw);
-    QQuaternion pitchRotation = QQuaternion::fromAxisAndAngle(1.f, 0.f, 0.f, pitch);
+    // 누적
+    m_yaw   += yawDelta;
+    m_pitch += pitchDelta;
 
-    m_cameraRotation = yawRotation * m_cameraRotation * pitchRotation;
+    // Pitch 각도 제한 ( -89~ +89도 )
+    if(m_pitch >  89.0f) m_pitch =  89.0f;
+    if(m_pitch < -89.0f) m_pitch = -89.0f;
+
+    // 쿼터니언으로 재계산
+    QQuaternion yawQ   = QQuaternion::fromAxisAndAngle(0.f, 1.f, 0.f, m_yaw);
+    QQuaternion pitchQ = QQuaternion::fromAxisAndAngle(1.f, 0.f, 0.f, m_pitch);
+
+    // 최종 카메라 회전
+    // 전역 Y축으로 yaw, yaw가 적용된 좌표계에서 로컬 X축으로 pitch
+    m_cameraRotation = yawQ * pitchQ;
+
+    qDebug() << "yawDelta =" << yawDelta << "pitchDelta =" << pitchDelta;
+    qDebug() << "m_yaw =" << m_yaw << "m_pitch =" << m_pitch;
+
 }
+
+// void MyOpenGLCore::handleMouseMoveEvent(QMouseEvent *event)
+// {
+//     if (!m_isMousePressed) return;
+
+//     QPoint delta = event->pos() - m_lastMousePosition;
+//     m_lastMousePosition = event->pos();
+
+//     float yaw   = -delta.x() * m_rotationSpeed;
+//     float pitch = -delta.y() * m_rotationSpeed;
+
+//     // 쿼터니언 회전
+//     QQuaternion yawRotation   = QQuaternion::fromAxisAndAngle(0.f, 1.f, 0.f, yaw);
+//     QQuaternion pitchRotation = QQuaternion::fromAxisAndAngle(1.f, 0.f, 0.f, pitch);
+
+//     m_cameraRotation = yawRotation * m_cameraRotation * pitchRotation;
+// }
 
 //--------------------------------------
 // OBJ 파일 파싱
@@ -878,4 +1050,238 @@ void MyOpenGLCore::generateTangents(const std::vector<GLfloat> &vertices,
         tangents[i*4 + 2] = tOrtho.z();
         tangents[i*4 + 3] = handedness;
     }
+}
+
+void MyOpenGLCore::loadCubeMap(const std::vector<QString> &faces)
+{
+    // faces.size()는 보통 6이 되어야 함 (+x, -x, +y, -y, +z, -z)
+    if (faces.size() != 6) {
+        qWarning() << "CubeMap requires 6 texture paths.";
+        return;
+    }
+    glGenTextures(1, &m_cubeMapTexture);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, m_cubeMapTexture);
+
+    // +x, -x, +y, -y, +z, -z 순서로 로드
+    for (int i = 0; i < 6; i++) {
+        QImage img;
+        if (!img.load(faces[i])) {
+            qWarning() << "Failed to load cubemap face:" << faces[i];
+            continue;
+        }
+        qDebug() << "Cubemap face" << i << faces[i] << "loaded with size"
+                 << img.width() << "x" << img.height();
+        QImage glImg = img.convertToFormat(QImage::Format_RGBA8888);
+
+        // OpenGL로 복사
+        // GL_TEXTURE_CUBE_MAP_POSITIVE_X + i 로 지정
+        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+                     0, GL_RGBA,
+                     glImg.width(),
+                     glImg.height(),
+                     0, GL_RGBA,
+                     GL_UNSIGNED_BYTE,
+                     glImg.bits());
+    }
+
+    // 큐브맵 필터/래핑 설정
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    // 보통 큐브맵은 clamp 해도 되지만, 원하는 경우 GL_CLAMP_TO_EDGE
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+    glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+
+    qDebug() << "CubeMap texture loaded.";
+}
+
+void MyOpenGLCore::createSkyboxGeometry()
+{
+    float skyboxVertices[] = {
+        // 뒤 z = -1
+        -1.0f,  1.0f, -1.0f,
+        -1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+
+        // 앞 z = +1
+        -1.0f, -1.0f,  1.0f,
+        -1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f, -1.0f,  1.0f,
+        -1.0f, -1.0f,  1.0f,
+
+        // 아래
+        -1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f,  1.0f,
+        1.0f, -1.0f,  1.0f,
+        -1.0f, -1.0f,  1.0f,
+        -1.0f, -1.0f, -1.0f,
+
+        // 위
+        -1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f, -1.0f,
+        1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f,  1.0f,
+
+        // 좌
+        -1.0f, -1.0f,  1.0f,
+        -1.0f,  1.0f,  1.0f,
+        -1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+        -1.0f, -1.0f, -1.0f,
+        -1.0f, -1.0f,  1.0f,
+
+        // 우
+        1.0f, -1.0f, -1.0f,
+        1.0f,  1.0f, -1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f, -1.0f,  1.0f,
+        1.0f, -1.0f, -1.0f
+    };
+
+    for (int i=0; i < (int) sizeof(skyboxVertices); i++){
+        skyboxVertices[i] *= 100;
+    }
+
+    glGenVertexArrays(1, &m_skyboxVAO);
+    glGenBuffers(1, &m_skyboxVBO);
+    glBindVertexArray(m_skyboxVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, m_skyboxVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), skyboxVertices, GL_STATIC_DRAW);
+
+    // layout(location = 0) in vec3 aPos; (예: skybox.vert에서)
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+    // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
+    glBindVertexArray(0);
+
+    qDebug() << "Skybox geometry created.";
+}
+
+void MyOpenGLCore::loadSkyboxShaders(const QString &vertPath, const QString &fragPath)
+{
+    // 간단히 vertex/fragment 로딩, 컴파일, 링크 (기존 loadShaders와 유사)
+    // 여기선 새 m_skyboxProgram 에 저장
+    auto readFile = [&](const QString &path) -> QByteArray {
+        QFile f(path);
+        if(!f.open(QIODevice::ReadOnly|QIODevice::Text)){
+            qWarning() << "Skybox shader file not found:" << path;
+            return QByteArray();
+        }
+        return f.readAll();
+    };
+
+    QByteArray vsSrc = readFile(vertPath);
+    QByteArray fsSrc = readFile(fragPath);
+    if(vsSrc.isEmpty()|| fsSrc.isEmpty()){
+        qWarning() << "Skybox shader source empty.";
+        return;
+    }
+
+    GLuint vs = glCreateShader(GL_VERTEX_SHADER);
+    const char* vsC = vsSrc.constData();
+    glShaderSource(vs, 1, &vsC, nullptr);
+    glCompileShader(vs);
+
+    GLint success;
+    glGetShaderiv(vs, GL_COMPILE_STATUS, &success);
+    if(!success){
+        char log[512];
+        glGetShaderInfoLog(vs,512,nullptr,log);
+        qWarning() << "Skybox vertex shader error:\n" << log;
+        glDeleteShader(vs);
+        return;
+    }
+
+    GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
+    const char* fsC = fsSrc.constData();
+    glShaderSource(fs,1,&fsC,nullptr);
+    glCompileShader(fs);
+    glGetShaderiv(fs, GL_COMPILE_STATUS, &success);
+    if(!success){
+        char log[512];
+        glGetShaderInfoLog(fs,512,nullptr,log);
+        qWarning() << "Skybox fragment shader error:\n" << log;
+        glDeleteShader(vs);
+        glDeleteShader(fs);
+        return;
+    }
+
+    m_skyboxProgram = glCreateProgram();
+    glAttachShader(m_skyboxProgram, vs);
+    glAttachShader(m_skyboxProgram, fs);
+    glLinkProgram(m_skyboxProgram);
+
+    glGetProgramiv(m_skyboxProgram, GL_LINK_STATUS, &success);
+    if(!success){
+        char log[512];
+        glGetProgramInfoLog(m_skyboxProgram,512,nullptr,log);
+        qWarning() << "Skybox program link error:\n" << log;
+        glDeleteShader(vs);
+        glDeleteShader(fs);
+        return;
+    }
+    // 삭제
+    glDeleteShader(vs);
+    glDeleteShader(fs);
+
+    qDebug() << "Skybox shaders loaded. Program =" << m_skyboxProgram;
+}
+
+void MyOpenGLCore::renderSkybox(const QMatrix4x4 &viewMatrix, const QMatrix4x4 &projectionMatrix)
+{
+    glDepthFunc(GL_LEQUAL);  // 스카이박스는 배경이므로
+    glDisable(GL_CULL_FACE);
+    // 기존에 glCullFace(GL_BACK)가 설정되어 있다면, 스카이박스에서는
+    // 그걸 잠시 GL_FRONT로 바꿔서 "안쪽 면"을 그리도록 함
+    // glCullFace(GL_FRONT);
+
+    glUseProgram(m_skyboxProgram);
+
+    // viewMatrix에서 위치 이동 제거(회전만 남김)
+    QMatrix4x4 rotOnly = viewMatrix;
+    rotOnly.setColumn(3, QVector4D(0,0,0,1)); // 위치 부분(행렬 4열)을 (0,0,0,1)로
+    // qDebug() << rotOnly;
+
+    // 셰이더 uniform 세팅
+    GLint locView = glGetUniformLocation(m_skyboxProgram, "uView");
+    GLint locProj = glGetUniformLocation(m_skyboxProgram, "uProjection");
+    if(locView>=0) glUniformMatrix4fv(locView,1,GL_FALSE,rotOnly.constData());
+    else{
+        qDebug() << "locView";
+    }
+    if(locProj>=0) glUniformMatrix4fv(locProj,1,GL_FALSE,projectionMatrix.constData());
+    else{
+        qDebug() << "locProj";
+    }
+    // 큐브맵 바인딩, samplerCube는 texture unit 0 가정
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, m_cubeMapTexture);
+    GLint skyLoc = glGetUniformLocation(m_skyboxProgram, "skybox");
+    if(skyLoc>=0) glUniform1i(skyLoc,0);
+    else{
+        qDebug() << "skyLoc";
+    }
+
+    // 스카이박스 VAO 렌더
+    glBindVertexArray(m_skyboxVAO);
+    // 정점 36개(6면*6)
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+    glBindVertexArray(0);
+
+    // 원복
+    glEnable(GL_CULL_FACE);
+    // glCullFace(GL_BACK);
+    glDepthFunc(GL_LESS);
 }

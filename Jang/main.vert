@@ -31,8 +31,7 @@ void main()
     tang.y, binormal.y, norm.y,
     tang.z, binormal.z, norm.z ) ;
     // Get the position in eye coordinates
-    vec3 pos = vec3( ModelViewMatrix *
-    vec4(VertexPosition,1.0) );
+    vec3 pos = vec3( ModelViewMatrix * vec4(VertexPosition,1.0) );
     // Transform light dir. and view dir. to tangent space
     LightDir = normalize( toObjectLocal * (LightPosition.xyz - pos) );
     ViewDir = toObjectLocal * normalize(-pos);

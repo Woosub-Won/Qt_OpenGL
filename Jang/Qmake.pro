@@ -26,3 +26,5 @@ HEADERS += \
 DISTFILES += \
     main.frag \
     main.vert \
+    skybox.frag \
+    skybox.vert

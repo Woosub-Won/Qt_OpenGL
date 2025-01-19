@@ -68,6 +68,9 @@ private:
     void checkProgramLinkStatus(GLuint program);
 
 private:
+    QMatrix4x4 m_viewMatrix;        // 카메라 view 행렬을 담는 멤버
+    QMatrix4x4 m_projectionMatrix;  // 투영행렬을 담는 멤버
+
     // 셰이더, 버퍼 관련
     GLuint m_program;
     GLuint m_vao;
@@ -106,6 +109,8 @@ private:
     bool         m_isMousePressed;
     float        m_moveSpeed;
     float        m_rotationSpeed;
+    float        m_yaw;
+    float        m_pitch;
 
     // 셰이더에서 사용할 Uniform 위치
     GLint m_uniformLightPosition;
@@ -126,6 +131,18 @@ private:
         1.0f, 1.0f, // Top-right
         0.0f, 1.0f  // Top-left
     };
+
+private:
+    // 스카이박스 렌더링에 필요한 것들
+    GLuint m_skyboxVAO = 0;
+    GLuint m_skyboxVBO = 0;
+    GLuint m_skyboxProgram = 0;    // 스카이박스 전용 셰이더 프로그램
+    GLuint m_cubeMapTexture = 0;   // 큐브맵 텍스처
+    void createSkyboxGeometry();
+    void loadCubeMap(const std::vector<QString> &faces);
+    void loadSkyboxShaders(const QString &vertPath, const QString &fragPath);
+    void renderSkybox(const QMatrix4x4 &viewMatrix, const QMatrix4x4 &projectionMatrix);
+
 };
 
 #endif // MYOPENGLCORE_H
