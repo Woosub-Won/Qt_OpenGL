@@ -38,6 +38,8 @@ void main() {
     vec3 ambAndDiff, spec;
     vec4 brickTexColor = texture( BrickTex, TexCoord );
     vec4 mossTexColor = texture( MossTex, TexCoord );
+    if(mossTexColor.a < 0.15 )
+        discard;
     phongModel(Position, Normal, ambAndDiff, spec);
     vec4 texColor = mix(brickTexColor, mossTexColor, mossTexColor.a);
     FragColor = vec4(ambAndDiff, 1.0) * texColor + vec4(spec, 1.0);
