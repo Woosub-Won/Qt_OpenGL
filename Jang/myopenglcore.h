@@ -3,6 +3,7 @@
 
 #include <QOpenGLFunctions_4_0_Core>
 #include <QString>
+#include <QImage>
 #include <vector>
 
 #include <QQuaternion>
@@ -22,6 +23,7 @@ public:
                           const std::vector<GLuint> &indices = {},
                           const std::vector<GLfloat> &normals = {});
     explicit MyOpenGLCore(const QString &objFilePath);
+    explicit MyOpenGLCore(const QString &objFilePath, const QString &texturePath);
 
     ~MyOpenGLCore();
 
@@ -32,7 +34,6 @@ public:
     void activeUniformVariables();
     void checkDefaults();
     bool parseObjFile(const QString &filePath);
-
 private:
     GLuint m_program;   // 셰이더 프로그램 ID
     GLuint m_vao;       // VAO 핸들
@@ -47,6 +48,8 @@ private:
     std::vector<GLfloat> m_colors;     // 색상 데이터
     std::vector<GLfloat> m_texCoords;  // 텍스처 좌표 데이터
     std::vector<GLuint> m_indices; // 인덱스 데이터
+    QImage m_textureImage;
+    GLuint m_texture; // 텍스처 핸들을 분리
 
     // 초기 기본값 (상수)
     const std::vector<GLfloat> defaultColors = {

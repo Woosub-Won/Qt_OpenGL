@@ -20,6 +20,20 @@ MyOpenGLCore::MyOpenGLCore(const QString &objFilePath) {
     }
 }
 
+MyOpenGLCore::MyOpenGLCore(const QString &objFilePath, const QString &texturePath){
+    if (!parseObjFile(objFilePath)) {
+        qDebug() << "Failed to load OBJ file in constructor.";
+    }
+
+    if (!m_textureImage.load(texturePath)) {
+        qDebug() << "Failed to load texture image from:" << texturePath;
+    } else {
+        qDebug() << "Loaded texture image:" << texturePath;
+        qDebug() << "Texture size:" << m_textureImage.width() << "x" << m_textureImage.height();
+    }
+
+}
+
 MyOpenGLCore::~MyOpenGLCore()
 {
     glDeleteProgram(m_program); // 셰이더 프로그램 삭제
@@ -66,21 +80,37 @@ void MyOpenGLCore::initialize()
     // glGenBuffers(1, &m_cbo);
     // glBindBuffer(GL_ARRAY_BUFFER, m_cbo);
     // glBufferData(GL_ARRAY_BUFFER, m_colors.size() * sizeof(GLfloat), m_colors.data(), GL_STATIC_DRAW);
-    // glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-    // glEnableVertexAttribArray(2);
-
-    // m_texCoords = {
-    //     0.0f, 0.0f, // 왼쪽 아래
-    //     1.0f, 0.0f, // 오른쪽 아래
-    //     1.0f, 1.0f, // 오른쪽 위
-    // };
+    // glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+    // glEnableVertexAttribArray(3);
 
     // // TBO 생성 및 데이터 전송 (텍스처 좌표)
-    // glGenBuffers(1, &m_tbo);
-    // glBindBuffer(GL_ARRAY_BUFFER, m_tbo);
-    // glBufferData(GL_ARRAY_BUFFER, m_texCoords.size() * sizeof(GLfloat), m_texCoords.data(), GL_STATIC_DRAW);
-    // glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
-    // glEnableVertexAttribArray(3);
+    // 텍스처 좌표 버퍼 생성 및 데이터 전송
+    glGenBuffers(1, &m_tbo);
+    glBindBuffer(GL_ARRAY_BUFFER, m_tbo);
+    glBufferData(GL_ARRAY_BUFFER, m_texCoords.size() * sizeof(GLfloat), m_texCoords.data(), GL_STATIC_DRAW);
+
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+
+    qDebug() << "Loaded texture coordinates: " << m_texCoords.size() / 2 << " points";
+    if (m_texCoords.empty()) {
+        qDebug() << "Error: Texture coordinates are missing!";
+    }
+
+    glGenTextures(1, &m_texture);
+    glBindTexture(GL_TEXTURE_2D, m_texture);
+
+    // 텍스처 데이터를 OpenGL에 업로드
+    QImage glImage = m_textureImage.convertToFormat(QImage::Format_RGBA8888);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, glImage.width(), glImage.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, glImage.bits());
+
+    // 텍스처 필터링 및 래핑 설정
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
 
     // EBO 생성 및 데이터 전송 (인덱스)
     glGenBuffers(1, &m_ebo);
@@ -161,6 +191,18 @@ void MyOpenGLCore::render()
 
     glUseProgram(m_program);
 
+    // 텍스처 활성화 및 바인딩
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, m_texture);
+
+    // 텍스처 유니폼 설정
+    GLint texLoc = glGetUniformLocation(m_program, "Tex1");
+    if (texLoc >= 0) {
+        glUniform1i(texLoc, 0);  // 텍스처 유닛 0 사용
+    } else {
+        qDebug() << "Uniform variable Tex1 not found!";
+    }
+
     // 1. 행렬 정의
     QMatrix4x4 modelMatrix, viewMatrix, projectionMatrix;
 
@@ -209,39 +251,6 @@ void MyOpenGLCore::render()
     glUniform3fv(glGetUniformLocation(m_program, "Kd"), 1, kd);
     glUniform3fv(glGetUniformLocation(m_program, "Ks"), 1, ks);
     glUniform1f(glGetUniformLocation(m_program, "Shininess"), shininess);
-
-    // SpotLightInfo 설정 (모델-뷰 좌표계로 변환)
-    QVector4D spotLightWorldPos(0.0f, 15.0f, 0.0f, 1.0f); // 월드 좌표계 위치
-    QVector4D spotLightMVPos = modelViewMatrix * spotLightWorldPos; // 모델-뷰 좌표계로 변환
-
-    GLfloat spotPosition[4] = {
-        spotLightMVPos.x(),
-        spotLightMVPos.y(),
-        spotLightMVPos.z(),
-        spotLightMVPos.w()
-    };
-
-    // 스포트라이트 방향 (모델-뷰 좌표계로 변환)
-    QVector4D spotDirectionWorld(0.0f, -1.0f, 0.0f, 0.0f); // 월드 좌표계 방향 (w = 0)
-    QVector4D spotDirectionMV = modelViewMatrix * spotDirectionWorld;
-
-    GLfloat spotDirection[3] = {
-        spotDirectionMV.x(),
-        spotDirectionMV.y(),
-        spotDirectionMV.z()
-    };
-
-    GLfloat spotIntensity[3] = { 1.0f, 1.0f, 1.0f };
-    // GLfloat spotDirection[3] = { 0.0f, -1.0f, 0.0f };
-    GLfloat spotExponent = 50.0f;
-    GLfloat spotCutoff = 45.0f;
-
-    // SpotLightInfo를 GLSL에 전달
-    glUniform4fv(glGetUniformLocation(m_program, "Spot.position"), 1, spotPosition);
-    glUniform3fv(glGetUniformLocation(m_program, "Spot.intensity"), 1, spotIntensity);
-    glUniform3fv(glGetUniformLocation(m_program, "Spot.direction"), 1, spotDirection);
-    glUniform1f(glGetUniformLocation(m_program, "Spot.exponent"), spotExponent);
-    glUniform1f(glGetUniformLocation(m_program, "Spot.cutoff"), spotCutoff);
 
     glUniformMatrix4fv(m_uniformModelViewMatrix, 1, GL_FALSE, modelViewMatrix.constData());
     glUniformMatrix3fv(m_uniformNormalMatrix, 1, GL_FALSE, normalMatrix.constData());

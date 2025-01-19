@@ -22,8 +22,9 @@ protected:
 
         // openglCore = new MyOpenGLCore(vertices, indices, normals);
 
-        QString objPath = "../../teapot_vt.obj";
-        openglCore = new MyOpenGLCore(objPath);
+        QString objPath = "../../cube.obj";
+        QString imagePath = "../../brick.jpg";
+        openglCore = new MyOpenGLCore(objPath, imagePath);
         openglCore->initialize();
 
         qDebug() << "Using shader paths:" << "../../main.vert" << "../../main.frag";
