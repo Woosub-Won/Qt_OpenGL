@@ -1,80 +1,77 @@
 #include <QGuiApplication>
 #include <QOpenGLWindow>
+#include <QSurfaceFormat>
+#include <QDebug>
 #include "myopenglcore.h"
 
-class CLASS_NAME : public QOpenGLWindow
+class MyWindow : public QOpenGLWindow
 {
+public:
+    MyWindow() : openglCore(nullptr) {}
+
 protected:
-    MyOpenGLCore *openglCore = nullptr;
-
-#include <vector>
-#include <QtMath>
-
     void initializeGL() override {
-        // std::vector<GLfloat> vertices;   // 점 좌표
-        // std::vector<GLfloat> normals;
-        // std::vector<GLuint> indices;
-
-        // // 결과 출력 (테스트용)
-        // qDebug() << "Vertices: " << vertices.size() / 3 << " points\n";
-        // qDebug() << "Normals: " << normals.size() / 3 << " points\n";
-        // qDebug() << "Indices: " << indices.size() / 3 << " triangles\n";
-
-        // openglCore = new MyOpenGLCore(vertices, indices, normals);
-
-        QString objPath = "../../cube.obj";
-        QString imagePath = "../../brick.jpg";
-        openglCore = new MyOpenGLCore(objPath, imagePath);
-        openglCore->initialize();
-
-        qDebug() << "Using shader paths:" << "../../main.vert" << "../../main.frag";
-        // 셰이더 파일 로드
-        if (!openglCore->loadShaders("../../main.vert", "../../main.frag")) {
-            qFatal("Failed to load shaders!");
-        }
+        // QOpenGLWindow과 관련된 GL context 세팅 이후 호출
+        openglCore = new MyOpenGLCore(
+            "../../cube.obj",       // 원하는 obj 파일 경로
+            "../../brick.jpg"       // 원하는 텍스처 이미지 경로
+            );
+        // 이제 셰이더 로드 및 각종 초기화
+        openglCore->initialize("../../main.vert", "../../main.frag");
+        // 디버깅용: Uniform/Attrib 확인
         openglCore->activeUniformVariables();
-
+        openglCore->activeVertexInputAttributesAndIndices();
     }
 
     void paintGL() override {
-        openglCore->render();
+        if(openglCore) {
+            openglCore->render();
+        }
     }
 
     void keyPressEvent(QKeyEvent *event) override {
-        openglCore->handleKeyPressEvent(event);
-        update();
+        if(openglCore) {
+            openglCore->handleKeyPressEvent(event);
+        }
+        update(); // 새 프레임 그려달라고 요청
     }
 
     void mousePressEvent(QMouseEvent *event) override {
-        openglCore->handleMousePressEvent(event);
+        if(openglCore) {
+            openglCore->handleMousePressEvent(event);
+        }
     }
 
     void mouseReleaseEvent(QMouseEvent *event) override {
-        openglCore->handleMouseReleaseEvent(event); // 마우스 클릭 해제 처리
+        if(openglCore) {
+            openglCore->handleMouseReleaseEvent(event);
+        }
     }
 
     void mouseMoveEvent(QMouseEvent *event) override {
-        openglCore->handleMouseMoveEvent(event);
-        update();
+        if(openglCore) {
+            openglCore->handleMouseMoveEvent(event);
+        }
+        update(); // 새 프레임 그려달라고 요청
     }
+
+private:
+    MyOpenGLCore *openglCore;
 };
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+
+    // 원하는 OpenGL 버전 세팅
     QSurfaceFormat format;
-    format.setVersion(4, 0); // OpenGL 4.0 Core Profile
+    format.setVersion(4, 0);
     format.setProfile(QSurfaceFormat::CoreProfile);
 
-    CLASS_NAME window;
+    MyWindow window;
     window.setFormat(format);
     window.resize(800, 600);
     window.show();
 
     return app.exec();
 }
-
-
-
-
-
