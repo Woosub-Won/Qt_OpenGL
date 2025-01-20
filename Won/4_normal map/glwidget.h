@@ -55,7 +55,7 @@ const char* const vertexShader = R"glsl(
         // Get the position in eye coordinates
         vec3 pos = vec3( ModelViewMatrix * vec4(VertexPosition,1.0) );
         // Transform light dir. and view dir. to tangent space
-        LightDir = normalize( toObjectLocal * (Light.Position.xyz - pos) );
+        LightDir = normalize( (toObjectLocal) * (Light.Position.xyz - pos) );
         ViewDir = toObjectLocal * normalize(-pos);
         // Pass along the texture coordinate
         TexCoord = VertexTexCoord;
@@ -106,10 +106,11 @@ const char* const fragmentShader = R"glsl(
     void main() 
     {
         // Lookup the normal from the normal map
-        vec4 normal = (texture( NormalMapTex, TexCoord ));
+        vec3 normal = normalize(2.0 * texture( NormalMapTex, TexCoord ).xyz - 1.0);
+        
         // The color texture is used as the diffuse reflectivity
-        vec4 texColor = texture( ColorTex, TexCoord );
-        FragColor = vec4( phongModel(normal.xyz, texColor.rgb), 1.0 );
+        vec3 texColor = texture( ColorTex, TexCoord ).rgb;
+        FragColor = vec4( phongModel(normal, texColor.rgb), 1.0 );
     }
 )glsl";
 

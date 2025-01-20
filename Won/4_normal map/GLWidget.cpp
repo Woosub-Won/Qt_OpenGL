@@ -35,7 +35,7 @@ void GLWidget::initializeGL()
     glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 
     // 조명 설정
-    lightPosition = QVector4D(15.0f, 0.0f, 15.0f, 1.0f);
+    lightPosition = QVector4D(0.0f, 5.0f, 0.0f, 1.0f);
     lightIntensity = QVector3D(1.0f, 1.0f, 1.0f);
 
     // 재질 설정
@@ -130,7 +130,7 @@ void GLWidget::paintGL()
     texture1->bind(0);
     shaderProgram.setUniformValue("ColorTex", 0);
     texture2->bind(1);
-    shaderProgram.setUniformValue("NormalMapTex", 1);
+    shaderProgram.setUniformValue("NormalMapTex", 1); 
 
     VAO.bind();
 
