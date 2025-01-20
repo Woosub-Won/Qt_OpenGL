@@ -92,15 +92,21 @@ void Widget::setUniforms(GLuint program, const mat4& model, const mat4& view, co
     mat4 mvp = projection * view * model;
     mat3 normalMatrix = transpose(inverse(mat3(view * model)));
 
+    glUniform1i(glGetUniformLocation(shaderProgram, "DrawSkyBox"), true);
+    glUniform3f(glGetUniformLocation(shaderProgram, "WorldCameraPosition"), eye.x, eye.y, eye.z);
+    glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ModelMatrix"), 1, GL_FALSE, value_ptr(model));
     glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ModelViewMatrix"), 1, GL_FALSE, value_ptr(view * model));
     glUniformMatrix3fv(glGetUniformLocation(shaderProgram, "NormalMatrix"), 1, GL_FALSE, value_ptr(normalMatrix));
     glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ProjectionMatrix"), 1, GL_FALSE, value_ptr(projection));
     glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "MVP"), 1, GL_FALSE, value_ptr(mvp));
+
+    glUniform1f(glGetUniformLocation(shaderProgram, "ReflectFactor"), 0.85);
+    glUniform4f(glGetUniformLocation(shaderProgram, "MaterialColor"), 1.0, 0.5, 0.3, 0.1);
 }
 
 void Widget::initializeBuffers() {
     FILE* file = NULL;
-    fopen_s(&file, "C:/obj/bs_ears.obj", "r");
+    fopen_s(&file, "C:/obj/cube.obj", "r");
     ReadOBJ(file);
 
     glBindVertexArray(VAO);
@@ -130,6 +136,8 @@ void Widget::initializeBuffers() {
     glBindVertexArray(VAO);
 
 }
+
+
 
 
 void setTwoSidedUniform(GLuint shaderProgram){
@@ -204,6 +212,43 @@ void Widget::loadTexture(const char* filename, int idx) {
 
 }
 
+void Widget::setCubeMap(){
+    glActiveTexture(GL_TEXTURE0);
+    GLuint texID;
+    glGenTextures(1, &tid[0]);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, tid[0]);
+    const char * suffixes[] = { "posx", "negx", "posy",
+                              "negy", "posz", "negz" };
+    GLuint targets[] = {
+        GL_TEXTURE_CUBE_MAP_POSITIVE_X,
+        GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
+        GL_TEXTURE_CUBE_MAP_POSITIVE_Y,
+        GL_TEXTURE_CUBE_MAP_NEGATIVE_Y,
+        GL_TEXTURE_CUBE_MAP_POSITIVE_Z,
+        GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
+    };
+
+    for( int i = 0; i < 6; i++ ) {
+        string texName = string("C:/ImageTemp/cube/pisa_") + suffixes[i] + ".png";
+        QImage timg = QImage(texName.c_str()).convertToFormat(QImage::Format_RGBA8888);
+        glTexImage2D(targets[i], 0, GL_RGBA, timg.width(), timg.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, timg.bits());
+    }
+
+    glTexParameterf(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER,
+                    GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER,
+                    GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S,
+                    GL_CLAMP_TO_EDGE);
+    glTexParameterf(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T,
+                    GL_CLAMP_TO_EDGE);
+    glTexParameterf(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R,
+                    GL_CLAMP_TO_EDGE);
+
+    GLuint uniloc = glGetUniformLocation(shaderProgram, "CubeMapTex");
+    glUniform1i(uniloc, 0);
+}
+
 
 void Widget::initializeGL() {
     if (glewInit() != GLEW_OK) {
@@ -215,17 +260,19 @@ void Widget::initializeGL() {
 
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f); // 밝은 회색
 
-    shaderProgram = InitShader( "C:/Users/SeunghyunWoo/Documents/chapter4/vshader_ch4.vert",
-                               "C:/Users/SeunghyunWoo/Documents/chapter4/fshader_ch4.frag");
+    shaderProgram = InitShader( "C:/Users/SeunghyunWoo/Documents/chapter4/vshader_ch5.vert",
+                               "C:/Users/SeunghyunWoo/Documents/chapter4/fshader_ch5.frag");
 
     glUseProgram(shaderProgram);
     initializeBuffers();
 
     setTwoSidedUniform(shaderProgram);
     //setLightUniform(shaderProgram);
-    loadTexture("C:/ImageTemp/ogre_diffuse.png", 0);
-    loadTexture("C:/ImageTemp/ogre_normalmap.png", 1);
-    loadTexture("C:/ImageTemp/ao_ears.png", 2);
+    setCubeMap();
+
+    //loadTexture("C:/ImageTemp/ogre_diffuse.png", 0);
+    //loadTexture("C:/ImageTemp/ogre_normalmap.png", 1);
+    //loadTexture("C:/ImageTemp/ao_ears.png", 2);
 
     updateCameraPosition();
 }
@@ -243,21 +290,30 @@ void Widget::paintGL() {
     mat4 projection = perspective(radians(45.0f), float(width()) / height(), 0.1f, 100.0f);
     mat4 view = lookAt(eye, at, up);
     mat4 model = mat4(1.0f);
+    model = scale(model, vec3(50.0f, 50.0f, 50.0f));
 
     glUseProgram(shaderProgram);
 
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, tid[0]); // tid는 loadTexture에서 생성한 텍스처 ID
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, tid[1]); // tid는 loadTexture에서 생성한 텍스처 ID
-    glActiveTexture(GL_TEXTURE2);
-    glBindTexture(GL_TEXTURE_2D, tid[2]); // tid는 loadTexture에서 생성한 텍스처 ID
+    //glActiveTexture(GL_TEXTURE0);
+    //glBindTexture(GL_TEXTURE_2D, tid[0]); // tid는 loadTexture에서 생성한 텍스처 ID
+    //glActiveTexture(GL_TEXTURE1);
+    //glBindTexture(GL_TEXTURE_2D, tid[1]); // tid는 loadTexture에서 생성한 텍스처 ID
+    //glActiveTexture(GL_TEXTURE2);
+    //glBindTexture(GL_TEXTURE_2D, tid[2]); // tid는 loadTexture에서 생성한 텍스처 ID
 
-    glUniform1i(glGetUniformLocation(shaderProgram, "ColorMapTex"), 0);
-    glUniform1i(glGetUniformLocation(shaderProgram, "NormalMapTex"), 1);
-    glUniform1i(glGetUniformLocation(shaderProgram, "DiffuseMapTex"), 2);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, tid[0]); // 스카이박스 텍스처 바인딩
+
+    setCubeMap();
+    glUniform1i(glGetUniformLocation(shaderProgram, "CubeMapTex"), 0); // CubeMap 텍스처 설정
+
+    //glUniform1i(glGetUniformLocation(shaderProgram, "ColorMapTex"), 0);
+    //glUniform1i(glGetUniformLocation(shaderProgram, "NormalMapTex"), 1);
+    //glUniform1i(glGetUniformLocation(shaderProgram, "DiffuseMapTex"), 2);
 
     setUniforms(shaderProgram, model, view, projection);
+
+    glUniform1i(glGetUniformLocation(shaderProgram, "DrawSkyBox"), true);
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, faceCount * 3);
 
@@ -274,7 +330,7 @@ void Widget::mouseMoveEvent(QMouseEvent *event) {
         updateCameraPosition();
     } else if (event->buttons() & Qt::RightButton) {
         radius -= delta.y() * 0.05f;
-        radius = glm::clamp(radius, 1.0f, 25.0f);
+        //radius = glm::clamp(radius, 1.0f, 25.0f);
 
         updateCameraPosition();
     }

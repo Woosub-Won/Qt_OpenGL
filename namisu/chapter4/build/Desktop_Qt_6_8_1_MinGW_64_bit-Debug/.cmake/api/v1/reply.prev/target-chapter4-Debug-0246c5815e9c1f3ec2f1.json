@@ -78,7 +78,7 @@
 			{
 				"command" : 4,
 				"file" : 1,
-				"line" : 83,
+				"line" : 85,
 				"parent" : 0
 			},
 			{
@@ -90,7 +90,7 @@
 			{
 				"command" : 6,
 				"file" : 1,
-				"line" : 61,
+				"line" : 63,
 				"parent" : 0
 			},
 			{
@@ -567,7 +567,7 @@
 			"sourceIndexes" : 
 			[
 				3,
-				10
+				12
 			]
 		},
 		{
@@ -586,14 +586,16 @@
 				7,
 				8,
 				9,
-				11
+				10,
+				11,
+				13
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				12
+				14
 			]
 		}
 	],
@@ -651,6 +653,16 @@
 		{
 			"backtrace" : 4,
 			"path" : "vshader_ch4.vert",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 4,
+			"path" : "fshader_ch4.frag",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 4,
+			"path" : "vshader_ch5.vert",
 			"sourceGroupIndex" : 3
 		},
 		{

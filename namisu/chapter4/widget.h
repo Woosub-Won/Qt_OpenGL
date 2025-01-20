@@ -84,6 +84,7 @@ private:
     void updateCameraPosition();
 
     void ReadOBJ(FILE* file);
+    void setCubeMap();
     vec4 calculateSurfaceNormal(vec4 v1, vec4 v2, vec4 v3);
 };
 

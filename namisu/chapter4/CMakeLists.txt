@@ -39,6 +39,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         vshader_ch3.vert
         vshader_ch4.vert
         fshader_ch4.frag
+        vshader_ch5.vert
+        fshader_ch5.frag
 
     )
 # Define target properties for Android with Qt 6 as:
