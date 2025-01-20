@@ -8,7 +8,7 @@ Mesh::Mesh(std::vector <Vertex>& vertices, std::vector <GLuint>& indices, std::v
 void Mesh::Init(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures)
 {
 	Mesh::vertices = vertices;
-	Mesh::indices = indices;
+	Mesh::indices = indices; 
 	Mesh::textures = textures;
 
 	VAO.Bind();
@@ -45,33 +45,40 @@ void Mesh::Draw(Shader& shader, Camera& camera)
 		std::string type = textures[i].type;
 		if (type == "diffuse")
 		{
-			num = std::to_string(numDiffuse++);
+			num = std::to_string(++numDiffuse);
 		}
 		else if (type == "specular")
 		{
-			num = std::to_string(numSpecular++);
+			num = std::to_string(++numSpecular);
 		}
 		else if (type == "tex")
 		{
-			num = std::to_string(numTex++);
+			num = std::to_string(++numTex);
 
 		}
-		textures[i].texUnit(shader, (type + num).c_str(), i);
+		textures[i].texUnit(shader, (type + num).c_str(), i + 1);
 		textures[i].Bind();
 	}
+
+	// Cubemap  
+	GLuint texUni = glGetUniformLocation(shader.ID, "skybox");
+	shader.Activate();
+	glUniform1i(texUni, 10);
+
 	// Take care of the camera Matrix
 	glUniform3f(glGetUniformLocation(shader.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
-	camera.Matrix(shader, "camMatrix");
+	camera.Matrix(shader);  
 
 	// Draw the actual mesh
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);		
 }
 
 void Mesh::Translate(Shader& shader, vec3 basePosition,  vec3 Translate)
 {
 	shader.Activate();
-	mat4 lightModelMatrix = mat4(1.0f);
-	lightModelMatrix = translate(lightModelMatrix, basePosition +Translate);
 
-	SetMatrixUniform(shader, "modelMatrix", lightModelMatrix); 
+	mat4 model = mat4(1.0f);
+	model = translate(model, basePosition +Translate);
+
+	SetMatrixUniform(shader, "model", model);
 }

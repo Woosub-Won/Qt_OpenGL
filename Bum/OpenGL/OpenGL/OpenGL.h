@@ -42,7 +42,8 @@ static void SetMatrixUniform(Shader& shader, const char* uniform, T mat, bool tr
 		}
 		else
 		{ 
-			glUniformMatrix4fv(glGetUniformLocation(shader.ID, uniform),
+			unsigned int loc = glGetUniformLocation(shader.ID, uniform);
+			glUniformMatrix4fv(loc,
 				1, GL_FALSE, glm::value_ptr(mat));
 		}
 	}

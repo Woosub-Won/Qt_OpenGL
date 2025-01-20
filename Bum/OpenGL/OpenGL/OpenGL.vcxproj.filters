@@ -30,9 +30,6 @@
     <ClCompile Include="..\glad.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="C1_Main.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="ShaderClass.h">
       <Filter>헤더 파일</Filter>
     </ClCompile>
@@ -46,9 +43,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="ShaderClass.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="C3_Texture.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="mainGL.cpp">
@@ -92,6 +86,12 @@
     </ClCompile>
     <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>소스 파일\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Framebuffer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Cubemap.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +149,12 @@
     <ClInclude Include="imgui\imgui_impl_opengl3_loader.h">
       <Filter>헤더 파일\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="Framebuffer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Cubemap.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="default.vert">
@@ -161,6 +167,36 @@
       <Filter>리소스 파일\Shaders</Filter>
     </None>
     <None Include="light.frag">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="outlining.frag">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="outlining.vert">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="framebuffer.vert">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="framebuffer.frag">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="skybox.vert">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="skybox.frag">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="default.geom">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="normal.vert">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="normal.geom">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="normal.frag">
       <Filter>리소스 파일\Shaders</Filter>
     </None>
   </ItemGroup>

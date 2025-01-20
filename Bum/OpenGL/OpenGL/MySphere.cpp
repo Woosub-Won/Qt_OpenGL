@@ -9,10 +9,12 @@ MySphere::MySphere()
 MySphere::~MySphere()
 {
 }
-void MySphere::Init(int la_slice, int lo_slice, float radius, vec3 color)
+void MySphere::Init(int la_slice, int lo_slice, std::vector <Texture>& textures, float radius, vec3 color)
 {
     // The Cube should be initialized only once
     if (bInitialized == true) return;
+      
+   // Mesh::textures = textures;
 
     NumVertices = (la_slice - 2) * lo_slice * 2 * 3 + 2 * lo_slice * 3;
     Vertices.resize(NumVertices);

@@ -22,13 +22,16 @@ Shader::Shader()
 }
 
 // Constructor that build the Shader Program from 2 different shaders
-Shader::Shader(const char* vertexFile, const char* fragmentFile)
+Shader::Shader(const char* vertexFile, const char* fragmentFile, const char* geometryFile)
 {
-	Init(vertexFile, fragmentFile);
+	if (bInit) return;
+
+	Init(vertexFile, fragmentFile, geometryFile);
 }
 
-void Shader::Init(const char* vertexFile, const char* fragmentFile)
+void Shader::Init(const char* vertexFile, const char* fragmentFile, const char* geometryFile)
 {
+	bInit = true;
 	// Read vertexFile and fragmentFile and store the strings
 	std::string vertexCode = get_file_contents(vertexFile);
 	std::string fragmentCode = get_file_contents(fragmentFile);
@@ -54,12 +57,28 @@ void Shader::Init(const char* vertexFile, const char* fragmentFile)
 	glCompileShader(fragmentShader);
 	// Checks if Shader compiled succesfully
 	compileErrors(fragmentShader, "FRAGMENT");
-
+	 
 	// Create Shader Program Object and get its reference
 	ID = glCreateProgram();
 	// Attach the Vertex and Fragment Shaders to the Shader Program
 	glAttachShader(ID, vertexShader);
 	glAttachShader(ID, fragmentShader);
+
+	GLuint geometryShader = glCreateShader(GL_GEOMETRY_SHADER);
+	if (geometryFile != nullptr)
+	{
+		std::string geometryCode = get_file_contents(geometryFile);
+		const char* geometrySource = geometryCode.c_str();
+		// Create Fragment Shader Object and get its reference
+		// Attach Fragment Shader source to the Fragment Shader Object
+		glShaderSource(geometryShader, 1, &geometrySource, NULL);
+		// Compile the Vertex Shader into machine code
+		glCompileShader(geometryShader);
+		// Checks if Shader compiled succesfully
+		compileErrors(geometryShader, "GEOMETRY");
+		glAttachShader(ID, geometryShader); 
+	}
+
 	// Wrap-up/Link all the shaders together into the Shader Program
 	glLinkProgram(ID);
 	// Checks if Shaders linked succesfully
@@ -68,7 +87,8 @@ void Shader::Init(const char* vertexFile, const char* fragmentFile)
 	// Delete the now useless Vertex and Fragment Shader objects
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
-
+	glDeleteShader(geometryShader);
+	 
 }
 
 // Activates the Shader Program

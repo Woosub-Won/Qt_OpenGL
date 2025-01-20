@@ -13,7 +13,7 @@ public:
 	int NumVertices;
 	 
 	std::vector <Vertex> Vertices;
-	void Init(int la_slice, int lo_slice, float radius = 0.1f, vec3 color = vec3(0.5, 0.5, 0.5)); 
+	void Init(int la_slice, int lo_slice, std::vector <Texture>& textures, float radius = 0.2f, vec3 color = vec3(0.5, 0.5, 0.5));
 	bool bInitialized;
 
 	void Draw(Shader& shader, Camera& camera);
