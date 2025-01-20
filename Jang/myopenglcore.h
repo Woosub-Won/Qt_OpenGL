@@ -38,6 +38,7 @@ public:
     void activeVertexInputAttributesAndIndices();
     void activeUniformVariables();
 
+    unsigned int m_cubeIndexCount;
 private:
     // 내부 동작 분리
     void loadModel();
@@ -61,6 +62,7 @@ private:
 
     // 카메라/조명/행렬 설정
     void setMatrices();
+    void setFBO();
     void updateCameraView(QMatrix4x4 &viewMatrix);
 
     // 셰이더 컴파일, 링크 상태 체크
@@ -81,6 +83,11 @@ private:
     GLuint m_ebo;  // 인덱스
     GLuint m_texture;
     GLuint m_texture2;
+    GLuint m_fbo;
+    GLuint m_fboTexture;
+    GLuint m_fboCubeVAO;
+    GLuint m_fboCubeVBO;
+    GLuint m_fboCubeEBO;
 
     // 탄젠트 VBO 추가
     GLuint m_tangentBuffer = 0;
@@ -143,6 +150,10 @@ private:
     void loadSkyboxShaders(const QString &vertPath, const QString &fragPath);
     void renderSkybox(const QMatrix4x4 &viewMatrix, const QMatrix4x4 &projectionMatrix);
 
+    void initializeFBO();
+    void createCubeGeometry();
+    void setMatrices2();
+    void createCubeGeometryWithNormals();
 };
 
 #endif // MYOPENGLCORE_H
