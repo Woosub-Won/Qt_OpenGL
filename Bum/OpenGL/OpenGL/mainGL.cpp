@@ -21,6 +21,7 @@
 const float screenHeight = 800;
 const float screenWidth = screenHeight * 1.6f;
 const vec4 baseColor = vec4(0.07f, 0.13f, 0.17f, 1.0f);
+//const vec4 baseColor = vec4(0, 0, 0, 0);
 
 using namespace std;
 
@@ -118,7 +119,8 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, 1);
+	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
+	glfwWindowHint(GLFW_SAMPLES, 4);
 
 	//create window
 	GLFWwindow* window = glfwCreateWindow(screenWidth, screenHeight, "OpenGL", NULL,
@@ -149,10 +151,30 @@ int main()
 	Shader framebufferShader("framebuffer.vert", "framebuffer.frag");
 	Shader cubemapShader("skybox.vert", "skybox.frag");
 	Shader normalShader("normal.vert", "normal.frag", "normal.geom");
+	Shader edgeShader("framebuffer.vert", "edgeFilter.frag"); 
+	Shader gaussianShader("framebuffer.vert", "gaussian.frag");
+	Shader bloomShader("framebuffer.vert", "bloom.frag");
+	Shader deferredShader("deferred.vert", "deferred.frag");
+	Shader gBufferShader("gBuffer.vert", "gBuffer.frag");
+	Shader shadowShader("shadow.vert", "shadow.frag");
 
 	// Prepare framebuffer rectangle VBO and VAO
 	Framebuffer frameBuffer;
 	frameBuffer.Init(screenWidth, screenHeight);
+
+	Framebuffer edgeFrameBuffer;
+	edgeFrameBuffer.Init(screenWidth, screenHeight);
+
+	Framebuffer gaussianHoriFrameBuffer;
+	Framebuffer gaussianVertiFrameBuffer;
+	gaussianHoriFrameBuffer.Init(screenWidth, screenHeight);
+	gaussianVertiFrameBuffer.Init(screenWidth, screenHeight);
+	
+	Framebuffer deferredFrameBuffer;
+	deferredFrameBuffer.Init_Deferred(screenWidth, screenHeight);
+
+	Framebuffer shadowFrameBuffer;
+	shadowFrameBuffer.Init_Shadow(screenWidth, screenHeight);
 
 	//skybox
 	Cubemap cubemap;
@@ -188,21 +210,28 @@ int main()
 	Camera camera(screenWidth, screenHeight, vec3(0.0f, 1.0f, 2.0f));
 
 	// Uniform  
-	vec3 lightPosition = vec3(0.5f, 1.5f, 0.5f);
+	vec3 lightPosition = vec3(0.0f, 1.5f, 0.5f);
 	vec4 lightColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
 	//shaderProgram 
 	LightInfo lights[2];
+	for(int i = 0; i < 3; i++)
 	{
-		shaderProgram.Activate();
 
+		Shader ActivatedShader; 
+		if (i == 0)
+			ActivatedShader = shaderProgram;
+		else if (i == 1)
+			ActivatedShader = gBufferShader;
+		else if (i == 2)
+			ActivatedShader = deferredShader;
+
+		ActivatedShader.Activate();
+		
 		mat4 objModelMatrix = mat4(1.0f);
 		objModelMatrix = translate(objModelMatrix, vec3(0.0f, 0.0f, 0.0f)) * scale(objModelMatrix, vec3(2.0f, 2.0f, 2.0f));
 
-		SetMatrixUniform(shaderProgram, "model", objModelMatrix);
-
-		//SetVectorUniform(shaderProgram, "lightPos", lightPosition); 
-		//SetVectorUniform(shaderProgram, "lightColor", lightColor);
+		SetMatrixUniform(ActivatedShader, "model", objModelMatrix);
 
 		// 첫 번째 조명 정보 설정
 		lights[0].lightPos = lightPosition;
@@ -210,20 +239,20 @@ int main()
 		lights[0].lightColor = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f); // 빨간 조명
 
 		// 두 번째 조명 정보 설정
-		lights[1].lightPos = lightPosition + vec3(-1.0f, 0.0f, -1.0f);
+		lights[1].lightPos = lightPosition + vec3(0.0f, 0.0f, -1.0f);
 		lights[1].padding = 0.0f; // 패딩은 사용하지 않지만 정렬을 위해 필요
 
 		lights[1].lightColor = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f); // 파란 조명
-		GLint lightPosLoc = glGetUniformLocation(shaderProgram.ID, "lights[0].lightPos");
-		GLint lightColorLoc = glGetUniformLocation(shaderProgram.ID, "lights[0].lightColor");
+		GLint lightPosLoc = glGetUniformLocation(ActivatedShader.ID, "lights[0].lightPos");
+		GLint lightColorLoc = glGetUniformLocation(ActivatedShader.ID, "lights[0].lightColor");
 
 		// 첫 번째 조명 데이터
 		glUniform3fv(lightPosLoc, 1, glm::value_ptr(lights[0].lightPos));
 		glUniform4fv(lightColorLoc, 1, glm::value_ptr(lights[0].lightColor));
 
 		// 두 번째 조명 데이터
-		lightPosLoc = glGetUniformLocation(shaderProgram.ID, "lights[1].lightPos");
-		lightColorLoc = glGetUniformLocation(shaderProgram.ID, "lights[1].lightColor");
+		lightPosLoc = glGetUniformLocation(ActivatedShader.ID, "lights[1].lightPos");
+		lightColorLoc = glGetUniformLocation(ActivatedShader.ID, "lights[1].lightColor");
 
 		glUniform3fv(lightPosLoc, 1, glm::value_ptr(lights[1].lightPos));
 		glUniform4fv(lightColorLoc, 1, glm::value_ptr(lights[1].lightColor));
@@ -234,20 +263,18 @@ int main()
 		fogInfo.color = vec3(baseColor.x, baseColor.y, baseColor.z);
 		fogInfo.padding = vec3(0, 0, 0);
 
-		GLuint fogMaxDist = glGetUniformLocation(shaderProgram.ID, "Fog.maxDist");
-		GLuint fogMinDist = glGetUniformLocation(shaderProgram.ID, "Fog.minDist");
-		GLuint fogPaddingDist = glGetUniformLocation(shaderProgram.ID, "Fog.padding");
-		GLuint fogColorDist = glGetUniformLocation(shaderProgram.ID, "Fog.color");
+		GLuint fogMaxDist = glGetUniformLocation(ActivatedShader.ID, "Fog.maxDist");
+		GLuint fogMinDist = glGetUniformLocation(ActivatedShader.ID, "Fog.minDist");
+		GLuint fogPaddingDist = glGetUniformLocation(ActivatedShader.ID, "Fog.padding");
+		GLuint fogColorDist = glGetUniformLocation(ActivatedShader.ID, "Fog.color");
 		glUniform1f(fogMaxDist, fogInfo.maxDist);
 		glUniform1f(fogMinDist, fogInfo.minDist);
 		glUniform3fv(fogPaddingDist, 1, glm::value_ptr(fogInfo.padding));
 		glUniform3fv(fogColorDist, 1, glm::value_ptr(fogInfo.color));
 	
  
-		//projectorMatrix
-		//0,1,2
-		vec3 projPos = camera.Position + vec3(-0.2f, 0, 0.2f);
-		// 0 -0.5, -1
+		//projectorMatrix 
+		vec3 projPos = camera.Position + vec3(-0.2f, 0, 0.2f); 
 		vec3 projAt = camera.Orientation;
 		vec3 projUp = camera.Up;
 
@@ -259,7 +286,7 @@ int main()
 		mat4 m = projScaleTrans * projProj * projView;
 		
 		// Set the uniform variable
-		SetMatrixUniform(shaderProgram, "projectorMatrix", m); 
+		SetMatrixUniform(ActivatedShader, "projectorMatrix", m);
 	}
 
 	// light shader
@@ -279,18 +306,37 @@ int main()
 		glUniform4fv(glGetUniformLocation(framebufferShader.ID, "baseColor"), 1, value_ptr(baseColor));
 		glUniform1f(glGetUniformLocation(framebufferShader.ID, "width"), screenWidth);
 		glUniform1f(glGetUniformLocation(framebufferShader.ID, "height"), screenHeight);
+		
+		edgeShader.Activate();
+		// TODO: Set uniform valueglUniform1i(glGetUniformLocation(framebufferShader.ID, "screenTexture"), 0);
+		glUniform1i(glGetUniformLocation(edgeShader.ID, "screenTexture"), 0);
+		glUniform1f(glGetUniformLocation(edgeShader.ID, "width"), screenWidth);
+		glUniform1f(glGetUniformLocation(edgeShader.ID, "height"), screenHeight); 
+		
+		gaussianShader.Activate();
+		glUniform1i(glGetUniformLocation(gaussianShader.ID, "screenTexture"), 0);
+		glUniform1f(glGetUniformLocation(gaussianShader.ID, "width"), screenWidth);
+		glUniform1f(glGetUniformLocation(gaussianShader.ID, "height"), screenHeight);
+
+		bloomShader.Activate();
+		glUniform1i(glGetUniformLocation(bloomShader.ID, "baseTexture"), 0);
+		glUniform1i(glGetUniformLocation(bloomShader.ID, "screenTexture"), 0);
+		glUniform1i(glGetUniformLocation(bloomShader.ID, "baseTexture"), 0);
+		glUniform1f(glGetUniformLocation(bloomShader.ID, "width"), screenWidth);
+		glUniform1f(glGetUniformLocation(bloomShader.ID, "height"), screenHeight);
 	}
 
 	//cubemap
 	{
 		cubemapShader.Activate();
 		glUniform1i(glGetUniformLocation(cubemapShader.ID, "skybox"), 10);
+		glUniform2f(glGetUniformLocation(cubemapShader.ID, "screenSize"), screenWidth, screenHeight);
 	}
 	
 	//normal
 	{ 
 	}
-
+	 
 	//imgui init
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -300,11 +346,16 @@ int main()
 	ImGui_ImplOpenGL3_Init("#version 400");
 
 	bool bFogEffect = true;
+	float bloomStrength = 0.0f;
+	float threshold = 0.3f;
 
 	double prevTime = 0.0f;
 	double curTime = 0.0f;
 	double timeDiff;
 	unsigned int counter = 0;
+
+	//MSAA
+	glEnable(GL_MULTISAMPLE);  
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -318,30 +369,22 @@ int main()
 	//glFrontFace(GL_CCW);
 
 	//blend
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	  
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
 	glEnable(GL_DEBUG_OUTPUT);   
-	// Create Frame Buffer Object
-	frameBuffer.GenFrameBuffer();
 
-	// Create Framebuffer Texture
-	frameBuffer.BindTextureBuffer();
-	frameBuffer.BindRenderBuffer();
-
+	// Create Frame Buffer Object & Texture
+	//edgeFrameBuffer.GenFrameBuffer();
+	//edgeFrameBuffer.BindBuffer();
+	
+	 
 
 	while (!glfwWindowShouldClose(window))
-	{
-		//Init
-		glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer.FBO);
-		//glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glClearColor(baseColor.x, baseColor.y, baseColor.z, baseColor.w); 
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-		glEnable(GL_DEPTH_TEST);
-
+	{	
 		//Set FPS
 		curTime = glfwGetTime();
-		timeDiff =	curTime - prevTime;
+		timeDiff = curTime - prevTime;
 		counter++;
+		
 		if (timeDiff > 1.0f / 60.0f)
 		{
 			std::string FPS = std::to_string((1.0 / timeDiff) * counter);
@@ -349,48 +392,121 @@ int main()
 			std::string newTitle = "OpenGL - " + FPS + "FPS / " + ms + "ms";
 			glfwSetWindowTitle(window, newTitle.c_str());
 			prevTime = curTime;
-			counter = 0; 
+			counter = 0;
 		}
+		
 		//camera 
 		if (!io.WantCaptureMouse)
 		{
 			camera.Inputs(window);
-			camera.UpdateMatrix(45.0f, 0.1f, 100.0f); 
+			camera.UpdateMatrix(	); 
 		}
-		
+
+
+		//Shadow Shading 
+		glBindFramebuffer(GL_FRAMEBUFFER, shadowFrameBuffer.FBO);
+		glEnable(GL_DEPTH_TEST); // 깊이 테스트 활성화
+		glClear(GL_DEPTH_BUFFER_BIT); // 깊이 버퍼 클리어
+
+		//spere
+		for (int i = 0; i < 4; i++)
+		{
+			shadowShader.Activate();
+			GLuint recordDepth = glGetSubroutineIndex(shadowShader.ID, GL_FRAGMENT_SHADER, "recordDepth");
+			glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &recordDepth);
+			sphere.Translate(shadowShader, floorBasePos, vec3(0, 0.2, 0.4 + i * -0.4));
+			sphere.Draw_Shadow(shadowShader, camera, lights[0].lightPos);
+			//sphere.Draw(shadowShader, camera);
+		}
+		floor.Translate(shadowShader, floorBasePos, vec3(0, 0, 0));
+		floor.Draw_Shadow(shadowShader, camera, lights[0].lightPos);
+
+
+		//Init
+		glBindFramebuffer(GL_FRAMEBUFFER, deferredFrameBuffer.FBO); 
+		glClearColor(baseColor.x, baseColor.y, baseColor.z, baseColor.w); 
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LEQUAL); 
+
 		//Floor  
-		floor.Translate(shaderProgram, floorBasePos, vec3(0,0,0));
-		floor.Draw(shaderProgram, camera);
-		//glBindTexture(GL_TEXTURE_2D, 0);
+		floor.Translate(gBufferShader, floorBasePos, vec3(0,0,0));
+		floor.Draw(gBufferShader, camera);
 
 		//spere
 		for (int i = 0; i < 4; i++)
 		{ 
-			sphere.Translate(shaderProgram, floorBasePos, vec3(0, 0.2, 0.4 + i * -0.4));
-			sphere.Draw(shaderProgram, camera); 
-			//glLineWidth(2.0f); 
-			//sphere.Draw(normalShader, camera);   
-		}
-		//glBindTexture(GL_TEXTURE_2D, 0);
-		  
+			sphere.Translate(gBufferShader, floorBasePos, vec3(0, 0.2, 0.4 + i * -0.4));
+			sphere.Draw(gBufferShader, camera); 
+		} 
+		 
 		// Light
 		light.Translate(lightShader, lightPosition, vec3(0.0f, 0.0f, 0.0f)); 
 		light.Draw(lightShader, camera); 
 		light.Translate(lightShader, lightPosition, vec3(-1.0f, 0.0f, -1.0f)); 
 		light.Draw(lightShader, camera);
 		 
-		// cubemap
+		 
+
+		//Deferred Shading    
+		glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer.FBO);
+		glClearColor(baseColor.x, baseColor.y, baseColor.z, baseColor.w);
+		glClear(GL_COLOR_BUFFER_BIT);
+		glDisable(GL_DEPTH_TEST);    
+
+		mat4 view = glm::lookAt(lights[0].lightPos, lights[0].lightPos + vec3(0, -1, 0), vec3(0, 0, 1));
+		mat4 proj = glm::perspective(glm::radians(camera.GetFOV()), (float)(camera.GetWidth()) / camera.GetHeight(), camera.GetNearPlane(), camera.GetFarPlane());
+		mat4 shadowMatrix = proj * view;
+
+		deferredShader.Activate();
+		unsigned int mloc = glGetUniformLocation(deferredShader.ID, "shadowMatrix");
+		glUniformMatrix4fv(mloc, 1, false, glm::value_ptr(shadowMatrix));
+		 
+
+		//shadow map 텍스처
+		glActiveTexture(GL_TEXTURE4);
+		glBindTexture(GL_TEXTURE_2D, shadowFrameBuffer.shadowDepthTex);
+		unsigned int loc = glGetUniformLocation(deferredShader.ID, "shadowMap");
+		glUniform1i(loc, 4);
+		 
+
+		//deferredShader.Activate(); 
+		deferredFrameBuffer.Draw_Deferred(deferredShader.ID);
+		      
+		//Overlap CubeMap
 		cubemapShader.Activate();
-		cubemap.UpdateMatrix(camera, cubemapShader.ID, screenWidth, screenHeight);
-		cubemap.Draw(10);
-
-		// Bind the default framebuffer
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		cubemap.UpdateMatrix(camera, cubemapShader.ID, screenWidth, screenHeight); 
+		cubemap.Draw_Deferred(10, cubemapShader.ID, deferredFrameBuffer.depthTex);
+		 
+		// Gaussian Blur For BLOOM 
+		glBindFramebuffer(GL_FRAMEBUFFER, gaussianHoriFrameBuffer.FBO);		
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+		  
+		gaussianShader.Activate();
+		GLuint horiIndex = glGetSubroutineIndex(gaussianShader.ID, GL_FRAGMENT_SHADER, "Horizontal");
+		glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &horiIndex);
+		frameBuffer.Draw();
 		
-		// Draw the framebuffer rectangle
-		framebufferShader.Activate(); 
-		frameBuffer.Draw();  
-
+		 
+		glBindFramebuffer(GL_FRAMEBUFFER, gaussianVertiFrameBuffer.FBO);
+		gaussianShader.Activate(); 
+		GLuint vertiIndex = glGetSubroutineIndex(gaussianShader.ID, GL_FRAGMENT_SHADER, "Vertical");
+		glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &vertiIndex); 
+		gaussianHoriFrameBuffer.Draw();  
+		   
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);  
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+		 
+		bloomShader.Activate(); 
+		
+		const unsigned int texID[1] = { frameBuffer.framebufferTexture };
+		//const unsigned int texID[1] = { frameBuffer.colorTex };
+		const char* texName[1] = { "baseTexture" };
+		gaussianVertiFrameBuffer.Draw(bloomShader.ID, texID, texName,1);
+		 
+		
+		glDisable(GL_DEPTH_TEST);
+		 
 		//imgui init
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -404,10 +520,23 @@ int main()
 		int uniformLocation = glGetUniformLocation(shaderProgram.ID, "bFogEffect");
 		glUniform1i(uniformLocation, bFogEffect);
 
+		ImGui::SliderFloat("Bloom Strength", &bloomStrength, 0.0f, 1.0f);
+		bloomShader.Activate(); 
+		uniformLocation = glGetUniformLocation(bloomShader.ID, "bloomStrength");
+		glUniform1f(uniformLocation, bloomStrength);
+
+
+		ImGui::SliderFloat("threshold", &threshold, 0.0f, 1.0f);
+		bloomShader.Activate();
+		uniformLocation = glGetUniformLocation(bloomShader.ID, "threshold");
+		glUniform1f(uniformLocation, threshold);
+ 
+
 		ImGui::End();
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
+		 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}

@@ -6,7 +6,7 @@ layout (location = 2) in vec3 aColor;
 layout (location = 3) in vec2 aTex;
  
 out vec3 curPos;
-out vec3 Normal;
+out vec3 normal;
 out vec3 color;
 out vec2 texCoord; 
 out vec3 MapReflectDir;
@@ -34,7 +34,7 @@ void main()
 	mat3 normalMatrix = transpose(inverse(mat3(view * model)));
 	
 	curPos = gl_Position.xyz;
-	Normal = normalMatrix * aNormal;
+	normal = normalMatrix * aNormal;
 	color = aColor;
 	texCoord = aTex; 
 

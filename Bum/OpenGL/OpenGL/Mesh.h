@@ -25,8 +25,11 @@ public:
 
 	// Draws the mesh
 	virtual void Draw(Shader& shader, Camera& camera);
+	virtual void Draw_Shadow(Shader& shader, Camera& camera, vec3 lightPos);
 
 	virtual void Translate(Shader& shader, vec3 basePosition, vec3 Translate);
 
+	void UpdateVPMatrix(Shader& shader, Camera& camera);
 };
+
 #endif

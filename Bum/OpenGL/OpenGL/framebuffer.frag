@@ -1,10 +1,12 @@
-#version 330 core
+#version 400 core
+
+in vec2 texCoords;
 
 out vec4 FragColor;
-in vec2 texCoords;
 
 uniform sampler2D screenTexture;
 uniform samplerCube skybox;
+
 uniform vec4 baseColor;
 
 uniform float width;
@@ -47,6 +49,7 @@ void main()
 {
    //È¸»ö
    vec4 color = texture(screenTexture, texCoords);
+   
    //float avg = (color.r + color.g + color.b) / 3.0f;
    //FragColor = vec4(avg);
      
@@ -57,5 +60,6 @@ void main()
     //{
     //   color = KernelFilter(); 
     //}
+
     FragColor = color; 
 }

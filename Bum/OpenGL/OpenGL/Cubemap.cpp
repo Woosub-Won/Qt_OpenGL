@@ -43,7 +43,7 @@ void Cubemap::Init()
 		// Front
 		3, 7, 6,
 		6, 2, 3
-	};
+	}; 
 
 	unsigned int cubemapVBO, cubemapEBO;
 
@@ -132,6 +132,31 @@ void Cubemap::Draw(unsigned int slot)
 	glBindTexture(GL_TEXTURE_CUBE_MAP,cubemapTexture);
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
+	  
+	// Switch back to the normal depth function
+	glDepthFunc(GL_LESS);
+}
+
+void Cubemap::Draw_Deferred(unsigned int slot, unsigned int shaderID, unsigned int depthTex)
+{
+	glDepthFunc(GL_LEQUAL);
+	glBindVertexArray(cubemapVAO);
+	
+	//skybox
+	glActiveTexture(GL_TEXTURE0 + slot);
+	glUniform1i(glGetUniformLocation(shaderID, "skybox"), slot);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+ 
+
+	//depth tex
+	glActiveTexture(GL_TEXTURE1 + slot);
+	glUniform1i(glGetUniformLocation(shaderID, "DepthTex"), slot + 1);
+	glBindTexture(GL_TEXTURE_2D, depthTex);
+
+
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
+
 
 	// Switch back to the normal depth function
 	glDepthFunc(GL_LESS);

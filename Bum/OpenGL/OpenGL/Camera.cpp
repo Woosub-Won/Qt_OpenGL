@@ -11,9 +11,12 @@ Camera::Camera(int width, int height, vec3 position)
 	sensitivity = 0.1f;  // 감도를 낮춰서 더 부드럽게 조정
 	Orientation = vec3(0.0f, -0.5f, -1.0f);
 	Up = vec3(0.0f, 1.0f, 0.0f);
+	FOVdegree = 45.0f;
+	nearPlane = 0.1f;
+	farPlane = 100.0f;
 }
 
-void Camera::UpdateMatrix(float FOVdegree, float nearPlane, float farPlane)
+void Camera::UpdateMatrix()
 { 
 	view = glm::lookAt(Position, Position + Orientation, Up);
 	proj = glm::perspective(glm::radians(FOVdegree), (float)(width) / height, nearPlane, farPlane);

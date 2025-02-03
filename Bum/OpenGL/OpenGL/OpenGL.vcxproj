@@ -201,11 +201,18 @@
     <ClInclude Include="VBO.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="bloom.frag" />
     <None Include="default.geom" />
     <None Include="default.vert" />
     <None Include="default.frag" />
+    <None Include="deferred.frag" />
+    <None Include="deferred.vert" />
+    <None Include="edgeFilter.frag" />
     <None Include="framebuffer.frag" />
     <None Include="framebuffer.vert" />
+    <None Include="gaussian.frag" />
+    <None Include="gBuffer.frag" />
+    <None Include="gBuffer.vert" />
     <None Include="light.frag" />
     <None Include="light.vert" />
     <None Include="normal.frag" />
@@ -213,8 +220,11 @@
     <None Include="normal.vert" />
     <None Include="outlining.frag" />
     <None Include="outlining.vert" />
+    <None Include="shadow.frag" />
+    <None Include="shadow.vert" />
     <None Include="skybox.frag" />
     <None Include="skybox.vert" />
+    <None Include="test.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\frog.jpg" />

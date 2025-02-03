@@ -85,6 +85,15 @@ void MySphere::Draw(Shader& shader, Camera& camera)
 	glDrawArrays(GL_TRIANGLES, 0, NumVertices);
 }
 
+void MySphere::Draw_Shadow(Shader& shader, Camera& camera, vec3 lightPos)
+{
+    if (!bInitialized) return;
+
+    Mesh::Draw_Shadow(shader, camera, lightPos);
+
+    glDrawArrays(GL_TRIANGLES, 0, NumVertices);
+}
+
 void MySphere::Translate(Shader& shader, vec3 basePosition, vec3 Translate)
 {
     Mesh::Translate(shader, basePosition, Translate);

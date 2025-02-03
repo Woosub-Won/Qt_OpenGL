@@ -199,6 +199,36 @@
     <None Include="normal.frag">
       <Filter>리소스 파일\Shaders</Filter>
     </None>
+    <None Include="edgeFilter.frag">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="gaussian.frag">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="bloom.frag">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="deferred.vert">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="deferred.frag">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="gBuffer.frag">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="gBuffer.vert">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="test.vert">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="shadow.vert">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
+    <None Include="shadow.frag">
+      <Filter>리소스 파일\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\frog.jpg">

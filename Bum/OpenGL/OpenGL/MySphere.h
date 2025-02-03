@@ -17,6 +17,7 @@ public:
 	bool bInitialized;
 
 	void Draw(Shader& shader, Camera& camera);
+	void Draw_Shadow(Shader& shader, Camera& camera, vec3 lightPos) override ;
 
 	void Translate(Shader& shader, vec3 basePosition, vec3 Translate) override;
 };

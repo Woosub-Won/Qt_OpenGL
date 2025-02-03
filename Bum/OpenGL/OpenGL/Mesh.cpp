@@ -1,5 +1,8 @@
 #include "Mesh.h" 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/matrix_transform.inl>
+
+
 Mesh::Mesh(std::vector <Vertex>& vertices, std::vector <GLuint>& indices, std::vector <Texture>& textures)
 {
 	Init(vertices, indices, textures);
@@ -73,6 +76,36 @@ void Mesh::Draw(Shader& shader, Camera& camera)
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);		
 }
 
+void Mesh::Draw_Shadow(Shader& shader, Camera& camera,vec3 lightPos)
+{
+	// Bind shader to be able to access uniforms
+	shader.Activate();
+	VAO.Bind();	
+	
+	//mat4 view = glm::lookAt(lightPos, lightPos + vec3(0, -1, 0), vec3(0, 0, 1));
+	mat4 view = glm::lookAt(lightPos, lightPos + vec3(0, -1, 0), vec3(0, 0, 1));
+	mat4 proj = glm::perspective(glm::radians(camera.GetFOV()), (float)(camera.GetWidth()) / camera.GetHeight(), camera.GetNearPlane(), camera.GetFarPlane());	
+	
+	mat4 bias(
+		vec4(0.5, 0, 0, 0.5),
+		vec4(0, 0.5, 0, 0.5),
+		vec4(0, 0, 0.5, 0.5),
+		vec4(0, 0, 0, 1.0)
+	);
+	mat4 shadowMatrix = bias * proj * view;
+
+	//glUniformMatrix4fv(glGetUniformLocation(shader.ID, "view"), 1, false, glm::value_ptr(camera.GetView()));
+	//glUniformMatrix4fv(glGetUniformLocation(shader.ID, "projection"), 1, false, glm::value_ptr(proj));
+	
+	glUniformMatrix4fv(glGetUniformLocation(shader.ID, "view"), 1, false, glm::value_ptr(view));
+	glUniformMatrix4fv(glGetUniformLocation(shader.ID, "projection"), 1, false, glm::value_ptr(proj));
+	glUniformMatrix4fv(glGetUniformLocation(shader.ID, "shadowMatrix"), 1, false, glm::value_ptr(shadowMatrix));
+
+	// Draw the actual mesh
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+
+}
+
 void Mesh::Translate(Shader& shader, vec3 basePosition,  vec3 Translate)
 {
 	shader.Activate();
@@ -81,4 +114,8 @@ void Mesh::Translate(Shader& shader, vec3 basePosition,  vec3 Translate)
 	model = translate(model, basePosition +Translate);
 
 	SetMatrixUniform(shader, "model", model);
+}
+
+void Mesh::UpdateVPMatrix(Shader& shader, Camera& camera)
+{
 }

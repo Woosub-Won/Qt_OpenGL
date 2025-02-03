@@ -3,40 +3,100 @@
   "WorkspaceRootPath": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\default.frag||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\default.frag||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\OpenGL.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\OpenGL.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\mainGL.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\mainGL.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\default.vert||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\default.vert||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\deferred.frag||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\deferred.frag||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\gBuffer.frag||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\gBuffer.frag||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\gBuffer.vert||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\gBuffer.vert||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Mesh.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\Mesh.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\shadow.vert||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\shadow.vert||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\framebuffer.vert||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\framebuffer.vert||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\default.vert||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\default.vert||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\skybox.vert||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\skybox.vert||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\shadow.frag||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\shadow.frag||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Cubemap.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\Cubemap.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\MySphere.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\MySphere.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\ShaderClass.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\ShaderClass.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\skybox.frag||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\skybox.frag||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Framebuffer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\Framebuffer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\MySphere.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\MySphere.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Mesh.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\Mesh.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\outlining.vert||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\outlining.vert||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\light.frag||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\light.frag||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\gaussian.frag||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\gaussian.frag||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\framebuffer.frag||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\framebuffer.frag||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\edgeFilter.frag||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\edgeFilter.frag||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Cubemap.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\Cubemap.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\EBO.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{04209D8A-2F48-479F-B61C-A3A34A5C0477}|OpenGL\\OpenGL.vcxproj|solutionrelative:OpenGL\\EBO.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -45,115 +105,124 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 270,
+          "DockedWidth": 195,
           "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Cubemap.cpp",
-              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Cubemap.cpp",
-              "RelativeDocumentMoniker": "OpenGL\\Cubemap.cpp",
-              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Cubemap.cpp",
-              "RelativeToolTip": "OpenGL\\Cubemap.cpp",
-              "ViewState": "AgIAAHAAAAAAAAAAAAAvwHsAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-15T06:40:32.72Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "default.vert",
-              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\default.vert",
-              "RelativeDocumentMoniker": "OpenGL\\default.vert",
-              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\default.vert",
-              "RelativeToolTip": "OpenGL\\default.vert",
-              "ViewState": "AgIAABMAAAAAAAAAAAAQwCcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-01-20T02:52:09.766Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "skybox.vert",
-              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\skybox.vert",
-              "RelativeDocumentMoniker": "OpenGL\\skybox.vert",
-              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\skybox.vert",
-              "RelativeToolTip": "OpenGL\\skybox.vert",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvw8AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-01-20T02:39:48.245Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "skybox.frag",
-              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\skybox.frag",
-              "RelativeDocumentMoniker": "OpenGL\\skybox.frag",
-              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\skybox.frag",
-              "RelativeToolTip": "OpenGL\\skybox.frag",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-01-20T02:39:47.668Z"
-            }
-          ]
-        },
-        {
-          "DockedWidth": 185,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "default.frag",
-              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\default.frag",
-              "RelativeDocumentMoniker": "OpenGL\\default.frag",
-              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\default.frag",
-              "RelativeToolTip": "OpenGL\\default.frag",
-              "ViewState": "AgIAALcAAAAAAAAAAAAAAMkAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-01-20T02:52:42.212Z",
+              "Title": "Camera.h",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Camera.h",
+              "RelativeDocumentMoniker": "OpenGL\\Camera.h",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Camera.h",
+              "RelativeToolTip": "OpenGL\\Camera.h",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAuwBYAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-02-01T14:18:31.754Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "OpenGL.h",
-              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\OpenGL.h",
-              "RelativeDocumentMoniker": "OpenGL\\OpenGL.h",
-              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\OpenGL.h",
-              "RelativeToolTip": "OpenGL\\OpenGL.h",
-              "ViewState": "AgIAACkAAAAAAAAAAAAAACgAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-20T06:25:53.664Z",
+              "Title": "deferred.frag",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\deferred.frag",
+              "RelativeDocumentMoniker": "OpenGL\\deferred.frag",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\deferred.frag",
+              "RelativeToolTip": "OpenGL\\deferred.frag",
+              "ViewState": "AgIAAIIAAAAAAAAAAAAIwIsAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-02-03T05:23:33.413Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "mainGL.cpp",
-              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\mainGL.cpp",
-              "RelativeDocumentMoniker": "OpenGL\\mainGL.cpp",
-              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\mainGL.cpp",
-              "RelativeToolTip": "OpenGL\\mainGL.cpp",
-              "ViewState": "AgIAAPEAAAAAAAAAAAAAAPgAAAAjAAAAAAAAAA==",
+              "DocumentIndex": 16,
+              "Title": "Mesh.h",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Mesh.h",
+              "RelativeDocumentMoniker": "OpenGL\\Mesh.h",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Mesh.h",
+              "RelativeToolTip": "OpenGL\\Mesh.h",
+              "ViewState": "AgIAAA8AAAAAAAAAAADwvxoAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-02-01T14:11:55.727Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "shadow.frag",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\shadow.frag",
+              "RelativeDocumentMoniker": "OpenGL\\shadow.frag",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\shadow.frag",
+              "RelativeToolTip": "OpenGL\\shadow.frag",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-02-03T02:32:35.939Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "gBuffer.vert",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\gBuffer.vert",
+              "RelativeDocumentMoniker": "OpenGL\\gBuffer.vert",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\gBuffer.vert",
+              "RelativeToolTip": "OpenGL\\gBuffer.vert",
+              "ViewState": "AgIAABQAAAAAAAAAAADwvx8AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-02-03T05:27:26.637Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "skybox.frag",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\skybox.frag",
+              "RelativeDocumentMoniker": "OpenGL\\skybox.frag",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\skybox.frag",
+              "RelativeToolTip": "OpenGL\\skybox.frag",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-01-30T11:03:48.542Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ShaderClass.cpp",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\ShaderClass.cpp",
+              "RelativeDocumentMoniker": "OpenGL\\ShaderClass.cpp",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\ShaderClass.cpp",
+              "RelativeToolTip": "OpenGL\\ShaderClass.cpp",
+              "ViewState": "AgIAAEcAAAAAAAAAAAAvwF4AAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-14T11:18:27.944Z",
+              "WhenOpened": "2025-01-21T06:40:24.765Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Camera.h",
-              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Camera.h",
-              "RelativeDocumentMoniker": "OpenGL\\Camera.h",
-              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Camera.h",
-              "RelativeToolTip": "OpenGL\\Camera.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-20T05:27:40.8Z",
+              "DocumentIndex": 10,
+              "Title": "MySphere.cpp",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\MySphere.cpp",
+              "RelativeDocumentMoniker": "OpenGL\\MySphere.cpp",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\MySphere.cpp",
+              "RelativeToolTip": "OpenGL\\MySphere.cpp",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAewFsAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-02-01T15:33:31.843Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "default.vert",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\default.vert",
+              "RelativeDocumentMoniker": "OpenGL\\default.vert",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\default.vert",
+              "RelativeToolTip": "OpenGL\\default.vert",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAuwCQAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-02-01T14:09:09.149Z",
               "EditorCaption": ""
             },
             {
@@ -164,9 +233,187 @@
               "RelativeDocumentMoniker": "OpenGL\\Mesh.cpp",
               "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Mesh.cpp",
               "RelativeToolTip": "OpenGL\\Mesh.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEUAAAAOAAAAAAAAAA==",
+              "ViewState": "AgIAAFYAAAAAAAAAAAAcwGwAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-20T03:36:36.658Z",
+              "WhenOpened": "2025-02-01T14:11:03.93Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "MySphere.h",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\MySphere.h",
+              "RelativeDocumentMoniker": "OpenGL\\MySphere.h",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\MySphere.h",
+              "RelativeToolTip": "OpenGL\\MySphere.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvxMAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-02-01T15:35:23.282Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Framebuffer.h",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Framebuffer.h",
+              "RelativeDocumentMoniker": "OpenGL\\Framebuffer.h",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Framebuffer.h",
+              "RelativeToolTip": "OpenGL\\Framebuffer.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-01-21T04:45:56.841Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Camera.cpp",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Camera.cpp",
+              "RelativeDocumentMoniker": "OpenGL\\Camera.cpp",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Camera.cpp",
+              "RelativeToolTip": "OpenGL\\Camera.cpp",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAqwCUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-02-01T14:22:06.641Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "gaussian.frag",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\gaussian.frag",
+              "RelativeDocumentMoniker": "OpenGL\\gaussian.frag",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\gaussian.frag",
+              "RelativeToolTip": "OpenGL\\gaussian.frag",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-02-01T13:19:30.289Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "outlining.vert",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\outlining.vert",
+              "RelativeDocumentMoniker": "OpenGL\\outlining.vert",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\outlining.vert",
+              "RelativeToolTip": "OpenGL\\outlining.vert",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvw8AAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-02-01T13:25:33.788Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "light.frag",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\light.frag",
+              "RelativeDocumentMoniker": "OpenGL\\light.frag",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\light.frag",
+              "RelativeToolTip": "OpenGL\\light.frag",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-02-01T13:19:37.008Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "framebuffer.frag",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\framebuffer.frag",
+              "RelativeDocumentMoniker": "OpenGL\\framebuffer.frag",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\framebuffer.frag",
+              "RelativeToolTip": "OpenGL\\framebuffer.frag",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-02-01T13:19:27.459Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "edgeFilter.frag",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\edgeFilter.frag",
+              "RelativeDocumentMoniker": "OpenGL\\edgeFilter.frag",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\edgeFilter.frag",
+              "RelativeToolTip": "OpenGL\\edgeFilter.frag",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-01-21T05:22:12.138Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Cubemap.h",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Cubemap.h",
+              "RelativeDocumentMoniker": "OpenGL\\Cubemap.h",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\Cubemap.h",
+              "RelativeToolTip": "OpenGL\\Cubemap.h",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAAwBQAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-01-31T03:38:49.311Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "EBO.cpp",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\EBO.cpp",
+              "RelativeDocumentMoniker": "OpenGL\\EBO.cpp",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\EBO.cpp",
+              "RelativeToolTip": "OpenGL\\EBO.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-01-20T07:55:47.32Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 243,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "shadow.vert",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\shadow.vert",
+              "RelativeDocumentMoniker": "OpenGL\\shadow.vert",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\shadow.vert",
+              "RelativeToolTip": "OpenGL\\shadow.vert",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-02-03T05:15:35.452Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "framebuffer.vert",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\framebuffer.vert",
+              "RelativeDocumentMoniker": "OpenGL\\framebuffer.vert",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\framebuffer.vert",
+              "RelativeToolTip": "OpenGL\\framebuffer.vert",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-02-03T05:16:29.477Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "mainGL.cpp",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\mainGL.cpp",
+              "RelativeDocumentMoniker": "OpenGL\\mainGL.cpp",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\mainGL.cpp",
+              "RelativeToolTip": "OpenGL\\mainGL.cpp",
+              "ViewState": "AgIAALQBAAAAAAAAAAAAAL8BAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-01-14T11:18:27.944Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "gBuffer.frag",
+              "DocumentMoniker": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\gBuffer.frag",
+              "RelativeDocumentMoniker": "OpenGL\\gBuffer.frag",
+              "ToolTip": "D:\\HateCoding\\OpenGL\uC2A4\uD130\uB514\\Private\\OpenGL\\OpenGL\\gBuffer.frag",
+              "RelativeToolTip": "OpenGL\\gBuffer.frag",
+              "ViewState": "AgIAACcAAAAAAAAAAADwvzIAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-02-03T05:27:25.646Z",
               "EditorCaption": ""
             }
           ]

@@ -188,7 +188,7 @@ void main()
     vec4 ReflectColor = texture(skybox, MapReflectDir);
 	vec4 RefractColor = texture(skybox, MapRefractDir);
 
-	//FragColor = mix(ReflectColor, RefractColor, 0.9); 
+	FragColor = mix(ReflectColor, RefractColor, 0.9); 
 	//FragColor = mix(FragColor, texColor, 1);
 
 	//FragColor = mix(ReflectColor, projTexColor,  1);
@@ -198,6 +198,8 @@ void main()
 	if( ProjTexCoord.z > 0.0 )
 		projTexColor = textureProj(tex1,ProjTexCoord);
 	
+	
 	FragColor =  ReflectColor + projTexColor * 0.5;
+	//FragColor = projTexColor * 0.5;
 	 
 }
