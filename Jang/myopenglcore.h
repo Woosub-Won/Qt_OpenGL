@@ -89,6 +89,9 @@ private:
     GLuint m_fboCubeVBO;
     GLuint m_fboCubeEBO;
 
+    // 바닥세팅
+    GLuint floorVAO, floorVBO, floorEBO;
+
     // 탄젠트 VBO 추가
     GLuint m_tangentBuffer = 0;
 
@@ -139,6 +142,20 @@ private:
         0.0f, 1.0f  // Top-left
     };
 
+    std::vector<GLfloat> floorVertices = {
+        // Positions          // Texture Coords
+        -10.0f, 0.0f, -10.0f,  0.0f, 0.0f,
+        -10.0f, 0.0f,  10.0f,  0.0f, 1.0f,
+        10.0f, 0.0f,  10.0f,  1.0f, 1.0f,
+        10.0f, 0.0f, -10.0f,  1.0f, 0.0f
+    };
+
+    std::vector<GLuint> floorIndices = {
+        0, 1, 2,
+        2, 3, 0
+    };
+
+
 private:
     // 스카이박스 렌더링에 필요한 것들
     GLuint m_skyboxVAO = 0;
@@ -154,6 +171,8 @@ private:
     void createCubeGeometry();
     void setMatrices2();
     void createCubeGeometryWithNormals();
+    void setMatricesForObject(const QMatrix4x4 &modelMatrix);
+    void createFloorBuffers();
 };
 
 #endif // MYOPENGLCORE_H

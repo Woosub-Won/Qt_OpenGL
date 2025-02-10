@@ -69,6 +69,7 @@ void MyOpenGLCore::initialize(const QString &vertexShaderPath,
 
     // 4. VAO, VBO 등 버퍼 생성
     createBuffers();
+    createFloorBuffers();
 
     // 5. 텍스처 설정
     configureTexture();
@@ -84,7 +85,8 @@ void MyOpenGLCore::initialize(const QString &vertexShaderPath,
     glFrontFace(GL_CCW);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+    glClearColor(0.8f, 0.8f, 0.8f, 1.0f);
+    // glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
     // 6장 이미지 경로
     std::vector<QString> cubeFaces = {
@@ -336,6 +338,36 @@ void MyOpenGLCore::createBuffers()
     qDebug() << "[MyOpenGLCore::createBuffers] Done";
 }
 
+void MyOpenGLCore::createFloorBuffers() {
+    // 바닥용 VAO, VBO, EBO 생성 (floorVertices: x,y,z, u,v)
+    glGenVertexArrays(1, &floorVAO);
+    glBindVertexArray(floorVAO);
+
+    glGenBuffers(1, &floorVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, floorVBO);
+    glBufferData(GL_ARRAY_BUFFER,
+                 floorVertices.size() * sizeof(GLfloat),
+                 floorVertices.data(),
+                 GL_STATIC_DRAW);
+
+    glGenBuffers(1, &floorEBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, floorEBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+                 floorIndices.size() * sizeof(GLuint),
+                 floorIndices.data(),
+                 GL_STATIC_DRAW);
+
+    // attribute layout: location 0 → position (3 floats), location 1 → 텍스처 좌표 (2 floats)
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
+                          5 * sizeof(GLfloat), (void*)0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE,
+                          5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+
+    glBindVertexArray(0);
+}
+
 void MyOpenGLCore::initializeFBO()
 {
     // 1. FBO 생성 및 바인딩
@@ -438,272 +470,76 @@ void MyOpenGLCore::configureTexture2()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-    glBindTexture(GL_TEXTURE_2D, 1);
+    // glBindTexture(GL_TEXTURE_2D, 1);
+    glBindTexture(GL_TEXTURE_2D, 0);
 
     qDebug() << "[MyOpenGLCore::configureTexture] Done";
 }
+void MyOpenGLCore::setMatricesForObject(const QMatrix4x4 &modelMatrix)
+{
+    QMatrix4x4 modelViewMatrix = m_viewMatrix * modelMatrix;
+    QMatrix3x3 normalMatrix = modelViewMatrix.normalMatrix();
+    QMatrix4x4 mvpMatrix = m_projectionMatrix * modelViewMatrix;
+
+    // 전달: ModelViewMatrix, NormalMatrix, MVP만 사용
+    glUniformMatrix4fv(m_uniformModelViewMatrix, 1, GL_FALSE, modelViewMatrix.constData());
+    glUniformMatrix3fv(m_uniformNormalMatrix, 1, GL_FALSE, normalMatrix.constData());
+    glUniformMatrix4fv(m_uniformMVP, 1, GL_FALSE, mvpMatrix.constData());
+}
+
+
 //--------------------------------------
 // 메인 렌더링 함수
 //--------------------------------------
-// void MyOpenGLCore::render()
-// {
-//     // 1. FBO로 렌더링 (텍스처 생성)
-//     glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);  // FBO 바인딩
-//     glViewport(0, 0, 512, 512);                // FBO 텍스처 크기에 맞춤
-//     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-//     // 기존 장면 렌더링 로직 (FBO에 씬 렌더링)
-//     glUseProgram(m_program);
-//     setMatrices();
-
-//     glActiveTexture(GL_TEXTURE0);
-//     glBindTexture(GL_TEXTURE_2D, m_texture);
-//     glUniform1i(glGetUniformLocation(m_program, "Tex1"), 0);  // 기존 텍스처 유지
-
-//     glBindVertexArray(m_vao);
-//     glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, nullptr);
-//     glBindVertexArray(0);
-
-//     // FBO 바인딩 해제 및 기본 프레임버퍼 복원
-//     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-//     // 2. 화면에 최종 결과 렌더링
-//     glViewport(0, 0, 800, 600);  // 화면 전체 크기 복원
-//     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-//     // FBO에 렌더링된 텍스처를 적용하여 최종 씬 렌더링
-//     glUseProgram(m_program);
-//     glActiveTexture(GL_TEXTURE0);
-//     glBindTexture(GL_TEXTURE_2D, m_fboTexture);
-
-//     GLint texLoc = glGetUniformLocation(m_program, "Texture");
-//     if (texLoc >= 0) {
-//         glUniform1i(texLoc, 0);  // FBO에서 생성된 텍스처 사용
-//     } else {
-//         qDebug() << "Texture uniform location not found!";
-//     }
-
-//     glBindVertexArray(m_vao);
-//     glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, nullptr);
-//     glBindVertexArray(0);
-// }
-
 void MyOpenGLCore::render()
 {
-    //----------------------------------
-    // [1] fbo로 렌더링 (씬 캡처)
-    //----------------------------------
-    glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
-    // fbo 텍스처 해상도에 맞게 뷰포트 세팅(512x512)
-    glViewport(0, 0, 512, 512);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glViewport(0, 0, 800, 600);  // 전달받은 창 크기로 뷰포트 설정
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // 컬러, 깊이 버퍼 클리어
 
-    // (1-1) 뷰 행렬, 투영 행렬 등 설정
-    // 카메라 transform 업데이트
+    // (1) 카메라 행렬 설정
     m_viewMatrix.setToIdentity();
     updateCameraView(m_viewMatrix);
-    m_viewMatrix.translate(0.0f, 0.0f, -24.0f);
+    m_viewMatrix.translate(0.0f, 0.0f, -5.0f);  // 카메라 위치 조정
+    // m_viewMatrix.translate(0.0f, 0.0f, -24.0f);  // 카메라 위치 조정
 
     m_projectionMatrix.setToIdentity();
-    m_projectionMatrix.perspective(45.0f, 4.0f/3.0f, 0.1f, 500.0f);
+    m_projectionMatrix.perspective(45.0f, 4.0f / 3.0f, 0.1f, 500.0f);  // FOV, 종횡비 설정
 
-    // (1-2) 셰이더 사용
+    // (2) 셰이더 사용
     glUseProgram(m_program);
 
-    // (1-3) 기존 오브젝트(예: 모델) 그리기
-    setMatrices(); // 내부에서 모델행렬 합성, 조명 등 Uniform 처리
-    (GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, m_texture);
-    // glUniform1i(glGetUniformLocation(m_program, "Tex1"), 0); // 필요 시
+    // (3) 바닥(Plane) 렌더링
+    QMatrix4x4 floorModelMatrix;
+    floorModelMatrix.setToIdentity();  // 바닥은 변환 없이 원점에 위치
+    floorModelMatrix.scale(10.0f, 1.0f, 10.0f);  // 바닥을 넓게 스케일링
+    setMatricesForObject(floorModelMatrix);  // 행렬 전달 (바닥용)
 
-    glBindVertexArray(m_vao);
-    glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, nullptr);
+    glBindVertexArray(floorVAO);
+    glDrawElements(GL_TRIANGLES, floorIndices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 
-    // fbo 해제
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    // (4) 주전자(오브젝트 1) 렌더링
+    QMatrix4x4 teapot1ModelMatrix;
+    teapot1ModelMatrix.setToIdentity();
+    teapot1ModelMatrix.translate(-3.0f, 0.0f, 0.0f);  // 왼쪽에 위치
+    setMatricesForObject(teapot1ModelMatrix);  // 행렬 전달 (주전자 1용)
 
-    //----------------------------------
-    // [2] 기본 프레임버퍼로 렌더링
-    //----------------------------------
-    glViewport(0, 0, 800, 600); // 실제 윈도우 크기
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glBindVertexArray(m_vao);
+    glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
 
-    // 카메라(또는 동일하게) 다시 셋업
-    m_viewMatrix.setToIdentity();
-    updateCameraView(m_viewMatrix);
-    m_viewMatrix.translate(0.0f, 0.0f, -3.0f);
+    // (5) 두 번째 주전자 또는 큐브(오브젝트 2) 렌더링
+    QMatrix4x4 teapot2ModelMatrix;
+    teapot2ModelMatrix.setToIdentity();
+    teapot2ModelMatrix.translate(3.0f, 0.0f, 0.0f);  // 오른쪽에 위치
+    setMatricesForObject(teapot2ModelMatrix);  // 행렬 전달 (주전자 2용)
 
-    m_projectionMatrix.setToIdentity();
-    m_projectionMatrix.perspective(45.0f, 4.0f/3.0f, 0.1f, 500.0f);
-
-    // [2-2] fbo 결과 텍스처를 큐브에 매핑
-    glUseProgram(m_program);
-    setMatrices2(); // 모델행렬(큐브 위치) 등 필요하다면 약간 다르게 해도 됨
-
-    // 예: 큐브만 살짝 앞쪽에 두어 화면에서 보이도록
-    // 실제로는 setMatrices()를 조금 수정하거나
-    // QMatrix4x4 model;
-    // model.translate(5.f, 0.f, 0.f);
-    // ... 등을 이용해 위치 조정 가능
-
-    // (fbo 텍스처 바인딩)
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, m_fboTexture);
-    GLint loc = glGetUniformLocation(m_program, "Tex1");
-    if (loc >= 0) {
-        glUniform1i(loc, 0);
-    }
-
-    glBindVertexArray(m_fboCubeVAO);
-    glDrawElements(GL_TRIANGLES, m_cubeIndexCount, GL_UNSIGNED_INT, nullptr);
+    glBindVertexArray(m_vao);
+    glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
 
-// void MyOpenGLCore::render()
-// {
-//     // 1. 컬러/깊이 버퍼 초기화
-//     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-//     // 2. 카메라 변환행렬: m_viewMatrix, m_projectionMatrix 통일
-//     m_viewMatrix.setToIdentity();
-//     updateCameraView(m_viewMatrix);
-//     // 예시로, 카메라 전체를 z축 -24만큼 뒤로 빼고,
-//     // updateCameraView로 m_cameraPosition, m_cameraRotation 적용
-//     m_viewMatrix.translate(0.0f, 0.0f, -24.0f);
-
-//     m_projectionMatrix.setToIdentity();
-//     // 스카이박스 크기가 100배라 far=100으로 부족하므로, 넉넉히 500
-//     m_projectionMatrix.perspective(45.0f, 4.0f/3.0f, 0.1f, 500.0f);
-
-//     //---------------------------------
-//     // 4. 일반 오브젝트(노멀 매핑) 렌더
-//     //---------------------------------
-
-//     // 모델 변환 행렬 (예: 회전, 이동 포함)
-//     QMatrix4x4 modelMatrix;
-//     modelMatrix.setToIdentity();
-
-//     glUseProgram(m_program);
-
-//     // 7. 텍스처 설정
-//     glActiveTexture(GL_TEXTURE0);
-//     glBindTexture(GL_TEXTURE_2D, m_texture);
-//     GLint texLoc = glGetUniformLocation(m_program, "Tex1");
-//     if (texLoc < 0) {
-//         qDebug() << "Tex1 uniform location not found!";
-//     }
-
-//     // 5. setMatrices()에서 m_viewMatrix, m_projectionMatrix를 참조해
-//     //    모델 행렬 합성, 조명 좌표 변환, 유니폼 설정
-//     setMatrices();
-
-//     // One pixel white texture
-//     GLuint whiteTexHandle;
-//     GLubyte whiteTex[] = { 255, 255, 255, 255 };
-//     glActiveTexture(GL_TEXTURE1);
-//     glGenTextures(1, &whiteTexHandle);
-//     glBindTexture(GL_TEXTURE_2D,whiteTexHandle);
-//     glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,1,1,0,GL_RGBA,
-//                  GL_UNSIGNED_BYTE,whiteTex);
-
-//     GLenum err;
-//     while ((err = glGetError()) != GL_NO_ERROR) {
-//         qDebug() << "OpenGL error after setting uniforms:" << err;
-//     }
-
-//     // 6. 실제 지오메트리 렌더링
-//     glBindVertexArray(m_vao);
-//     glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, nullptr);
-//     glBindVertexArray(0);
-
-//     // // Bind to texture's FBO
-//     // glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
-//     // glViewport(0,0,512,512); // Viewport for the texture
-//     // // Use the "white" texture here
-//     // int loc = glGetUniformLocation(m_program, "Texture");
-//     // glUniform1i(loc, 1);
-//     // // Unbind texture's FBO (back to default FB)
-//     // glBindFramebuffer(GL_FRAMEBUFFER, 0);
-//     // glViewport(0,0,800,600); // Viewport for main window
-//     // // Use the texture that is associated with the FBO
-//     // loc = glGetUniformLocation(m_program, "Texture");
-//     // glUniform1i(loc, 0);
-
-//     // // 6. 실제 지오메트리 렌더링
-//     // glBindVertexArray(m_vao);
-//     // glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, nullptr);
-//     // glBindVertexArray(0);
-
-// }
-
-
-// void MyOpenGLCore::render()
-// {
-//     // 1. 컬러/깊이 버퍼 초기화
-//     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-//     // 2. 카메라 변환행렬: m_viewMatrix, m_projectionMatrix 통일
-//     m_viewMatrix.setToIdentity();
-//     updateCameraView(m_viewMatrix);
-//     // 예시로, 카메라 전체를 z축 -24만큼 뒤로 빼고,
-//     // updateCameraView로 m_cameraPosition, m_cameraRotation 적용
-//     m_viewMatrix.translate(0.0f, 0.0f, -24.0f);
-
-//     m_projectionMatrix.setToIdentity();
-//     // 스카이박스 크기가 100배라 far=100으로 부족하므로, 넉넉히 500
-//     m_projectionMatrix.perspective(45.0f, 4.0f/3.0f, 0.1f, 500.0f);
-
-//     //---------------------------------
-//     // 3. 스카이박스 먼저 렌더링
-//     // ---------------------------------
-//     renderSkybox(m_viewMatrix, m_projectionMatrix);
-
-//     //---------------------------------
-//     // 4. 일반 오브젝트(노멀 매핑) 렌더
-//     //---------------------------------
-
-//     // 모델 변환 행렬 (예: 회전, 이동 포함)
-//     QMatrix4x4 modelMatrix;
-//     modelMatrix.setToIdentity();
-//     // 모델의 위치를 설정하거나 조정이 필요한 경우 추가
-//     // modelMatrix.translate(0.0f, 0.0f, 0.0f);
-//     // modelMatrix.rotate(45, 0, 1, 0);  // 예제 회전
-
-//     glUseProgram(m_program);
-//     // GLint drawSkybox = 0;
-//     // glUniform1i(glGetUniformLocation(m_program, "DrawSkyBox"), drawSkybox);
-
-//     // 6. 추가 유니폼 설정 (카메라 위치, 머티리얼 컬러, 반사 계수)
-//     QVector3D cameraPos = m_cameraPosition;
-//     // QVector3D cameraPos = m_cameraPosition;
-//     glUniform3f(glGetUniformLocation(m_program, "WorldCameraPosition"),
-//                 cameraPos.x(), cameraPos.y(), cameraPos.z());
-
-//     // 7. 텍스처 설정
-//     glActiveTexture(GL_TEXTURE0);
-//     glBindTexture(GL_TEXTURE_2D, m_texture);
-//     GLint texLoc = glGetUniformLocation(m_program, "Tex1");
-//     if (texLoc < 0) {
-//         qDebug() << "Tex1 uniform location not found!";
-//     }
-
-//     // 5. setMatrices()에서 m_viewMatrix, m_projectionMatrix를 참조해
-//     //    모델 행렬 합성, 조명 좌표 변환, 유니폼 설정
-//     setMatrices();
-
-//     setFBO();
-
-//     GLenum err;
-//     while ((err = glGetError()) != GL_NO_ERROR) {
-//         qDebug() << "OpenGL error after setting uniforms:" << err;
-//     }
-
-//     // 6. 실제 지오메트리 렌더링
-//     glBindVertexArray(m_vao);
-//     glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, nullptr);
-//     glBindVertexArray(0);
-// }
 //--------------------------------------
 // 조명, 행렬 관련 설정(뷰, 투영 등)
 //--------------------------------------
